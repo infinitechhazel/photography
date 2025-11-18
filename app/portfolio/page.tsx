@@ -1,0 +1,154 @@
+"use client"
+
+import { GalleryLightbox } from "@/components/GalleryLightbox"
+import { useLockBodyScroll } from "@/hooks/use-scroll"
+import { useState, useMemo } from "react"
+
+type Category = "all" | "weddings" | "portraits" | "events" | "products" | "studio"
+
+interface GalleryImage {
+  id: string
+  src: string
+  alt: string
+  category: Category
+  title: string
+}
+
+const galleryImages: GalleryImage[] = [
+  { id: "1", src: "/luxury-wedding-ceremony.jpg", alt: "Wedding ceremony", category: "weddings", title: "Elegant Ceremony" },
+  { id: "2", src: "/bride-and-groom.png", alt: "Bride and groom", category: "weddings", title: "Bride & Groom" },
+  { id: "3", src: "/wedding-reception-details.jpg", alt: "Reception details", category: "weddings", title: "Reception Details" },
+  { id: "4", src: "/professional-headshot.png", alt: "Professional headshot", category: "portraits", title: "Professional Portrait" },
+  { id: "5", src: "/lifestyle-portrait-session.jpg", alt: "Lifestyle portrait", category: "portraits", title: "Lifestyle Session" },
+  { id: "6", src: "/family-portrait-outdoors.jpg", alt: "Family portrait", category: "portraits", title: "Family Portrait" },
+  { id: "7", src: "/corporate-event-networking.png", alt: "Corporate event", category: "events", title: "Corporate Event" },
+  { id: "8", src: "/gala-event-photography.jpg", alt: "Gala event", category: "events", title: "Gala Evening" },
+  { id: "9", src: "/party-event-celebration.jpg", alt: "Party event", category: "events", title: "Celebration Party" },
+  { id: "10", src: "/luxury-product-photography-watch.jpg", alt: "Product photography", category: "products", title: "Luxury Watch" },
+  { id: "11", src: "/jewelry-product-photography.jpg", alt: "Jewelry product", category: "products", title: "Jewelry Collection" },
+  { id: "12", src: "/product-photography-cosmetics.jpg", alt: "Beauty products", category: "products", title: "Beauty Products" },
+  { id: "13", src: "/studio-setup-professional-lighting.jpg", alt: "Studio shoot", category: "studio", title: "Studio Lighting" },
+  { id: "14", src: "/studio-backdrop-photography.jpg", alt: "Studio backdrop", category: "studio", title: "Studio Backdrop" },
+  { id: "15", src: "/studio-model-photography-professional.jpg", alt: "Studio model", category: "studio", title: "Model Session" },
+]
+
+export default function PortfolioPage() {
+  const [selectedCategory, setSelectedCategory] = useState<Category>("all")
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  useLockBodyScroll(lightboxOpen)
+
+  const categories: { value: Category; label: string }[] = [
+    { value: "all", label: "All Work" },
+    { value: "weddings", label: "Weddings" },
+    { value: "portraits", label: "Portraits" },
+    { value: "events", label: "Events" },
+    { value: "products", label: "Products" },
+    { value: "studio", label: "Studio Shoots" },
+  ]
+
+  const filteredImages = useMemo(() => {
+    if (selectedCategory === "all") return galleryImages
+    return galleryImages.filter((img) => img.category === selectedCategory)
+  }, [selectedCategory])
+
+  const handleImageClick = (image: GalleryImage) => {
+    setSelectedImage(image)
+    setLightboxOpen(true)
+  }
+
+  const handleClose = () => {
+    setLightboxOpen(false)
+    setTimeout(() => setSelectedImage(null), 300)
+  }
+
+  const handlePrevious = () => {
+    if (!selectedImage) return
+    const currentIndex = filteredImages.findIndex((img) => img.id === selectedImage.id)
+    const previousIndex = currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1
+    setSelectedImage(filteredImages[previousIndex])
+  }
+
+  const handleNext = () => {
+    if (!selectedImage) return
+    const currentIndex = filteredImages.findIndex((img) => img.id === selectedImage.id)
+    const nextIndex = currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1
+    setSelectedImage(filteredImages[nextIndex])
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <section className="pt-32 pb-12 px-6">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground mb-4">Portfolio</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl">
+            Explore our curated collection of work across weddings, portraits, events, products, and studio shoots.
+          </p>
+        </div>
+      </section>
+
+      {/* Category Filters */}
+      <section className="py-8 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-wrap gap-3">
+            {categories.map((cat) => (
+              <button
+                key={cat.value}
+                onClick={() => setSelectedCategory(cat.value)}
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  selectedCategory === cat.value
+                    ? "bg-gold text-primary"
+                    : "bg-muted text-foreground hover:border-gold border border-transparent hover:text-gold"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Grid */}
+      <section className="py-12 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredImages.map((image) => (
+              <div
+                key={image.id}
+                className="group relative overflow-hidden rounded-lg bg-muted cursor-pointer aspect-square"
+                onClick={() => handleImageClick(image)}
+              >
+                <img
+                  src={image.src || "/placeholder.svg"}
+                  alt={image.alt}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-end">
+                  <div className="w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-gold font-serif text-lg font-semibold">{image.title}</p>
+                    <p className="text-white text-sm">Click to view</p>
+                  </div>
+                </div>
+
+                <div className="absolute top-0 left-0 h-1 w-0 bg-gold group-hover:w-full transition-all duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {lightboxOpen && selectedImage && (
+        <GalleryLightbox
+          image={selectedImage}
+          onClose={handleClose}
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+          totalImages={filteredImages.length}
+          currentIndex={filteredImages.findIndex((img) => img.id === selectedImage.id) + 1}
+        />
+      )}
+    </div>
+  )
+}
