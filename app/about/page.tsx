@@ -277,13 +277,13 @@ const About = () => {
       {/* CTA Section */}
       <section className="py-20 px-6 bg-slate-900 text-primary-foreground">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-4xl md:text-5xl font-bold font-serif text-balance">Let's Create Something Beautiful</h2>
+          <h2 className="text-4xl md:text-5xl font-bold font-serif text-balance">Let's Create Something <span className="gradient-text">Beautiful</span></h2>
           <p className="text-lg text-primary-foreground/90 max-w-2xl mx-auto">
-            Ready to work with our team? Let's discuss your vision and bring it to life.
+            Ready to work with our team? Let's discuss your vision and bring it to life.x
           </p>
           <Link
             href="/contact"
-            className="inline-block px-8 py-3 bg-gold text-primary font-semibold rounded-lg hover:shadow-lg hover:shadow-gold/30 transition-all duration-200"
+            className="inline-block px-8 py-3 gold-glow text-primary font-semibold rounded-lg hover:shadow-lg hover:shadow-gold/30 transition-all duration-200"
           >
             Book a Consultation
           </Link>

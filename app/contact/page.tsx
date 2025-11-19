@@ -149,7 +149,6 @@ export default function BookingPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Name */}
               <div>
                 <label className="block text-sm font-semibold mb-2 text-foreground">Full Name *</label>
                 <input
@@ -163,7 +162,6 @@ export default function BookingPage() {
                 />
               </div>
 
-              {/* Email */}
               <div>
                 <label className="block text-sm font-semibold mb-2 text-foreground">Email Address *</label>
                 <input
@@ -178,7 +176,6 @@ export default function BookingPage() {
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
               </div>
 
-              {/* Phone */}
               <div>
                 <label className="block text-sm font-semibold mb-2 text-foreground">Phone Number *</label>
                 <input
@@ -193,7 +190,6 @@ export default function BookingPage() {
                 {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
               </div>
 
-              {/* Service Type */}
               <div>
                 <label className="block text-sm font-semibold mb-2 text-foreground">Service Type *</label>
                 <div className="relative">
@@ -220,7 +216,6 @@ export default function BookingPage() {
                 </div>
               </div>
 
-              {/* Date */}
               <div>
                 <label className="block text-sm font-semibold mb-2 text-foreground">Preferred Date *</label>
                 <input
@@ -234,7 +229,6 @@ export default function BookingPage() {
                 {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date}</p>}
               </div>
 
-              {/* Message */}
               <div>
                 <label className="block text-sm font-semibold mb-2 text-foreground">Additional Details</label>
                 <textarea
@@ -246,15 +240,13 @@ export default function BookingPage() {
                 />
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full py-4 bg-gold text-primary font-semibold text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 hover:scale-105 active:scale-95"
+                className="w-full px-8 py-3 gold-glow font-semibold text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 hover:scale-105 active:scale-95"
               >
                 Book Your Session
               </button>
 
-              {/* Success Message */}
               {submitted && (
                 <div className="p-4 bg-gold/10 border border-gold rounded-lg text-center">
                   <p className="text-gold font-semibold">Thank you! We'll be in touch shortly.</p>
@@ -263,16 +255,13 @@ export default function BookingPage() {
             </form>
           </div>
 
-          {/* Contact Info & Map */}
           <div className="space-y-8">
-            {/* Contact Details */}
             <div className="space-y-3">
               <h2 className="text-3xl font-serif font-bold">Get In Touch</h2>
               <div className="h-1 w-12 bg-gold rounded-full"></div>
             </div>
 
             <div className="space-y-8">
-              {/* Address */}
               <div className="space-y-2">
                 <h3 className="text-sm uppercase tracking-widest font-semibold text-gold mb-3">Location</h3>
                 <p className="text-lg font-serif font-semibold text-foreground">Luminous Studio</p>
@@ -285,7 +274,6 @@ export default function BookingPage() {
                 </p>
               </div>
 
-              {/* Phone */}
               <div className="space-y-2">
                 <h3 className="text-sm uppercase tracking-widest font-semibold text-gold mb-3">Phone</h3>
                 <a href="tel:+12125551234" className="text-lg font-semibold text-foreground hover:text-gold transition-colors">
@@ -294,7 +282,6 @@ export default function BookingPage() {
                 <p className="text-sm text-muted-foreground">Monday - Friday, 8AM - 5PM</p>
               </div>
 
-              {/* Email */}
               <div className="space-y-2">
                 <h3 className="text-sm uppercase tracking-widest font-semibold text-gold mb-3">Email</h3>
                 <a href="mailto:hello@luminousstudio.com" className="text-lg font-semibold text-foreground hover:text-gold transition-colors">
