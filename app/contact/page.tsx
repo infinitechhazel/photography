@@ -1,5 +1,6 @@
 "use client"
 import CommonQuestions from "@/components/CommonQuestions"
+import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { toast } from "sonner"
 
@@ -240,12 +241,12 @@ export default function BookingPage() {
                 />
               </div>
 
-              <button
+              <Button
                 type="submit"
                 className="w-full px-8 py-3 gold-glow font-semibold text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 hover:scale-105 active:scale-95"
               >
                 Book Your Session
-              </button>
+              </Button>
 
               {submitted && (
                 <div className="p-4 bg-gold/10 border border-gold rounded-lg text-center">

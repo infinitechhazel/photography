@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react"
 import { ChevronDownIcon, Menu, X } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { useLockBodyScroll } from "@/hooks/use-scroll"
+import { Button } from "./ui/button"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -113,77 +114,75 @@ export function Navigation() {
             </Link>
 
             {/* Mobile Menu Button */}
-            <button
+            <Button
               className="lg:hidden p-2 text-foreground hover:text-gold transition-colors"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
               aria-expanded={isOpen}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-         
-            <div ref={menuRef} className="lg:hidden mt-4 pb-4 space-y-3">
-              <Link
-                href="/"
-                className={`block text-sm font-medium transition-colors ${
-                  isActive("/") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
-                }`}
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                Home
-              </Link>
+          <div ref={menuRef} className="lg:hidden mt-4 pb-4 space-y-3">
+            <Link
+              href="/"
+              className={`block text-sm font-medium transition-colors ${
+                isActive("/") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
+              }`}
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              Home
+            </Link>
 
-              <Link
-                href="/portfolio"
-                className={`block text-sm font-medium transition-colors ${
-                  isActive("/portfolio") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
-                }`}
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                Portfolio
-              </Link>
+            <Link
+              href="/portfolio"
+              className={`block text-sm font-medium transition-colors ${
+                isActive("/portfolio") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
+              }`}
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              Portfolio
+            </Link>
 
-              <Link
-                href="/services"
-                className={`block text-sm font-medium transition-colors ${
-                  isActive("/services") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
-                }`}
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                Services
-              </Link>
-              <Link
-                href="/about"
-                className={`block text-sm font-medium transition-colors ${
-                  isActive("/about") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
-                }`}
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                About
-              </Link>
-              <Link
-                href="/blog"
-                className={`block text-sm font-medium transition-colors ${
-                  isActive("/blog") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
-                }`}
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                Blog
-              </Link>
-              <Link
-                href="/contact"
-                className="block w-full mt-4 px-4 py-2 gold-glow text-primary font-semibold rounded-lg transition-all text-center text-sm"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                Book Now
-              </Link>
-            </div>
-        
+            <Link
+              href="/services"
+              className={`block text-sm font-medium transition-colors ${
+                isActive("/services") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
+              }`}
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              Services
+            </Link>
+            <Link
+              href="/about"
+              className={`block text-sm font-medium transition-colors ${
+                isActive("/about") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
+              }`}
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              About
+            </Link>
+            <Link
+              href="/blog"
+              className={`block text-sm font-medium transition-colors ${
+                isActive("/blog") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
+              }`}
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              Blog
+            </Link>
+            <Link
+              href="/contact"
+              className="block w-full mt-4 px-4 py-2 gold-glow text-primary font-semibold rounded-lg transition-all text-center text-sm"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              Book Now
+            </Link>
+          </div>
         )}
       </div>
     </nav>

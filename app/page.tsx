@@ -154,9 +154,11 @@ export default function Home() {
               {/* Hero Image Placeholder */}
               <div className="relative h-96 md:h-full min-h-96">
                 <div className="absolute inset-0 bg-gradient-to-br from-gold/30 via-transparent to-primary/30 rounded-2xl shadow-2xl shadow-gold/20"></div>
-                <img
+                <Image
                   src="/photography-studio.png"
                   alt="Luxury photography studio"
+                  width={300}
+                  height={300}
                   className="w-full h-full object-cover rounded-2xl shimmer-effect"
                 />
               </div>
@@ -214,12 +216,7 @@ export default function Home() {
             </div>
 
             <div className="text-center mt-12">
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="px-8 py-2 min-w-40 border-2 border-gold gold-glow text-white"
-              >
+              <Button asChild variant="outline" size="lg" className="px-8 py-2 min-w-40 border-2 border-gold gold-glow text-white">
                 <Link href="/portfolio">View Full Portfolio</Link>
               </Button>
             </div>
