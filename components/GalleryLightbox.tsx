@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { useState } from "react"
+import { ChevronLeft, ChevronRight, X } from "lucide-react"
 
 interface GalleryLightboxProps {
   image: {
@@ -17,40 +17,26 @@ interface GalleryLightboxProps {
   currentIndex: number
 }
 
-export function GalleryLightbox({
-  image,
-  onClose,
-  onPrevious,
-  onNext,
-  totalImages,
-  currentIndex,
-}: GalleryLightboxProps) {
+export function GalleryLightbox({ image, onClose, onPrevious, onNext, totalImages, currentIndex }: GalleryLightboxProps) {
   const [isLoading, setIsLoading] = useState(true)
 
-
   return (
-    <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-300">
-      <button
-        onClick={onClose}
-        className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors z-50 p-2"
-        aria-label="Close lightbox"
-      >
-        <X size={28} />
-      </button>
-
+    <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-300" onClick={onClose}>
       <div className="relative w-full h-full max-w-5xl max-h-[90vh] flex items-center justify-center">
+        <button
+          onClick={onClose}
+          className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors z-50 p-2"
+          aria-label="Close lightbox"
+        >
+          <X size={28} />
+        </button>
         <div className="relative w-full h-full flex items-center justify-center bg-black/50 rounded-lg overflow-hidden">
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-12 h-12 border-2 border-gold border-t-transparent rounded-full animate-spin" />
             </div>
           )}
-          <img
-            src={image.src || "/placeholder.svg"}
-            alt={image.alt}
-            onLoad={() => setIsLoading(false)}
-            className="w-full h-full object-contain"
-          />
+          <img src={image.src || "/placeholder.svg"} alt={image.alt} onLoad={() => setIsLoading(false)} className="w-full h-full object-contain" />
         </div>
 
         <button

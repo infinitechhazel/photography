@@ -1,11 +1,13 @@
-'use client'
+"use client"
 import CommonQuestions from "@/components/CommonQuestions"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Star } from "lucide-react"
+import { ChevronLeft, ChevronRight, Star } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { useRef } from "react"
+
 // import heroImage from "@/assets/hero-studio.jpg";
 // import weddingImage from "@/assets/wedding-portfolio.jpg";
 // import portraitImage from "@/assets/portrait-portfolio.jpg";
@@ -21,10 +23,10 @@ export default function Home() {
   // ];
 
   const categories = [
-    { name: "Weddings", path: "/portfolio/weddings" },
-    { name: "Portraits", path: "/portfolio/portraits" },
-    { name: "Events", path: "/portfolio/events" },
-    { name: "Products", path: "/portfolio/products" },
+    { name: "Weddings", path: "/portfolio" },
+    { name: "Portraits", path: "/portfolio" },
+    { name: "Events", path: "/portfolio" },
+    { name: "Products", path: "/portfolio" },
   ]
 
   const testimonials = [
@@ -102,6 +104,20 @@ export default function Home() {
     },
   ]
 
+  const scrollRef = useRef<HTMLDivElement | null>(null)
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -300, behavior: "smooth" })
+    }
+  }
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 300, behavior: "smooth" })
+    }
+  }
+
   return (
     <main className="min-h-screen">
       <div className="min-h-screen">
@@ -123,19 +139,19 @@ export default function Home() {
                   Exceptional photography for weddings, portraits, events, and commercial work. Every frame tells a story worth remembering.
                 </p>
                 <div className="flex gap-4 pt-4">
-                  <Link href="/contact" className="px-8 py-3 min-w-40 gold-glow text-primary font-semibold rounded-lg transition-all duration-200">
+                  <Link href="/contact" className="px-8 py-2 min-w-40 gold-glow text-primary font-semibold rounded-lg transition-all duration-200">
                     Schedule a Session
                   </Link>
                   <Link
                     href="/portfolio"
-                    className="px-8 py-3 min-w-40 border-2 border-gold text-foreground font-semibold rounded-lg hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 transition-all duration-200"
+                    className="px-8 py-2 min-w-40 border-2 border-gold text-foreground font-semibold rounded-lg hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 transition-all duration-200"
                   >
                     View Portfolio
                   </Link>
                 </div>
               </div>
 
-              {/* Hero Image Placeholder */} 
+              {/* Hero Image Placeholder */}
               <div className="relative h-96 md:h-full min-h-96">
                 <div className="absolute inset-0 bg-gradient-to-br from-gold/30 via-transparent to-primary/30 rounded-2xl shadow-2xl shadow-gold/20"></div>
                 <img
@@ -173,8 +189,14 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {categories.map((category) => (
                 <Link key={category.name} href={category.path} className="group">
-                  <Card className="overflow-hidden border-2 border-transparent hover:border-border-linear-to-r hover:from-yellow-600 hover:to-yellow-500 transition-all duration-300">
-                    <div className="relative aspect-3/4 overflow-hidden">
+                  <Card className="p-0 overflow-hidden border-2 border-transparent hover:border-border-linear-to-r hover:from-yellow-600 hover:to-yellow-500 transition-all duration-300">
+                    <motion.div
+                      initial={{ opacity: 0, y: 50 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8 }}
+                      viewport={{ once: true, amount: 0.5 }}
+                      className="relative aspect-3/4 overflow-hidden"
+                    >
                       {/* <Image
                       src={category.image}
                       alt={category.name}
@@ -185,7 +207,7 @@ export default function Home() {
                         <h3 className="text-2xl font-bold text-white mb-2">{category.name}</h3>
                         <div className="h-0.5 w-12 bg-linear-to-r from-yellow-600 to-yellow-500 transition-all duration-300 group-hover:w-full" />
                       </div>
-                    </div>
+                    </motion.div>
                   </Card>
                 </Link>
               ))}
@@ -196,7 +218,7 @@ export default function Home() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="bg-linear-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-white"
+                className="px-8 py-2 min-w-40 border-2 border-gold gold-glow text-white"
               >
                 <Link href="/portfolio">View Full Portfolio</Link>
               </Button>
@@ -205,7 +227,7 @@ export default function Home() {
         </section>
 
         {/* Testimonials */}
-        <section className="py-20 px-6 bg-background">
+        <section className="py-24 px-6 bg-background">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-3 drop-shadow-lg">Client Love</p>
@@ -217,32 +239,41 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex overflow-x-auto gap-8 snap-x snap-mandatory scrollbar-hide scroll-smooth">
-              
-                {testimonials.map((testimonial, index) => (
-                  <div
-                    key={index}
-                    className="p-8 min-w-[300px] rounded-xl snap-center border border-border bg-card hover:border-gold transition-all duration-300 hover:shadow-xl hover:shadow-gold/20 space-y-4 hover:bg-white/50"
-                  >
-                    <div className="flex gap-1">
-                      {Array(testimonial.rating)
-                        .fill(0)
-                        .map((_, i) => (
-                          <span key={i} className="text-gold text-lg drop-shadow-lg">
-                            ★
-                          </span>
-                        ))}
-                    </div>
-
-                    <p className="text-foreground leading-relaxed italic text-wrap">"{testimonial.content}"</p>
-
-                    <div className="pt-4 border-t border-gold/30">
-                      <p className="font-semibold text-foreground">{testimonial.name}</p>
-                      <p className="text-sm text-gold font-medium">{testimonial.role}</p>
-                    </div>
+            <div ref={scrollRef} className="flex  overflow-y-hidden overflow-x-auto gap-8 snap-x snap-mandatory scrollbar-hide scroll-smooth">
+              {testimonials.map((testimonial, index) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  key={index}
+                  className="p-8 min-w-[300px] rounded-xl snap-center border border-border bg-gray-50 shadow-md hover:border-gold transition-all duration-300 hover:shadow-xl hover:shadow-gold/20 space-y-4 hover:bg-white/50"
+                >
+                  <div className="flex gap-1">
+                    {Array(testimonial.rating)
+                      .fill(0)
+                      .map((_, i) => (
+                        <span key={i} className="text-gold text-lg drop-shadow-lg">
+                          ★
+                        </span>
+                      ))}
                   </div>
-                ))}
-             
+
+                  <p className="text-foreground leading-relaxed italic text-wrap">"{testimonial.content}"</p>
+
+                  <div className="pt-4 border-t border-gold/30">
+                    <p className="font-semibold text-foreground">{testimonial.name}</p>
+                    <p className="text-sm text-gold font-medium">{testimonial.role}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            <div className="hidden lg:flex justify-center mt-4 gap-4">
+              <button onClick={scrollLeft} className="bg-gold text-white p-4 rounded-full shadow-lg hover:bg-gold/80 transition">
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button onClick={scrollRight} className="bg-gold text-white p-4 rounded-full shadow-lg hover:bg-gold/80 transition">
+                <ChevronRight className="w-5 h-5" />
+              </button>
             </div>
           </div>
         </section>

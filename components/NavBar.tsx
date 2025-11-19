@@ -45,7 +45,7 @@ export function Navigation() {
         isScrolled
           ? "bg-background/98 backdrop-blur-md border-b border-gold/30 shadow-lg shadow-gold/10"
           : "bg-background/95 backdrop-blur-sm border-b border-gold/20"
-      }`}
+      } ${isOpen ? "fixed inset-0 z-50 backdrop-blur-sm" : ""}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
@@ -126,58 +126,64 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         {isOpen && (
+         
+            <div ref={menuRef} className="lg:hidden mt-4 pb-4 space-y-3">
+              <Link
+                href="/"
+                className={`block text-sm font-medium transition-colors ${
+                  isActive("/") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
+                }`}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                Home
+              </Link>
+
+              <Link
+                href="/portfolio"
+                className={`block text-sm font-medium transition-colors ${
+                  isActive("/portfolio") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
+                }`}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                Portfolio
+              </Link>
+
+              <Link
+                href="/services"
+                className={`block text-sm font-medium transition-colors ${
+                  isActive("/services") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
+                }`}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                Services
+              </Link>
+              <Link
+                href="/about"
+                className={`block text-sm font-medium transition-colors ${
+                  isActive("/about") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
+                }`}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                About
+              </Link>
+              <Link
+                href="/blog"
+                className={`block text-sm font-medium transition-colors ${
+                  isActive("/blog") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
+                }`}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                Blog
+              </Link>
+              <Link
+                href="/contact"
+                className="block w-full mt-4 px-4 py-2 gold-glow text-primary font-semibold rounded-lg transition-all text-center text-sm"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                Book Now
+              </Link>
+            </div>
         
-          <div ref={menuRef} className="lg:hidden mt-4 pb-4 space-y-3">
-            
-            <Link
-              href="/"
-              className={`block text-sm font-medium transition-colors ${
-                isActive("/") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
-              }`}
-            >
-              Home
-            </Link>
-
-            <Link
-              href="/portfolio"
-              className={`block text-sm font-medium transition-colors ${
-                isActive("/portfolio") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
-              }`}
-            >
-              Portfolio
-            </Link>
-
-            <Link
-              href="/services"
-              className={`block text-sm font-medium transition-colors ${
-                isActive("/services") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
-              }`}
-            >
-              Services
-            </Link>
-            <Link
-              href="/about"
-              className={`block text-sm font-medium transition-colors ${
-                isActive("/about") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
-              }`}
-            >
-              About
-            </Link>
-            <Link
-              href="/blog"
-              className={`block text-sm font-medium transition-colors ${
-                isActive("/blog") ? "text-gold font-semibold" : "text-foreground hover:text-gold"
-              }`}
-            >
-              Blog
-            </Link>
-            <Link
-              href="/contact"
-              className="block w-full mt-4 px-4 py-2 gold-glow text-primary font-semibold rounded-lg transition-all text-center text-sm"
-            >
-              Book Now
-            </Link>
-          </div>
         )}
       </div>
     </nav>

@@ -2,6 +2,7 @@
 
 import { GalleryLightbox } from "@/components/GalleryLightbox"
 import { useLockBodyScroll } from "@/hooks/use-scroll"
+import { motion } from "motion/react"
 import { useState, useMemo } from "react"
 
 type Category = "all" | "weddings" | "portraits" | "events" | "products" | "studio"
@@ -114,9 +115,13 @@ export default function PortfolioPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredImages.map((image) => (
-              <div
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true, amount: 0.5 }}
                 key={image.id}
-                className="group relative overflow-hidden rounded-lg bg-muted cursor-pointer aspect-square"
+                className="group relative overflow-hidden rounded-lg bg-muted cursor-pointer aspect-square border-gold"
                 onClick={() => handleImageClick(image)}
               >
                 <img
@@ -133,7 +138,7 @@ export default function PortfolioPage() {
                 </div>
 
                 <div className="absolute top-0 left-0 h-1 w-0 bg-gold group-hover:w-full transition-all duration-500" />
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

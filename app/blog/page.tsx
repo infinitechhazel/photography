@@ -125,8 +125,8 @@ const Blog = () => {
             ))}
             {/* Blog Post Dialog */}
             <Dialog open={selectedPost !== null} onOpenChange={() => setSelectedPost(null)}>
-              <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-                {selectedPost !== null && (
+              {selectedPost !== null && (
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                   <>
                     <DialogHeader>
                       <div className="relative aspect-video w-full mb-4 rounded-lg overflow-hidden">
@@ -150,19 +150,15 @@ const Blog = () => {
                       <DialogTitle className="text-3xl font-bold mb-4">{posts[selectedPost].title}</DialogTitle>
                     </DialogHeader>
                     <DialogDescription className="text-base leading-relaxed space-y-4">
-                      <p>{posts[selectedPost].excerpt}</p>
-                      <p>
-                        This comprehensive guide shares professional insights and techniques that we've refined over years of experience in the field.
-                        Whether you're a beginner or looking to enhance your skills, these tips will help you capture stunning moments.
-                      </p>
-                      <p>
-                        Photography is an art that combines technical skills with creative vision. Understanding lighting, composition, and timing are
-                        essential elements that separate good photos from extraordinary ones.
-                      </p>
+                      {posts[selectedPost].excerpt}
+                      This comprehensive guide shares professional insights and techniques that we've refined over years of experience in the field.
+                      Whether you're a beginner or looking to enhance your skills, these tips will help you capture stunning moments. Photography is
+                      an art that combines technical skills with creative vision. Understanding lighting, composition, and timing are essential
+                      elements that separate good photos from extraordinary ones.
                     </DialogDescription>
                   </>
-                )}
-              </DialogContent>
+                </DialogContent>
+              )}
             </Dialog>
           </div>
         </div>
