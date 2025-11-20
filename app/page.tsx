@@ -162,7 +162,7 @@ export default function Home() {
 
               {/* Hero Image */}
               <div className="relative overflow-hidden h-72 sm:h-80 md:h-full min-h-72">
-                <div className="absolute inset-0 bg-gradient-to-br from-gold/30 via-transparent to-primary/30 rounded-2xl shadow-2xl shadow-gold/20"></div>
+                <div className="absolute inset-0 bg-linear-to-br from-gold/30 via-transparent to-primary/30 rounded-2xl shadow-2xl shadow-gold/20"></div>
                 {/* <Image
                   src="/photography-studio.png"
                   alt="Luxury photography studio"
@@ -285,7 +285,7 @@ export default function Home() {
         </section>
 
         {/* Call to Action */}
-        <section className="py-20 px-6 bg-gradient-to-r from-slate-900 via-primary/95 to-slate-900 text-primary-foreground relative overflow-hidden">
+        <section className="py-20 px-6 bg-linear-to-r from-slate-900 via-primary/95 to-slate-900 text-primary-foreground relative overflow-hidden">
           <div className="absolute inset-0 opacity-30">
             <div className="absolute top-1/2 -right-20 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse"></div>
           </div>

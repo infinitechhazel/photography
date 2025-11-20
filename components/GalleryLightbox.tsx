@@ -64,7 +64,7 @@ export function GalleryLightbox({ image, onClose, onPrevious, onNext, totalImage
           <ChevronRight size={32} />
         </Button>
 
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+        <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-6">
           <p className="text-gold font-serif text-2xl font-semibold">{image.title}</p>
           <p className="text-white/60 text-sm mt-2">
             Image {currentIndex} of {totalImages}

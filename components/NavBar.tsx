@@ -51,8 +51,8 @@ export function Navigation() {
       <div ref={menuRef} className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-            <div className="w-8 h-8 bg-gradient-to-br from-gold to-gold-dark rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-gold/40">
+          <Link href="/" className="flex items-center gap-2 shrink-0">
+            <div className="w-8 h-8 bg-linear-to-br from-gold to-gold-dark rounded-full flex items-center justify-center shrink-0 shadow-lg shadow-gold/40">
               <span className="text-primary font-serif text-lg font-bold">L</span>
             </div>
             <span className="font-serif text-lg font-bold text-foreground hidden sm:inline gradient-text">Luminous</span>

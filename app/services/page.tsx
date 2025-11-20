@@ -255,8 +255,8 @@ export default function ServicesPage() {
             </div>
 
             {/* Image Section */}
-            <div className="relative h-64 sm:h-80 md:h-96 lg:h-[28rem] w-full">
-              <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-transparent to-primary-foreground/10 rounded-2xl"></div>
+            <div className="relative h-64 sm:h-80 md:h-96 lg:h-112 w-full">
+              <div className="absolute inset-0 bg-linear-to-br from-gold/20 via-transparent to-primary-foreground/10 rounded-2xl"></div>
               <Image
                 src="/professional-photography-studio.png"
                 alt="Luminous Studio professional space"
