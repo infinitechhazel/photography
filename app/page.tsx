@@ -225,7 +225,7 @@ export default function Home() {
             </div>
 
             <div className="text-center mt-12">
-              <Button asChild variant="outline" size="lg" className="px-8 py-2 min-w-40 border-2 border-gold gold-glow text-white">
+              <Button asChild variant="outline" size="lg" className="px-8 py-2 min-w-40 border-2 border-gold gold-glow">
                 <Link href="/portfolio">View Full Portfolio</Link>
               </Button>
             </div>

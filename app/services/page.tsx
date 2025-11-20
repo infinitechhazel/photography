@@ -122,7 +122,7 @@ export default function ServicesPage() {
                   <CardItem translateZ="50">
                     <div
                       key={index}
-                      className="group p-8 rounded-xl border border-border bg-card hover:border-gold transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 space-y-6 flex flex-col"
+                      className="group p-8 rounded-xl border border-border shadow-md bg-card hover:border-gold transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 space-y-6 flex flex-col"
                     >
                       <div>
                         <h3 className="text-xl font-serif font-bold text-foreground mb-2 group-hover:text-gold transition-colors">{service.title}</h3>
@@ -177,7 +177,7 @@ export default function ServicesPage() {
                   <CardItem translateZ="50">
                     <div
                       key={index}
-                      className="group p-8 rounded-xl border border-border bg-card hover:border-gold transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 space-y-6 flex flex-col"
+                      className="group p-8 rounded-xl border border-border shadow-md bg-card hover:border-gold transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 space-y-6 flex flex-col"
                     >
                       <div>
                         <h3 className="text-xl font-serif font-bold text-foreground mb-2 group-hover:text-gold transition-colors">{service.title}</h3>

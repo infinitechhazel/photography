@@ -11,12 +11,11 @@ export default function BookingPage() {
     phone: "",
     serviceType: "",
     date: "",
-    time: "",
-    guests: "1",
     message: "",
   })
   const [errors, setErrors] = useState({ email: "", phone: "", date: "" })
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (field: string, value: string) => {
     // Handle phone number validation - only allow numbers
@@ -96,35 +95,71 @@ export default function BookingPage() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsSubmitting(true)
 
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name || !formData.email || !formData.serviceType || !formData.date) {
       toast.error("Missing Information", {
         description: "Please fill in all required fields.",
         position: "top-right",
         duration: 5000,
       })
+      setIsSubmitting(false)
       return
     }
 
-    toast.success("Message Sent!", {
-      description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
-      position: "top-right",
-      duration: 5000,
-    })
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
 
-    setSubmitted(true)
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      serviceType: "",
-      date: "",
-      time: "",
-      guests: "1",
-      message: "",
-    })
+      const data = await res.json()
+
+      if (data.success) {
+        toast.success("Message Sent!", {
+          description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
+          position: "top-right",
+          duration: 5000,
+        })
+
+        setSubmitted(true)
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          serviceType: "",
+          date: "",
+          message: "",
+        })
+        setErrors({ email: "", phone: "", date: "" })
+      } else {
+        toast.error("Failed to send message", {
+          description: "Please try again later.",
+          position: "top-right",
+          duration: 5000,
+        })
+      }
+    } catch (error: any) {
+      console.error(error)
+      toast.error("Something went wrong", {
+        description: "Please try again later.",
+        position: "top-right",
+        duration: 5000,
+      })
+    } finally {
+      setIsSubmitting(false)
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        serviceType: "",
+        date: "",
+        message: "",
+      })
+    }
   }
 
   return (
@@ -179,13 +214,12 @@ export default function BookingPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold mb-2 text-foreground">Phone Number *</label>
+                <label className="block text-sm font-semibold mb-2 text-foreground">Phone Number </label>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={(e) => handleChange("phone", e.target.value)}
-                  required
                   className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
                   placeholder="(555) 000-0000"
                 />
@@ -244,9 +278,10 @@ export default function BookingPage() {
 
               <Button
                 type="submit"
+                disabled={isSubmitting ? true : false}
                 className="w-full px-8 py-4 text-primary gold-glow font-semibold text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 hover:scale-105 active:scale-95"
               >
-                Book Your Session
+                {isSubmitting ? "Booking Your Session..." : "Book Your Session"}
               </Button>
 
               {submitted && (

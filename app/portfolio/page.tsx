@@ -101,8 +101,8 @@ export default function PortfolioPage() {
                 onClick={() => setSelectedCategory(cat.value)}
                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   selectedCategory === cat.value
-                    ? "bg-gold text-primary"
-                    : "bg-muted text-foreground hover:border-gold border border-transparent hover:text-gold"
+                    ? "gold-glow text-primary"
+                    : "border border-gold text-foreground font-semibold rounded-4xl hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 transition-all duration-200 text-center"
                 }`}
               >
                 {cat.label}
