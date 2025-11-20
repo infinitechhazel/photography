@@ -11,9 +11,10 @@ export default function BookingPage() {
     phone: "",
     serviceType: "",
     date: "",
+    time: "",
     message: "",
   })
-  const [errors, setErrors] = useState({ email: "", phone: "", date: "" })
+  const [errors, setErrors] = useState({ email: "", phone: "", date: "", time: "" })
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -99,7 +100,7 @@ export default function BookingPage() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    if (!formData.name || !formData.email || !formData.serviceType || !formData.date) {
+    if (!formData.name || !formData.email || !formData.serviceType ) {
       toast.error("Missing Information", {
         description: "Please fill in all required fields.",
         position: "top-right",
@@ -132,9 +133,10 @@ export default function BookingPage() {
           phone: "",
           serviceType: "",
           date: "",
+          time: "",
           message: "",
         })
-        setErrors({ email: "", phone: "", date: "" })
+        setErrors({ email: "", phone: "", date: "", time: "" })
       } else {
         toast.error("Failed to send message", {
           description: "Please try again later.",
@@ -157,6 +159,7 @@ export default function BookingPage() {
         phone: "",
         serviceType: "",
         date: "",
+        time: "",
         message: "",
       })
     }
@@ -252,7 +255,7 @@ export default function BookingPage() {
                 </div>
               </div>
 
-              <div>
+              {/* <div>
                 <label className="block text-sm font-semibold mb-2 text-foreground">Preferred Date *</label>
                 <input
                   type="date"
@@ -264,6 +267,19 @@ export default function BookingPage() {
                 />
                 {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date}</p>}
               </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2 text-foreground">Preferred Time *</label>
+                <input
+                  type="time"
+                  name="time"
+                  value={formData.time}
+                  onChange={(e) => handleChange("time", e.target.value)}
+                  required
+                  className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
+                />
+                {errors.time && <p className="text-red-500 text-sm mt-1">{errors.time}</p>}
+              </div> */}
 
               <div>
                 <label className="block text-sm font-semibold mb-2 text-foreground">Additional Details</label>
