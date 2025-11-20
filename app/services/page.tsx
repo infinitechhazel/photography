@@ -97,7 +97,7 @@ export default function ServicesPage() {
         </div>
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-4">Our Services</p>
-          <h1 className="text-5xl md:text-6xl font-bold font-serif leading-tight text-balance mb-6">Premium Photography & Studio Solutions</h1>
+          <h1 className="text-4xl md:text-6xl font-bold font-serif leading-tight text-balance mb-6">Premium Photography & Studio Solutions</h1>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
             From professional photography sessions to state-of-the-art studio rentals, we provide everything you need to bring your creative vision to
             life.
@@ -106,7 +106,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Photography Services */}
-      <section className="py-20 px-6">
+      <section className="py-16 lg:py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold font-serif mb-4 text-balance text-gold">Photography Services</h2>
@@ -115,15 +115,10 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {photographyServices.map((service, index) => (
-              <CardContainer className="inter-var" containerClassName="py-8">
-                <CardBody
-                  className="bg-gray-50 relative group/card dark:hover:shadow-2xl 
-                           dark:hover:shadow-emerald-500/10 dark:bg-black 
-                            w-auto sm:w-[24rem] 
-                           h-auto rounded-xl p-4"
-                >
+              <CardContainer className="inter-var" containerClassName="py-2 lg:py-8">
+                <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black w-auto sm:w-[24rem] h-auto rounded-xl p-4">
                   <CardItem translateZ="50">
                     <div
                       key={index}
@@ -165,7 +160,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Studio Rental Services */}
-      <section className="py-20 px-6 bg-background">
+      <section className="py-16 lg:py-20 px-6 bg-background">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold font-serif mb-4 text-balance text-gold">Studio Rental Services</h2>
@@ -175,57 +170,72 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             {studioRentalServices.map((service, index) => (
-              <div
-                key={index}
-                className="group p-8 rounded-xl border border-border bg-card hover:border-gold transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 space-y-6 flex flex-col"
-              >
-                <div>
-                  <h3 className="text-xl font-serif font-bold text-foreground mb-2 group-hover:text-gold transition-colors">{service.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
-                </div>
+              <CardContainer className="inter-var" containerClassName="py-2 lg:py-8">
+                <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black w-auto sm:w-[24rem] h-auto rounded-xl p-4">
+                  <CardItem translateZ="50">
+                    <div
+                      key={index}
+                      className="group p-8 rounded-xl border border-border bg-card hover:border-gold transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 space-y-6 flex flex-col"
+                    >
+                      <div>
+                        <h3 className="text-xl font-serif font-bold text-foreground mb-2 group-hover:text-gold transition-colors">{service.title}</h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
+                      </div>
 
-                <div className="space-y-3 grow">
-                  <p className="font-semibold text-sm uppercase tracking-wider text-foreground">{service.amenities ? "Amenities" : "Includes"}:</p>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-3 text-sm text-muted-foreground">
-                        <span className="text-gold mt-1">✓</span>
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                      <div className="space-y-3 grow">
+                        <p className="font-semibold text-sm uppercase tracking-wider text-foreground">
+                          {service.amenities ? "Amenities" : "Includes"}:
+                        </p>
+                        <ul className="space-y-2">
+                          {service.features.map((feature, idx) => (
+                            <li key={idx} className="flex items-start gap-3 text-sm text-muted-foreground">
+                              <span className="text-gold mt-1">✓</span>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                <div className="space-y-4 pt-4 border-t border-border">
-                  <p className="text-2xl font-serif font-bold text-gold">{service.price}</p>
-                  <Link
-                    href="/contact"
-                    className="block w-full px-6 py-2 bg-gold text-primary font-semibold rounded-lg hover:shadow-lg hover:shadow-gold/30 transition-all duration-200 text-center"
-                  >
-                    Reserve Now
-                  </Link>
-                </div>
-              </div>
+                      <div className="space-y-4 pt-4 border-t border-border">
+                        <p className="text-2xl font-serif font-bold text-gold">{service.price}</p>
+                        <Link
+                          href="/contact"
+                          className="block w-full px-6 py-2 bg-gold text-primary font-semibold rounded-lg hover:shadow-lg hover:shadow-gold/30 transition-all duration-200 text-center"
+                        >
+                          Reserve Now
+                        </Link>
+                      </div>
+                    </div>
+                  </CardItem>
+                </CardBody>
+              </CardContainer>
             ))}
           </div>
         </div>
       </section>
 
       {/* Studio Amenities Section */}
-      <section className="py-20 px-6 bg-slate-900 text-primary-foreground">
+      <section className="py-16 sm:py-20 px-4 sm:px-6 bg-slate-900 text-primary-foreground w-full">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+            {/* Text Content */}
             <div>
-              <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-4">Studio Facilities</p>
-              <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 text-balance">Fully Equipped Professional Space</h2>
-              <p className="text-lg text-primary-foreground/95 leading-relaxed mb-8">
+              <p className="text-xs sm:text-sm uppercase tracking-widest text-gold font-semibold mb-3 sm:mb-4 text-center lg:text-left">
+                Studio Facilities
+              </p>
+
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif mb-5 sm:mb-6 text-balance text-center lg:text-left">
+                Fully Equipped Professional Space
+              </h2>
+
+              <p className="text-base sm:text-lg text-primary-foreground/95 leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
                 Our studio features state-of-the-art equipment and professional amenities designed for photographers, videographers, and creative
                 professionals.
               </p>
 
-              <div className="space-y-4">
+              <div className="space-y-4 max-w-xl mx-auto lg:mx-0">
                 {[
                   "Professional lighting kits (Profoto, Godox)",
                   "Multiple backdrops & seamless paper",
@@ -237,14 +247,15 @@ export default function ServicesPage() {
                   "Comfortable waiting & styling area",
                 ].map((amenity, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <span className="text-gold text-xl flex-shrink-0">✓</span>
-                    <span className="text-primary-foreground/90">{amenity}</span>
+                    <span className="text-gold text-xl shrink-0">✓</span>
+                    <span className="text-primary-foreground/90 text-sm sm:text-base">{amenity}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="relative h-96">
+            {/* Image Section */}
+            <div className="relative h-64 sm:h-80 md:h-96 lg:h-[28rem] w-full">
               <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-transparent to-primary-foreground/10 rounded-2xl"></div>
               <Image
                 src="/professional-photography-studio.png"

@@ -74,14 +74,14 @@ const About = () => {
       </section>
 
       {/* Story Section */}
-      <section className="py-24 px-4">
+      <section className="py-24 px-4 bg-slate-900 text-primary-foreground">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-6">Our Story</h2>
             <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mx-auto mb-8" />
           </div>
 
-          <div className="space-y-6 text-lg leading-relaxed text-foreground/80">
+          <div className="space-y-6 text-lg leading-relaxed text-primary-foreground/80">
             <p>
               Founded with a passion for capturing life's most precious moments, our studio has grown into a premier destination for professional
               photography. With over a decade of experience, we've had the privilege of documenting countless weddings, portraits, and special events.
@@ -206,7 +206,7 @@ const About = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 space-y-4">
             <p className="text-sm uppercase tracking-widest text-gold font-semibold">Meet Our Team</p>
-            <h2 className="text-4xl font-serif font-bold">Exceptional Photographers</h2>
+            <h2 className="text-3xl font-serif font-bold">Exceptional Photographers</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Our talented team of specialists brings diverse expertise and perspectives to every project.
             </p>
@@ -282,7 +282,7 @@ const About = () => {
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <h2 className="text-4xl md:text-5xl font-bold font-serif text-balance">Let's Create Something <span className="gradient-text">Beautiful</span></h2>
           <p className="text-lg text-primary-foreground/90 max-w-2xl mx-auto">
-            Ready to work with our team? Let's discuss your vision and bring it to life.x
+            Ready to work with our team? Let's discuss your vision and bring it to life.
           </p>
           <Link
             href="/contact"

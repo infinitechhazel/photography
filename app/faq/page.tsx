@@ -115,7 +115,7 @@ const FAQ = () => {
               >
                 <summary className="flex items-center justify-between cursor-pointer font-semibold text-foreground">
                   {faq.question}
-                  <span className="text-gold text-xl group-open:rotate-180 transition-transform">+</span>
+                  <span className="ml-2 text-gold text-xl group-open:rotate-180 transition-transform">+</span>
                 </summary>
                 <div className="h-0.5 w-full my-4 bg-linear-to-r from-yellow-600 to-yellow-500" />
                 <p className="mt-4 text-muted-foreground leading-relaxed">{faq.answer}</p>
@@ -126,12 +126,12 @@ const FAQ = () => {
       </section>
 
       {/* Contact CTA */}
-      <section className="py-20 bg-gradient-subtle">
+      <section className="py-20 px-6 bg-linear-to-r from-slate-900 via-primary/95 to-slate-900 text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Still Have Questions?</h2>
-            <p className="text-lg text-muted-foreground mb-8">We're here to help! Reach out to us and we'll get back to you as soon as possible.</p>
-            <a href="/contact" className="inline-block bg-gold hover:bg-gold-dark text-black px-8 py-3 rounded-lg font-semibold transition-smooth">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Still Have <span className="gradient-text">Questions?</span></h2>
+            <p className="text-lg text-primary-foreground/90 mb-8">We're here to help! Reach out to us and we'll get back to you as soon as possible.</p>
+            <a href="/contact" className="inline-block gold-glow px-8 py-3 rounded-lg font-semibold transition-smooth">
               Contact Us
             </a>
           </div>

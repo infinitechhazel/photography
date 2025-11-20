@@ -67,29 +67,28 @@ export default function BookingPage() {
     }
 
     // Handle date validation (no past dates)
-  if (field === "date") {
-    const today = new Date()
-    today.setHours(0, 0, 0, 0) 
-    const selectedDate = new Date(value)
+    if (field === "date") {
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+      const selectedDate = new Date(value)
 
-    if (selectedDate < today) {
-      setErrors({
-        ...errors,
-        date: "You cannot select a past date",
-      })
-    } else {
-      setErrors({
-        ...errors,
-        date: "",
-      })
-      setFormData({
-        ...formData,
-        [field]: value,
-      })
+      if (selectedDate < today) {
+        setErrors({
+          ...errors,
+          date: "You cannot select a past date",
+        })
+      } else {
+        setErrors({
+          ...errors,
+          date: "",
+        })
+        setFormData({
+          ...formData,
+          [field]: value,
+        })
+      }
+      return
     }
-    return
-  }
-
 
     setFormData({
       ...formData,
@@ -104,6 +103,7 @@ export default function BookingPage() {
       toast.error("Missing Information", {
         description: "Please fill in all required fields.",
         position: "top-right",
+        duration: 5000,
       })
       return
     }
@@ -111,6 +111,7 @@ export default function BookingPage() {
     toast.success("Message Sent!", {
       description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
       position: "top-right",
+      duration: 5000,
     })
 
     setSubmitted(true)
@@ -129,7 +130,7 @@ export default function BookingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-6 bg-gradient-to-b from-muted/30 to-background">
+      <section className="pt-32 pb-16 px-6 bg-linear-to-b from-muted/30 to-background">
         <div className="max-w-4xl mx-auto text-center space-y-4">
           <p className="text-sm uppercase tracking-widest text-gold font-semibold">Book Your Session</p>
           <h1 className="text-5xl md:text-6xl font-bold font-serif text-balance">Let's Create Something Beautiful</h1>
@@ -243,7 +244,7 @@ export default function BookingPage() {
 
               <Button
                 type="submit"
-                className="w-full px-8 py-3 gold-glow font-semibold text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 hover:scale-105 active:scale-95"
+                className="w-full px-8 py-4 text-primary gold-glow font-semibold text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 hover:scale-105 active:scale-95"
               >
                 Book Your Session
               </Button>

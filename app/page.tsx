@@ -108,13 +108,13 @@ export default function Home() {
 
   const scrollLeft = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -300, behavior: "smooth" })
+      scrollRef.current.scrollBy({ left: -600, behavior: "smooth" })
     }
   }
 
   const scrollRight = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 300, behavior: "smooth" })
+      scrollRef.current.scrollBy({ left: 600, behavior: "smooth" })
     }
   }
 
@@ -122,45 +122,54 @@ export default function Home() {
     <main className="min-h-screen">
       <div className="min-h-screen">
         {/* Hero Section */}
-        <section className="pt-32 pb-20 px-6 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-20 right-1/4 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-gold/20 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+        <section className="pt-20 pb-16 px-4 sm:px-6 relative">
+          {/* Background Glow */}
+          <div className="absolute inset-0 opacity-30 pointer-events-none">
+            <div className="absolute top-10 right-1/4 w-40 h-40 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-gold rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-0 left-1/3 w-32 h-32 sm:w-56 sm:h-56 md:w-80 md:h-80 bg-gold/20 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
           </div>
+
           <div className="max-w-6xl mx-auto relative z-10">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Content */}
-              <div className="space-y-6">
-                <p className="text-sm uppercase tracking-widest text-gold font-semibold drop-shadow-lg">Welcome to Luminous Studio</p>
-                <h1 className="text-5xl md:text-6xl font-bold font-serif leading-tight text-balance">
+            <div className="grid md:grid-cols-2 gap-10 lg:gap-14 items-center">
+              {/* Text Content */}
+              <div className="space-y-4 sm:space-y-6 text-center md:text-left">
+                <p className="text-xs sm:text-sm uppercase tracking-widest text-gold font-semibold drop-shadow-lg">Welcome to Luminous Studio</p>
+
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-serif leading-tight text-balance">
                   Capturing Moments, <span className="gradient-text">Creating Memories</span>
                 </h1>
-                <p className="text-lg text-muted-foreground leading-relaxed">
+
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                   Exceptional photography for weddings, portraits, events, and commercial work. Every frame tells a story worth remembering.
                 </p>
-                <div className="flex gap-4 pt-4">
-                  <Link href="/contact" className="px-8 py-2 min-w-40 gold-glow text-primary font-semibold rounded-lg transition-all duration-200">
+
+                <div className="flex flex-col sm:flex-row gap-4 pt-2 sm:pt-4 justify-center md:justify-start">
+                  <Link
+                    href="/contact"
+                    className="px-6 py-2 sm:px-8 min-w-32 sm:min-w-40 gold-glow text-primary font-semibold rounded-lg transition-all duration-200 text-center"
+                  >
                     Schedule a Session
                   </Link>
+
                   <Link
                     href="/portfolio"
-                    className="px-8 py-2 min-w-40 border-2 border-gold text-foreground font-semibold rounded-lg hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 transition-all duration-200"
+                    className="px-6 py-2 sm:px-8 min-w-32 sm:min-w-40 border-2 border-gold text-foreground font-semibold rounded-lg hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 transition-all duration-200 text-center"
                   >
                     View Portfolio
                   </Link>
                 </div>
               </div>
 
-              {/* Hero Image Placeholder */}
-              <div className="relative h-96 md:h-full min-h-96">
+              {/* Hero Image */}
+              <div className="relative overflow-hidden h-72 sm:h-80 md:h-full min-h-72">
                 <div className="absolute inset-0 bg-gradient-to-br from-gold/30 via-transparent to-primary/30 rounded-2xl shadow-2xl shadow-gold/20"></div>
-                <Image
+                {/* <Image
                   src="/photography-studio.png"
                   alt="Luxury photography studio"
-                  width={300}
-                  height={300}
+                  width={250}
+                  height={250}
                   className="w-full h-full object-cover rounded-2xl shimmer-effect"
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -224,7 +233,7 @@ export default function Home() {
         </section>
 
         {/* Testimonials */}
-        <section className="py-24 px-6 bg-background">
+        <section className="py-20 lg:py-24 px-6 bg-background">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-3 drop-shadow-lg">Client Love</p>
