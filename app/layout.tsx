@@ -4,7 +4,7 @@ import "./globals.css"
 import Footer from "@/components/Footer"
 import { Toaster } from "@/components/ui/sonner"
 import { Navigation } from "@/components/NavBar"
-import { useLockBodyScroll } from "@/hooks/use-scroll"
+import FloatingSocialIcons from "@/components/floating-social-media"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Navigation />
+        {/* <FloatingSocialIcons /> */}
         {children}
         <Toaster />
         <footer>

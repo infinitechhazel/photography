@@ -41,10 +41,10 @@ export function Navigation() {
   }
 
   return (
-    <nav 
+    <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/98 backdrop-blur-md border-b border-gold/30 shadow-lg shadow-gold/10"
+          ? "bg-background/98 backdrop-blur-lg border-b border-gold/30 shadow-lg shadow-gold/10"
           : "bg-background/95 backdrop-blur-sm border-b border-gold/20"
       } ${isOpen ? "fixed inset-0 z-50 backdrop-blur-sm" : ""}`}
     >
@@ -104,9 +104,8 @@ export function Navigation() {
             </Link>
           </div>
 
-
           {/* CTA Button and Mobile Menu */}
-          <div  className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <Link
               href="/contact"
               className="hidden lg:inline-block px-4 lg:px-6 py-2 gold-glow text-primary font-semibold rounded-lg transition-all duration-200 text-sm whitespace-nowrap"
@@ -128,7 +127,7 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden mt-4 pb-4 space-y-3">
+          <div className="lg:hidden mt-4 pb-4 space-y-3 ">
             <Link
               href="/"
               className={`block text-sm font-medium transition-colors ${

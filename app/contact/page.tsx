@@ -1,114 +1,234 @@
 "use client"
 import CommonQuestions from "@/components/CommonQuestions"
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "sonner"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import Link from "next/link"
+import { useIsMobile } from "@/hooks/use-mobile"
+
+interface TimeSlot {
+  time: string
+  available: boolean
+}
+
+interface FormData {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  serviceType: string
+  date: string
+  time: string
+  guests: string
+  message: string
+}
 
 export default function BookingPage() {
-  const [formData, setFormData] = useState({
-    name: "",
+  const [step, setStep] = useState(1)
+  const [submitted, setSubmitted] = useState(false)
+  const [currentDate, setCurrentDate] = useState<Date>(new Date())
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [formData, setFormData] = useState<FormData>({
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     serviceType: "",
     date: "",
     time: "",
+    guests: "1",
     message: "",
   })
-  const [errors, setErrors] = useState({ email: "", phone: "", date: "", time: "" })
-  const [submitted, setSubmitted] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleChange = (field: string, value: string) => {
-    // Handle phone number validation - only allow numbers
-    if (field === "phone") {
-      const numbersOnly = value.replace(/\D/g, "")
-      if (numbersOnly.length <= 11) {
-        setFormData({
-          ...formData,
-          [field]: numbersOnly,
-        })
+  const [errors, setErrors] = useState<Partial<FormData>>({})
+  const isMobile = useIsMobile()
 
-        // Validate phone length
-        if (numbersOnly.length > 0 && numbersOnly.length !== 11) {
-          setErrors({
-            ...errors,
-            phone: "Phone number must be exactly 11 digits",
-          })
-        } else {
-          setErrors({
-            ...errors,
-            phone: "",
-          })
-        }
-      }
-      return
+  const allTimes = ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"]
+
+  const bookedDates = [
+    { date: "2025-11-21", time: ["10:00 AM"] },
+    { date: "2025-11-24", time: ["10:00 AM", "02:00 PM"] },
+    { date: "2025-11-25", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
+    { date: "2025-11-30", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
+    { date: "2025-12-01", time: ["10:00 AM"] },
+    { date: "2025-12-11", time: ["10:00 AM"] },
+    { date: "2025-12-21", time: ["10:00 AM"] },
+    { date: "2025-12-22", time: ["9:00 AM"] },
+    { date: "2025-12-23", time: ["10:00 AM"] },
+    { date: "2025-12-24", time: ["10:00 AM"] },
+    { date: "2025-12-25", time: ["10:00 AM"] },
+    { date: "2025-12-26", time: ["10:00 AM"] },
+  ]
+
+  const getTimeSlots = (date: string): TimeSlot[] => {
+    if (!date) return []
+
+    const bookedTimes = bookedDates.filter((b) => b.date === date).flatMap((b) => (Array.isArray(b.time) ? b.time : [b.time]))
+
+    return allTimes.map((time) => ({
+      time,
+      available: !bookedTimes.includes(time),
+    }))
+  }
+  const timeSlots = getTimeSlots(formData.date)
+
+  // Get calendar days
+  const getDaysInMonth = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+  }
+
+  const getFirstDayOfMonth = (date: Date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
+  }
+
+  const getDaysArray = () => {
+    const daysInMonth = getDaysInMonth(currentDate)
+    const firstDay = getFirstDayOfMonth(currentDate)
+    const days = []
+
+    for (let i = 0; i < firstDay; i++) {
+      days.push(null)
     }
 
-    // Handle email validation
-    if (field === "email") {
-      setFormData({
-        ...formData,
-        [field]: value,
-      })
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      if (value && !emailRegex.test(value)) {
-        setErrors({
-          ...errors,
-          email: "Please enter a valid email address",
-        })
-      } else {
-        setErrors({
-          ...errors,
-          email: "",
-        })
-      }
-      return
+    for (let i = 1; i <= daysInMonth; i++) {
+      days.push(i)
     }
 
-    // Handle date validation (no past dates)
-    if (field === "date") {
-      const today = new Date()
-      today.setHours(0, 0, 0, 0)
-      const selectedDate = new Date(value)
+    return days
+  }
 
-      if (selectedDate < today) {
-        setErrors({
-          ...errors,
-          date: "You cannot select a past date",
-        })
-      } else {
-        setErrors({
-          ...errors,
-          date: "",
-        })
-        setFormData({
-          ...formData,
-          [field]: value,
-        })
+  const handlePrevMonth = () => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1))
+  }
+
+  const handleNextMonth = () => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1))
+  }
+
+  const isPastDate = (day: number | null) => {
+    if (!day) return false
+
+    const today = new Date()
+    const checkDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day)
+
+    today.setHours(0, 0, 0, 0)
+
+    return checkDate < today
+  }
+
+  const isDateBooked = (day: number | null, currentDate: Date): boolean => {
+    if (day === null) return false
+
+    const key = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`
+
+    const bookedTimes = bookedDates.filter((b) => b.date === key).flatMap((b) => (Array.isArray(b.time) ? b.time : [b.time]))
+
+    return bookedTimes.length >= allTimes.length
+  }
+
+  const isDateSelected = (day: number | null) => {
+    return (
+      selectedDate &&
+      day &&
+      selectedDate.getDate() === day &&
+      selectedDate.getMonth() === currentDate.getMonth() &&
+      selectedDate.getFullYear() === currentDate.getFullYear()
+    )
+  }
+
+  const handleDateSelect = (selectedDay: number | null) => {
+    if (!selectedDay) return
+
+    if (isDateBooked(selectedDay, currentDate)) return
+
+    const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDay)
+
+    setSelectedDate(newDate)
+
+    setFormData((prev) => ({
+      ...prev,
+      date: newDate.toLocaleDateString("en-CA"), // formatted YYYY-MM-DD
+      time: "",
+    }))
+  }
+
+  const handleTimeSelect = (time: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      time: time,
+    }))
+  }
+
+  const handleNext = () => {
+    if (validateStep(step)) {
+      setStep((prev) => prev + 1)
+    }
+  }
+
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(step - 1)
+    }
+  }
+
+  const validateStep = (currentStep: number) => {
+    const newErrors: Partial<FormData> = {}
+
+    if (currentStep === 1) {
+      if (!formData.firstName.trim()) {
+        newErrors.firstName = "First name required"
       }
-      return
+
+      if (!formData.email.trim()) {
+        newErrors.email = "Email required"
+      } else if (!formData.email.includes("@")) {
+        newErrors.email = "Valid email required"
+      }
     }
 
-    setFormData({
-      ...formData,
-      [field]: value,
-    })
+    if (currentStep === 2) {
+      if (!formData.serviceType) newErrors.serviceType = "Service type required"
+    }
+
+    if (currentStep === 3) {
+      if (!formData.date) newErrors.date = "Date required"
+      if (!formData.time) newErrors.time = "Time required"
+    }
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+
+    if (name === "phone") {
+      const cleaned = value.replace(/\D/g, "").slice(0, 11)
+      setFormData((prev) => ({
+        ...prev,
+        phone: cleaned,
+      }))
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }))
+    }
+
+    if (errors[name as keyof FormData]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: undefined,
+      }))
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitting(true)
 
-    if (!formData.name || !formData.email || !formData.serviceType ) {
-      toast.error("Missing Information", {
-        description: "Please fill in all required fields.",
-        position: "top-right",
-        duration: 5000,
-      })
-      setIsSubmitting(false)
-      return
-    }
+    if (step !== 4) return
+
+    setSubmitted(true)
 
     try {
       const res = await fetch("/api/send-email", {
@@ -126,14 +246,15 @@ export default function BookingPage() {
           duration: 5000,
         })
 
-        setSubmitted(true)
         setFormData({
-          name: "",
+          firstName: "",
+          lastName: "",
           email: "",
           phone: "",
           serviceType: "",
           date: "",
           time: "",
+          guests: "1",
           message: "",
         })
         setErrors({ email: "", phone: "", date: "", time: "" })
@@ -144,31 +265,39 @@ export default function BookingPage() {
           duration: 5000,
         })
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error(error)
       toast.error("Something went wrong", {
         description: "Please try again later.",
         position: "top-right",
         duration: 5000,
       })
-    } finally {
-      setIsSubmitting(false)
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        serviceType: "",
-        date: "",
-        time: "",
-        message: "",
-      })
     }
+
+    setTimeout(() => {
+      setSubmitted(false)
+      setStep(1)
+    }, 3000)
   }
+
+  const days = getDaysArray()
+  const monthName = currentDate.toLocaleDateString("en-CA", { month: "long", year: "numeric" })
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      // Find the first input that has an error
+      const firstErrorField = Object.keys(errors)[0]
+      const el = document.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(`[name="${firstErrorField}"]`)
+      if (el) {
+        el.focus()
+      }
+    }
+  }, [errors])
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-6 bg-linear-to-b from-muted/30 to-background">
+      <section className="pt-32 pb-6 px-6 bg-linear-to-b from-muted/30 to-background">
         <div className="max-w-4xl mx-auto text-center space-y-4">
           <p className="text-sm uppercase tracking-widest text-gold font-semibold">Book Your Session</p>
           <h1 className="text-5xl md:text-6xl font-bold font-serif text-balance">Let's Create Something Beautiful</h1>
@@ -180,140 +309,403 @@ export default function BookingPage() {
 
       {/* Main Content */}
       <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
-          {/* Booking Form */}
-          <div className="space-y-8">
-            <div className="space-y-3">
-              <h2 className="text-3xl font-serif font-bold">Book a Session</h2>
-              <div className="h-1 w-12 bg-gold rounded-full"></div>
+        {/* Booking Form */}
+        <section className="py-20 px-6">
+          <div className="max-w-2xl mx-auto">
+            {/* Step Indicator */}
+            <div className="mb-12 mx-auto">
+              <div className="flex items-center justify-between mb-8 mx-auto">
+                {[1, 2, 3, 4].map((stepNum) => (
+                  <div key={stepNum} className="flex items-center flex-1">
+                    <div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-all ${
+                        stepNum <= step ? "bg-gold text-primary" : "bg-muted text-muted-foreground border-2 border-border"
+                      }`}
+                    >
+                      {stepNum}
+                    </div>
+                    {stepNum < 4 && <div className={`flex-1 h-1 mx-2 rounded-full transition-all ${stepNum < step ? "bg-gold" : "bg-muted"}`}></div>}
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-foreground">Full Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={(e) => handleChange("name", e.target.value)}
-                  required
-                  className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
-                  placeholder="Your name"
-                />
-              </div>
+            {/* Form */}
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
+              {/* Step 1: Contact Information */}
+              {step === 1 && (
+                <div className="space-y-6 animate-fadeIn">
+                  <div>
+                    <h2 className="text-3xl font-serif font-bold mb-6">Your Contact Information</h2>
+                    <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mb-8" />
+                    <p className="text-muted-foreground mb-8">Let's start with your details.</p>
+                  </div>
 
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-foreground">Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={(e) => handleChange("email", e.target.value)}
-                  required
-                  className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
-                  placeholder="your@email.com"
-                />
-                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-              </div>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold mb-2 text-foreground">First Name *</label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        className={`w-full px-4 py-3 border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition ${
+                          errors.firstName ? "border-red-500" : "border-border"
+                        }`}
+                        placeholder="John"
+                      />
+                      {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold mb-2 text-foreground">Last Name</label>
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
+                        placeholder="Doe"
+                      />
+                    </div>
+                  </div>
 
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-foreground">Phone Number </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={(e) => handleChange("phone", e.target.value)}
-                  className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
-                  placeholder="(555) 000-0000"
-                />
-                {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
-              </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-foreground">Email Address *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-3 border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition ${
+                        errors.email ? "border-red-500" : "border-border"
+                      }`}
+                      placeholder="your@email.com"
+                    />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                  </div>
 
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-foreground">Service Type *</label>
-                <div className="relative">
-                  <select
-                    name="serviceType"
-                    value={formData.serviceType}
-                    onChange={(e) => handleChange("serviceType", e.target.value)}
-                    required
-                    className="w-full px-4 py-3 appearance-none border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
-                  >
-                    <option value="">Select a service</option>
-                    <option value="wedding">Wedding Photography</option>
-                    <option value="portrait">Portrait Session</option>
-                    <option value="event">Event Photography</option>
-                    <option value="product">Product Photography</option>
-                    <option value="studio">Studio Rental</option>
-                    <option value="commercial">Commercial Photography</option>
-                  </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
-                    <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-foreground">Phone Number</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
+                      placeholder="(+63) 912 345 6789"
+                    />
                   </div>
                 </div>
-              </div>
+              )}
 
-              {/* <div>
-                <label className="block text-sm font-semibold mb-2 text-foreground">Preferred Date *</label>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={(e) => handleChange("date", e.target.value)}
-                  required
-                  className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
-                />
-                {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date}</p>}
-              </div>
+              {/* Step 2: Service Selection */}
+              {step === 2 && (
+                <div className="space-y-6 animate-fadeIn">
+                  <div>
+                    <h2 className="text-3xl font-serif font-bold mb-6">Select Your Service</h2>
+                    <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mb-8" />
+                    <p className="text-muted-foreground mb-8">What type of photography service do you need?</p>
+                  </div>
 
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-foreground">Preferred Time *</label>
-                <input
-                  type="time"
-                  name="time"
-                  value={formData.time}
-                  onChange={(e) => handleChange("time", e.target.value)}
-                  required
-                  className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
-                />
-                {errors.time && <p className="text-red-500 text-sm mt-1">{errors.time}</p>}
-              </div> */}
+                  <div className="relative">
+                    <label className="block text-sm font-semibold mb-2 text-foreground">Service Type *</label>
+                    <select
+                      name="serviceType"
+                      value={formData.serviceType}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-3 appearance-none border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition ${
+                        errors.serviceType ? "border-red-500" : "border-border"
+                      }`}
+                    >
+                      <option value="">Select a service</option>
+                      <option value="wedding">Wedding Photography</option>
+                      <option value="portrait">Portrait Session</option>
+                      <option value="event">Event Photography</option>
+                      <option value="product">Product Photography</option>
+                      <option value="commercial">Commercial Photography</option>
+                      <option value="studio">Studio Rental</option>
+                    </select>
 
-              <div>
-                <label className="block text-sm font-semibold mb-2 text-foreground">Additional Details</label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={(e) => handleChange("message", e.target.value)}
-                  className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition resize-none h-32"
-                  placeholder="Tell us more about your vision..."
-                />
-              </div>
+                    <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
+                      <svg className="mt-6 h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
 
-              <Button
-                type="submit"
-                disabled={isSubmitting ? true : false}
-                className="w-full px-8 py-4 text-primary gold-glow font-semibold text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 hover:scale-105 active:scale-95"
-              >
-                {isSubmitting ? "Booking Your Session..." : "Book Your Session"}
-              </Button>
+                    {errors.serviceType && <p className="text-red-500 text-sm mt-1">{errors.serviceType}</p>}
+                  </div>
 
+                  <div className="relative">
+                    <label className="block text-sm font-semibold mb-2 text-foreground">Number of People</label>
+                    <select
+                      name="guests"
+                      value={formData.guests}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 appearance-none border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
+                    >
+                      <option value="1">1 person</option>
+                      <option value="2">2 people</option>
+                      <option value="3-5">3-5 people</option>
+                      <option value="6-10">6-10 people</option>
+                      <option value="10+">10+ people</option>
+                    </select>
+
+                    <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
+                      <svg className="mt-6 h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Date & Time with Calendar */}
+              {step === 3 && (
+                <div className="space-y-6 animate-fadeIn">
+                  <div>
+                    <h2 className="text-3xl font-serif font-bold mb-6">Choose Your Date & Time</h2>
+                    <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mb-8" />
+                    <p className="text-muted-foreground mb-8">Select your preferred session time from our available slots.</p>
+                  </div>
+
+                  <div className="md:col-span-2 space-y-6">
+                    <div className="p-8 rounded-2xl border border-gold/30 bg-card shadow-xl shadow-gold/10 hover:shadow-gold/20 transition-all duration-300">
+                      {/* Month Header */}
+                      <div className="flex items-center justify-between mb-8">
+                        <Button onClick={handlePrevMonth} className="p-2 hover:bg-gold/10 rounded-lg transition-colors duration-200">
+                          <ChevronLeft className="w-6 h-6 text-gold" />
+                        </Button>
+                        <h2 className="md:text-2xl text-sm font-serif font-bold gradient-text">{monthName}</h2>
+                        <Button onClick={handleNextMonth} className="p-2 hover:bg-gold/10 rounded-lg transition-colors duration-200">
+                          <ChevronRight className="w-6 h-6 text-gold" />
+                        </Button>
+                      </div>
+
+                      {/* Day names */}
+                      <div className="grid grid-cols-7 gap-2 mb-4">
+                        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+                          <div key={day} className="text-center font-semibold text-gold text-sm uppercase tracking-widest">
+                            {isMobile ? day.charAt(0) : day}
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Calendar days */}
+                      <div className="grid grid-cols-7 gap-2">
+                        {days.map((day, index) => {
+                          const isBooked = isDateBooked(day, currentDate) || isPastDate(day)
+                          const isSelected = isDateSelected(day)
+
+                          return (
+                            <button
+                              key={index}
+                              onClick={() => day && handleDateSelect(day)}
+                              disabled={isBooked}
+                              className={`aspect-square rounded-lg font-semibold transition-all duration-200 flex items-center justify-center text-sm ${
+                                !day
+                                  ? "invisible"
+                                  : isBooked
+                                  ? "bg-muted/50 text-muted-foreground cursor-not-allowed opacity-50"
+                                  : isSelected
+                                  ? "bg-linear-to-br from-gold to-gold-dark text-primary scale-110 shadow-xl shadow-gold/10"
+                                  : "bg-gold/20 hover:bg-gold/20 hover:border hover:border-gold text-foreground hover:shadow-lg hover:shadow-gold/20 border border-transparent"
+                              }`}
+                            >
+                              {day}
+                            </button>
+                          )
+                        })}
+                      </div>
+
+                      {/* Legend */}
+                      <div className="mt-8 pt-8 border-t border-gold/20 flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6">
+                        {errors.date && <p className="text-red-500 text-sm mt-2 w-full">{errors.date}</p>}
+
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 bg-gold/20 rounded"></div>
+                          <span className="text-sm text-muted-foreground">Available</span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 bg-linear-to-br from-gold to-gold-dark rounded border border-gold/30 bg-card shadow-xl shadow-gold/10"></div>
+                          <span className="text-sm text-muted-foreground">Selected</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {formData.date && (
+                    <div className="animate-fadeIn">
+                      <label className="block text-sm font-semibold mb-4 text-foreground">Select a Time *</label>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        {timeSlots.map((slot) => (
+                          <button
+                            key={slot.time}
+                            type="button"
+                            onClick={() => slot.available && handleTimeSelect(slot.time)}
+                            disabled={!slot.available}
+                            className={`p-2 h-16 rounded-lg border-2 transition-all font-semibold text-center ${
+                              formData.time === slot.time
+                                ? "border-gold bg-gold/10 text-gold"
+                                : slot.available
+                                ? "border-border bg-card text-foreground hover:border-gold cursor-pointer"
+                                : "border-border bg-muted text-muted-foreground cursor-not-allowed opacity-50"
+                            }`}
+                          >
+                            <div>{slot.time}</div>
+                            {!slot.available && <div className="text-xs text-muted-foreground mt-1">Booked</div>}
+                          </button>
+                        ))}
+                      </div>
+                      {errors.time && <p className="text-red-500 text-sm mt-2">{errors.time}</p>}
+                    </div>
+                  )}
+
+                  {/* Selected Summary */}
+                  {formData.date && formData.time && (
+                    <div className="bg-gold/10 border border-gold rounded-lg p-4 animate-fadeIn">
+                      <p className="text-sm text-muted-foreground mb-1">Selected Session</p>
+                      <p className="font-semibold text-foreground">
+                        {new Date(formData.date).toLocaleDateString("en-CA", {
+                          weekday: "long",
+                          month: "long",
+                          day: "numeric",
+                        })}{" "}
+                        at {formData.time}
+                      </p>
+                    </div>
+                  )}
+
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-foreground">Additional Details</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition resize-none h-32"
+                      placeholder="Tell us more about your vision..."
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Step 4: Review */}
+              {step === 4 && (
+                <div className="space-y-6 animate-fadeIn">
+                  <div>
+                    <h2 className="text-3xl font-serif font-bold mb-6">Review Your Booking</h2>
+                    <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mb-8" />
+                    <p className="mb-8">Please review your information before submitting.</p>
+                  </div>
+
+                  <div className="bg-gold/10 border border-gold rounded-lg p-6 space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-sm mb-1">Name</p>
+                        <p className="font-semibold text-gold">
+                          {formData.firstName} {formData.lastName}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm mb-1">Email</p>
+                        <p className="font-semibold text-gold">{formData.email}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm mb-1">Phone</p>
+                        <p className="font-semibold text-gold">{formData.phone || "Not provided"}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm mb-1">Service Type</p>
+                        <p className="font-semibold capitalize text-gold">{formData.serviceType}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm mb-1">Number of Guests</p>
+                        <p className="font-semibold text-gold">{formData.guests}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm mb-1">Session Date & Time</p>
+                        <p className="font-semibold text-gold">
+                          {new Date(formData.date).toLocaleDateString("en-CA", {
+                            weekday: "short",
+                            month: "short",
+                            day: "numeric",
+                          })}{" "}
+                          at {formData.time}
+                        </p>
+                      </div>
+                    </div>
+                    {formData.message && (
+                      <div className="pt-4 border-t border-gold">
+                        <p className="text-sm mb-1">Additional Details</p>
+                        <p className="font-semibold text-gold line-clamp-3">{formData.message}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="bg-gold/10 border border-gold rounded-lg p-4">
+                    <p className="text-sm text-gold">
+                      By submitting this form, you agree to our{" "}
+                      <Link href="/privacy" className="text-gold underline">
+                        privacy policy
+                      </Link>{" "}
+                      and{" "}
+                      <Link href="/terms" className="text-gold underline">
+                        terms of service
+                      </Link>
+                      .
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Success Message */}
               {submitted && (
                 <div className="p-4 bg-gold/10 border border-gold rounded-lg text-center">
                   <p className="text-gold font-semibold">Thank you! We'll be in touch shortly.</p>
                 </div>
               )}
+
+              {/* Navigation Buttons */}
+              <div className="flex gap-4 pt-8">
+                <Button
+                  type="button"
+                  onClick={handleBack}
+                  disabled={step === 1}
+                  className={`flex-1 py-4 font-semibold font-serif text-lg rounded-lg transition-all duration-200 ${
+                    step === 1 ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-muted text-foreground hover:bg-border"
+                  }`}
+                >
+                  Back
+                </Button>
+                {step === 4 ? (
+                  <Button
+                    type="submit"
+                    onClick={handleSubmit}
+                    className="flex-1 py-4 gold-glow bg-gold text-primary font-semibold font-serif text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 active:scale-95"
+                  >
+                    {isMobile ? "Submit" : "Submit Booking"}
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={handleNext}
+                    className="flex-1 py-4 gold-glow bg-gold text-primary font-semibold font-serif text-lg rounded-lg hover:shadow-lg  transition-all duration-200  active:scale-95"
+                  >
+                    Next
+                  </Button>
+                )}
+              </div>
             </form>
           </div>
+        </section>
 
-          <div className="space-y-8">
-            <div className="space-y-3">
-              <h2 className="text-3xl font-serif font-bold">Get In Touch</h2>
-              <div className="h-1 w-12 bg-gold rounded-full"></div>
-            </div>
+        <section className="px-6">
+          <div className="space-y-3 my-5">
+            <h2 className="text-3xl font-serif font-bold">Get In Touch</h2>
+            <div className="h-1 w-12 bg-gold rounded-full"></div>
+          </div>
 
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
             <div className="space-y-8">
               <div className="space-y-2">
                 <h3 className="text-sm uppercase tracking-widest font-semibold text-gold mb-3">Location</h3>
@@ -382,7 +774,7 @@ export default function BookingPage() {
             </div>
 
             {/* Studio Map */}
-            <div className="space-y-3 pt-8 border-t border-border">
+            <div className="space-y-3">
               <h3 className="text-sm uppercase tracking-widest font-semibold text-gold">Visit Our Studio</h3>
               <div className="w-full h-64 rounded-lg overflow-hidden border border-border">
                 <iframe
@@ -400,7 +792,7 @@ export default function BookingPage() {
               </p>
             </div>
           </div>
-        </div>
+        </section>
       </section>
 
       <CommonQuestions />
