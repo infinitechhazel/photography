@@ -106,7 +106,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Photography Services */}
-      <section className="py-16 lg:py-20 px-6">
+      <section className="py-16 lg:py-20 px-6 overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold font-serif mb-4 text-balance text-gold">Photography Services</h2>
@@ -115,18 +115,18 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3">
             {photographyServices.map((service, index) => (
               <CardContainer className="inter-var" containerClassName="py-2 lg:py-8">
-                <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black w-auto sm:w-[24rem] h-auto rounded-xl p-4">
+                <CardBody className="bg-gray-50 relative w-full min-w-[260px] group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black h-auto rounded-xl md:p-4">
                   <CardItem translateZ="50">
                     <div
                       key={index}
-                      className="group p-8 rounded-xl border border-border shadow-md bg-card hover:border-gold transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 space-y-6 flex flex-col"
+                      className="group p-8 rounded-xl border border-gold/30 shadow-md bg-card hover:border-gold transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 space-y-6 flex flex-col"
                     >
                       <div>
                         <h3 className="text-xl font-serif font-bold text-foreground mb-2 group-hover:text-gold transition-colors">{service.title}</h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
+                        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">{service.description}</p>
                       </div>
 
                       <div className="space-y-3 grow">
@@ -170,14 +170,14 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3">
             {studioRentalServices.map((service, index) => (
               <CardContainer className="inter-var" containerClassName="py-2 lg:py-8">
-                <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black w-auto sm:w-[24rem] h-auto rounded-xl p-4">
+                <CardBody className="bg-gray-50 relative group/card w-full min-w-[260px] dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black h-auto rounded-xl md:p-4">
                   <CardItem translateZ="50">
                     <div
                       key={index}
-                      className="group p-8 rounded-xl border border-border shadow-md bg-card hover:border-gold transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 space-y-6 flex flex-col"
+                      className="group p-8 rounded-xl border border-gold/30 shadow-md bg-card hover:border-gold transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 space-y-6 flex flex-col"
                     >
                       <div>
                         <h3 className="text-xl font-serif font-bold text-foreground mb-2 group-hover:text-gold transition-colors">{service.title}</h3>

@@ -39,7 +39,7 @@ const CommonQuestions = () => {
                 e.preventDefault()
                 setOpenIndex(openIndex === index ? null : index)
               }}
-              className="group border border-border shadow-md rounded-lg p-6 hover:border-gold transition-colors"
+              className="group border border-gold/30 shadow-md rounded-lg p-6 hover:border-gold transition-colors"
             >
               <summary className="flex items-center justify-between cursor-pointer font-semibold text-foreground">
                 {faq.q}

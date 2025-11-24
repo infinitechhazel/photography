@@ -22,7 +22,7 @@ const About = () => {
     },
     {
       icon: Users,
-      title: "Client Focused",
+      title: "Client Committment",
       description: "Your satisfaction is our priority. We work closely with you to ensure your expectations are exceeded.",
     },
   ]
@@ -60,21 +60,20 @@ const About = () => {
 
   return (
     <div className="min-h-screen pt-16 bg-background">
-       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
+      {/* Hero Section */}
+      <section className="pt-20 pb-20 px-6">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <p className="text-sm uppercase tracking-widest text-gold font-semibold">About Us</p>
-          <h1 className="text-5xl md:text-6xl font-bold font-serif text-balance">
-            Luminous Studio: A Legacy of Excellence
-          </h1>
+          <h1 className="text-5xl md:text-6xl font-bold font-serif text-balance">Luminous Studio: A Legacy of Excellence</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Since our founding, we've been dedicated to creating exceptional photography that tells your unique story with elegance, artistry, and professionalism.
+            Since our founding, we've been dedicated to creating exceptional photography that tells your unique story with elegance, artistry, and
+            professionalism.
           </p>
         </div>
       </section>
 
       {/* Story Section */}
-      <section className="py-24 px-4 bg-slate-900 text-primary-foreground">
+      <section className="py-10 px-4 bg-slate-900 text-primary-foreground">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-6">Our Story</h2>
@@ -103,7 +102,7 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-24 px-4">
+      <section className="py-10 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Our Values</h2>
@@ -113,7 +112,7 @@ const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {values.map((value, index) => (
-              <Card key={index} className="p-8 text-center border-2 border-border hover:border-gold transition-all duration-300">
+              <Card key={index} className="p-8 text-center border border-gold/30 hover:border-gold transition-all duration-300">
                 <value.icon className="h-12 w-12 text-gold mx-auto mb-4" />
                 <h3 className="text-xl font-bold mb-3">{value.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{value.description}</p>
@@ -124,7 +123,7 @@ const About = () => {
       </section>
 
       {/* Experience Section */}
-      <section className="py-24 px-4">
+      <section className="py-5 px-4">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Our Experience</h2>
@@ -134,8 +133,8 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="p-8">
               <div className="text-5xl font-bold text-gold mb-2">10+</div>
-              <div className="text-xl font-semibold mb-2">Years Experience</div>
-              <p className="text-muted-foreground">Over a decade of capturing beautiful moments</p>
+              <div className="text-xl font-semibold mb-2">Years</div>
+              <p className="text-muted-foreground">Over a decade of capturing moments</p>
             </div>
 
             <div className="p-8">
@@ -153,7 +152,7 @@ const About = () => {
         </div>
       </section>
 
-      <section className="py-20 px-6">
+      <section className="py-5 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12 space-y-4">
             <p className="text-sm uppercase tracking-widest text-gold font-semibold">Our Creative Space</p>
@@ -167,31 +166,31 @@ const About = () => {
             </p>
 
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="p-8 bg-card rounded-xl border border-border hover:border-gold transition-colors">
+              <div className="p-8 bg-card rounded-xl border border-gold/30 hover:border-gold transition-colors">
                 <div className="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center">
                   <CameraIcon className="h-8 w-8 text-gold mx-auto" />
                 </div>
-                <h3 className="font-serif font-bold text-xl mb-2">Professional Equipment</h3>
+                <h3 className="font-serif font-bold text-xl my-2">Professional Equipment</h3>
                 <p className="text-muted-foreground text-sm">
                   Industry-leading cameras, lenses, and lighting systems from the world's top manufacturers.
                 </p>
               </div>
 
-              <div className="p-8 bg-card rounded-xl border border-border hover:border-gold transition-colors">
+              <div className="p-8 bg-card rounded-xl border border-gold/30 hover:border-gold transition-colors">
                 <div className="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center">
                   <AwardIcon className="h-8 w-8 text-gold mx-auto" />
                 </div>
-                <h3 className="font-serif font-bold text-xl mb-2">Production Capabilities</h3>
+                <h3 className="font-serif font-bold text-xl my-2">Production Capabilities</h3>
                 <p className="text-muted-foreground text-sm">
                   Full video production, drone photography, editing suites, and post-production facilities.
                 </p>
               </div>
 
-              <div className="p-8 bg-card rounded-xl border border-border hover:border-gold transition-colors">
+              <div className="p-8 bg-card rounded-xl border border-gold/30 hover:border-gold transition-colors">
                 <div className="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center">
                   <Palette className="h-8 w-8 text-gold mx-auto" />
                 </div>
-                <h3 className="font-serif font-bold text-xl mb-2">Creative Environment</h3>
+                <h3 className="font-serif font-bold text-xl my-2">Creative Environment</h3>
                 <p className="text-muted-foreground text-sm">
                   Multiple backdrops, infinity coves, natural light studios, and comfort lounges for clients.
                 </p>
@@ -212,16 +211,16 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
             {teamMembers.map((member, index) => (
-              <div key={index} className="group rounded-xl overflow-hidden border border-border hover:border-gold transition-all duration-300">
+              <div key={index} className="group rounded-xl overflow-hidden border border-gold/30 hover:border-gold transition-all duration-300">
                 {/* Image */}
                 <div className="relative h-64 overflow-hidden bg-muted">
                   <Image
                     src={member.image || "/placeholder.svg"}
                     alt={member.name}
-                      width={300}
-                  height={300}
+                    width={300}
+                    height={300}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -280,7 +279,9 @@ const About = () => {
       {/* CTA Section */}
       <section className="py-20 px-6 bg-slate-900 text-primary-foreground">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-4xl md:text-5xl font-bold font-serif text-balance">Let's Create Something <span className="gradient-text">Beautiful</span></h2>
+          <h2 className="text-4xl md:text-5xl font-bold font-serif text-balance">
+            Let's Create Something <span className="gradient-text">Beautiful</span>
+          </h2>
           <p className="text-lg text-primary-foreground/90 max-w-2xl mx-auto">
             Ready to work with our team? Let's discuss your vision and bring it to life.
           </p>

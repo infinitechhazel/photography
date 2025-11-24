@@ -1,5 +1,5 @@
 "use client"
-import CommonQuestions from "@/components/CommonQuestions"
+import CommonQuestions from "@/components/common-questions"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ChevronLeft, ChevronRight, Star } from "lucide-react"
@@ -8,25 +8,12 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { useRef } from "react"
 
-// import heroImage from "@/assets/hero-studio.jpg";
-// import weddingImage from "@/assets/wedding-portfolio.jpg";
-// import portraitImage from "@/assets/portrait-portfolio.jpg";
-// import eventImage from "@/assets/event-portfolio.jpg";
-// import productImage from "@/assets/product-portfolio.jpg";
-
 export default function Home() {
-  // const categories = [
-  //   { name: "Weddings", image: weddingImage, path: "/portfolio/weddings" },
-  //   { name: "Portraits", image: portraitImage, path: "/portfolio/portraits" },
-  //   { name: "Events", image: eventImage, path: "/portfolio/events" },
-  //   { name: "Products", image: productImage, path: "/portfolio/products" },
-  // ];
-
   const categories = [
-    { name: "Weddings", path: "/portfolio" },
-    { name: "Portraits", path: "/portfolio" },
-    { name: "Events", path: "/portfolio" },
-    { name: "Products", path: "/portfolio" },
+    { name: "Weddings", path: "/portfolio", image: "/wedding-photography.jpg" },
+    { name: "Portraits", path: "/portfolio", image: "/wedding-photography.jpg" },
+    { name: "Events", path: "/portfolio", image: "/wedding-photography.jpg" },
+    { name: "Products", path: "/portfolio", image: "/wedding-photography.jpg" },
   ]
 
   const testimonials = [
@@ -129,9 +116,8 @@ export default function Home() {
             <div className="absolute bottom-0 left-1/3 w-32 h-32 sm:w-56 sm:h-56 md:w-80 md:h-80 bg-gold/20 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
           </div>
 
-          <div className="max-w-6xl mx-auto relative z-10">
-            <div className="grid md:grid-cols-2 gap-10 lg:gap-14 items-center">
-              {/* Text Content */}
+          <div className="max-w-6xl mx-auto relative z-10 mt-10">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
               <div className="space-y-4 sm:space-y-6 text-center md:text-left">
                 <p className="text-xs sm:text-sm uppercase tracking-widest text-gold font-semibold drop-shadow-lg">Welcome to Luminous Studio</p>
 
@@ -161,15 +147,15 @@ export default function Home() {
               </div>
 
               {/* Hero Image */}
-              <div className="relative overflow-hidden h-72 sm:h-80 md:h-full min-h-72">
+              <div className="relative overflow-hidden h-72 sm:h-80 lg:h-full min-h-72">
                 <div className="absolute inset-0 bg-linear-to-br from-gold/30 via-transparent to-primary/30 rounded-2xl shadow-2xl shadow-gold/20"></div>
-                {/* <Image
-                  src="/photography-studio.png"
+                <Image
+                  src="/jewelry-product-photography.png"
                   alt="Luxury photography studio"
                   width={250}
                   height={250}
-                  className="w-full h-full object-cover rounded-2xl shimmer-effect"
-                /> */}
+                  className="w-full h-full object-contain rounded-2xl"
+                />
               </div>
             </div>
           </div>
@@ -200,7 +186,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {categories.map((category) => (
                 <Link key={category.name} href={category.path} className="group">
-                  <Card className="p-0 overflow-hidden border-2 border-transparent hover:border-border-linear-to-r hover:from-yellow-600 hover:to-yellow-500 transition-all duration-300">
+                  <Card className="p-0 h-96 md:h-full overflow-hidden border border-gold/30 hover:border-border-linear-to-r hover:from-yellow-600 hover:to-yellow-500 transition-all duration-300">
                     <motion.div
                       initial={{ opacity: 0, y: 50 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -208,11 +194,13 @@ export default function Home() {
                       viewport={{ once: true, amount: 0.5 }}
                       className="relative aspect-3/4 overflow-hidden"
                     >
-                      {/* <Image
-                      src={category.image}
-                      alt={category.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    /> */}
+                      <Image
+                        src={category.image || "/placeholder.svg"}
+                        alt={category.name}
+                        width={250}
+                        height={250}
+                        className="w-full h-full object-cover transition-transform shimmer-effect duration-500 group-hover:scale-110"
+                      />
                       <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                       <div className="absolute bottom-0 left-0 right-0 p-6">
                         <h3 className="text-2xl font-bold text-white mb-2">{category.name}</h3>
@@ -252,8 +240,8 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
                   key={index}
-                  tabIndex={1} 
-                  className="p-8 min-w-[300px] rounded-xl snap-center border border-border bg-gray-50 shadow-md hover:border-gold transition-all duration-300 hover:shadow-xl hover:shadow-gold/20 space-y-4 hover:bg-white/50"
+                  tabIndex={1}
+                  className="p-8 min-w-[300px] rounded-xl snap-center border border-gold/30 bg-gray-50 shadow-md hover:border-gold transition-all duration-300 hover:shadow-xl hover:shadow-gold/20 space-y-4 hover:bg-white/50"
                 >
                   <div className="flex gap-1">
                     {Array(testimonial.rating)
@@ -265,7 +253,7 @@ export default function Home() {
                       ))}
                   </div>
 
-                  <p className="text-foreground leading-relaxed italic text-wrap">"{testimonial.content}"</p>
+                  <p className="text-foreground leading-relaxed italic line-clamp-5">"{testimonial.content}"</p>
 
                   <div className="pt-4 border-t border-gold/30">
                     <p className="font-semibold text-foreground">{testimonial.name}</p>

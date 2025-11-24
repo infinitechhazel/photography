@@ -1,9 +1,11 @@
 "use client"
 import { useState } from "react"
 import { Facebook, MessageCircle, Send, Mail, Phone, Share2, X } from "lucide-react"
+import { useLockBodyScroll } from "@/hooks/use-scroll"
 
 const FloatingSocialIcons = () => {
   const [isOpen, setIsOpen] = useState(false)
+  useLockBodyScroll(isOpen)
 
   const socialLinks = [
     {
@@ -126,7 +128,7 @@ const FloatingSocialIcons = () => {
             shadow-xl
             transition-all duration-300
             active:scale-95
-            ${isOpen ? "bg-gray-700 hover:bg-gray-800 rotate-0" : "gold-glow rotate-0"}
+            ${isOpen ? "bg-yellow-400 hover:bg-yellow-200 rotate-0" : "gold-glow rotate-0"}
           `}
         >
           {isOpen ? <X className="w-7 h-7 transition-transform duration-300" /> : <Share2 className="w-7 h-7 transition-transform duration-300" />}

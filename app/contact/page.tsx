@@ -1,11 +1,12 @@
 "use client"
-import CommonQuestions from "@/components/CommonQuestions"
+import CommonQuestions from "@/components/common-questions"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { labels } from "@/lib/constants"
 
 interface TimeSlot {
   time: string
@@ -27,8 +28,10 @@ interface FormData {
 export default function BookingPage() {
   const [step, setStep] = useState(1)
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [currentDate, setCurrentDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -44,17 +47,17 @@ export default function BookingPage() {
   const [errors, setErrors] = useState<Partial<FormData>>({})
   const isMobile = useIsMobile()
 
-  const allTimes = ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"]
+  const allTimes = ["09:00 AM", "10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"]
 
   const bookedDates = [
     { date: "2025-11-21", time: ["10:00 AM"] },
     { date: "2025-11-24", time: ["10:00 AM", "02:00 PM"] },
     { date: "2025-11-25", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
     { date: "2025-11-30", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
-    { date: "2025-12-01", time: ["10:00 AM"] },
+    { date: "2025-12-01", time: ["10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM"] },
     { date: "2025-12-11", time: ["10:00 AM"] },
     { date: "2025-12-21", time: ["10:00 AM"] },
-    { date: "2025-12-22", time: ["9:00 AM"] },
+    { date: "2025-12-22", time: ["09:00 AM"] },
     { date: "2025-12-23", time: ["10:00 AM"] },
     { date: "2025-12-24", time: ["10:00 AM"] },
     { date: "2025-12-25", time: ["10:00 AM"] },
@@ -174,6 +177,7 @@ export default function BookingPage() {
 
   const validateStep = (currentStep: number) => {
     const newErrors: Partial<FormData> = {}
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
     if (currentStep === 1) {
       if (!formData.firstName.trim()) {
@@ -182,7 +186,7 @@ export default function BookingPage() {
 
       if (!formData.email.trim()) {
         newErrors.email = "Email required"
-      } else if (!formData.email.includes("@")) {
+      } else if (!emailRegex.test(formData.email)) {
         newErrors.email = "Valid email required"
       }
     }
@@ -228,9 +232,8 @@ export default function BookingPage() {
 
     if (step !== 4) return
 
-    setSubmitted(true)
-
     try {
+      setIsSubmitting(true)
       const res = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -240,6 +243,7 @@ export default function BookingPage() {
       const data = await res.json()
 
       if (data.success) {
+        setSubmitted(true)
         toast.success("Message Sent!", {
           description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
           position: "top-right",
@@ -267,6 +271,7 @@ export default function BookingPage() {
       }
     } catch (error) {
       console.error(error)
+      setIsSubmitting(false)
       toast.error("Something went wrong", {
         description: "Please try again later.",
         position: "top-right",
@@ -275,6 +280,7 @@ export default function BookingPage() {
     }
 
     setTimeout(() => {
+      setIsSubmitting(false)
       setSubmitted(false)
       setStep(1)
     }, 3000)
@@ -307,12 +313,9 @@ export default function BookingPage() {
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="py-20 px-6">
-        {/* Booking Form */}
-        <section className="py-20 px-6">
+      <section className="py-10 px-6">
+        <section>
           <div className="max-w-2xl mx-auto">
-            {/* Step Indicator */}
             <div className="mb-12 mx-auto">
               <div className="flex items-center justify-between mb-8 mx-auto">
                 {[1, 2, 3, 4].map((stepNum) => (
@@ -417,7 +420,9 @@ export default function BookingPage() {
                         errors.serviceType ? "border-red-500" : "border-border"
                       }`}
                     >
-                      <option value="">Select a service</option>
+                      <option value="" disabled>
+                        Select a service
+                      </option>
                       <option value="wedding">Wedding Photography</option>
                       <option value="portrait">Portrait Session</option>
                       <option value="event">Event Photography</option>
@@ -481,7 +486,6 @@ export default function BookingPage() {
                         </Button>
                       </div>
 
-                      {/* Day names */}
                       <div className="grid grid-cols-7 gap-2 mb-4">
                         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
                           <div key={day} className="text-center font-semibold text-gold text-sm uppercase tracking-widest">
@@ -490,7 +494,6 @@ export default function BookingPage() {
                         ))}
                       </div>
 
-                      {/* Calendar days */}
                       <div className="grid grid-cols-7 gap-2">
                         {days.map((day, index) => {
                           const isBooked = isDateBooked(day, currentDate) || isPastDate(day)
@@ -517,10 +520,7 @@ export default function BookingPage() {
                         })}
                       </div>
 
-                      {/* Legend */}
                       <div className="mt-8 pt-8 border-t border-gold/20 flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6">
-                        {errors.date && <p className="text-red-500 text-sm mt-2 w-full">{errors.date}</p>}
-
                         <div className="flex items-center gap-2">
                           <div className="w-4 h-4 bg-gold/20 rounded"></div>
                           <span className="text-sm text-muted-foreground">Available</span>
@@ -533,6 +533,7 @@ export default function BookingPage() {
                       </div>
                     </div>
                   </div>
+                  {errors.date && <p className="text-red-500 text-sm w-full">{errors.date}</p>}
 
                   {formData.date && (
                     <div className="animate-fadeIn">
@@ -561,7 +562,6 @@ export default function BookingPage() {
                     </div>
                   )}
 
-                  {/* Selected Summary */}
                   {formData.date && formData.time && (
                     <div className="bg-gold/10 border border-gold rounded-lg p-4 animate-fadeIn">
                       <p className="text-sm text-muted-foreground mb-1">Selected Session</p>
@@ -608,7 +608,7 @@ export default function BookingPage() {
                       </div>
                       <div>
                         <p className="text-sm mb-1">Email</p>
-                        <p className="font-semibold text-gold">{formData.email}</p>
+                        <p className="font-semibold text-gold line-clamp-1">{formData.email}</p>
                       </div>
                       <div>
                         <p className="text-sm mb-1">Phone</p>
@@ -616,7 +616,9 @@ export default function BookingPage() {
                       </div>
                       <div>
                         <p className="text-sm mb-1">Service Type</p>
-                        <p className="font-semibold capitalize text-gold">{formData.serviceType}</p>
+                        <p className="font-semibold capitalize text-gold">
+                          {labels[formData.serviceType as keyof typeof labels] || formData.serviceType}
+                        </p>
                       </div>
                       <div>
                         <p className="text-sm mb-1">Number of Guests</p>
@@ -671,7 +673,7 @@ export default function BookingPage() {
                   type="button"
                   onClick={handleBack}
                   disabled={step === 1}
-                  className={`flex-1 py-4 font-semibold font-serif text-lg rounded-lg transition-all duration-200 ${
+                  className={`flex-1 py-4 font-semibold text-lg rounded-lg transition-all duration-200 ${
                     step === 1 ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-muted text-foreground hover:bg-border"
                   }`}
                 >
@@ -681,7 +683,8 @@ export default function BookingPage() {
                   <Button
                     type="submit"
                     onClick={handleSubmit}
-                    className="flex-1 py-4 gold-glow bg-gold text-primary font-semibold font-serif text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 active:scale-95"
+                    disabled={isSubmitting}
+                    className="flex-1 py-4 gold-glow bg-gold text-primary font-semibold text-lg rounded-lg hover:shadow-lg hover:shadow-gold/40 transition-all duration-200 active:scale-95"
                   >
                     {isMobile ? "Submit" : "Submit Booking"}
                   </Button>
@@ -689,7 +692,7 @@ export default function BookingPage() {
                   <Button
                     type="button"
                     onClick={handleNext}
-                    className="flex-1 py-4 gold-glow bg-gold text-primary font-semibold font-serif text-lg rounded-lg hover:shadow-lg  transition-all duration-200  active:scale-95"
+                    className="flex-1 py-4 gold-glow bg-gold text-primary font-semibold text-lg rounded-lg hover:shadow-lg  transition-all duration-200  active:scale-95"
                   >
                     Next
                   </Button>
@@ -699,10 +702,10 @@ export default function BookingPage() {
           </div>
         </section>
 
-        <section className="px-6">
-          <div className="space-y-3 my-5">
+        <section>
+          <div className="space-y-3 my-20 text-center">
             <h2 className="text-3xl font-serif font-bold">Get In Touch</h2>
-            <div className="h-1 w-12 bg-gold rounded-full"></div>
+            <div className="h-1 w-12 mx-auto bg-gold rounded-full"></div>
           </div>
 
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">

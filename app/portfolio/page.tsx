@@ -1,6 +1,6 @@
 "use client"
 
-import { GalleryLightbox } from "@/components/GalleryLightbox"
+import { GalleryLightbox } from "@/components/gallery-lightbox"
 import { Button } from "@/components/ui/button"
 import { useLockBodyScroll } from "@/hooks/use-scroll"
 import { motion } from "motion/react"
@@ -22,13 +22,13 @@ const galleryImages: GalleryImage[] = [
   { id: "2", src: "/bride-and-groom.png", alt: "Bride and groom", category: "weddings", title: "Bride & Groom" },
   { id: "3", src: "/wedding-reception-details.jpg", alt: "Reception details", category: "weddings", title: "Reception Details" },
   { id: "4", src: "/professional-headshot.png", alt: "Professional headshot", category: "portraits", title: "Professional Portrait" },
-  { id: "5", src: "/lifestyle-portrait-session.jpg", alt: "Lifestyle portrait", category: "portraits", title: "Lifestyle Session" },
+  { id: "5", src: "/lifestyle-portrait.jpg", alt: "Lifestyle portrait", category: "portraits", title: "Lifestyle Session" },
   { id: "6", src: "/family-portrait-outdoors.jpg", alt: "Family portrait", category: "portraits", title: "Family Portrait" },
   { id: "7", src: "/corporate-event-networking.png", alt: "Corporate event", category: "events", title: "Corporate Event" },
   { id: "8", src: "/gala-event-photography.jpg", alt: "Gala event", category: "events", title: "Gala Evening" },
   { id: "9", src: "/party-event-celebration.jpg", alt: "Party event", category: "events", title: "Celebration Party" },
   { id: "10", src: "/luxury-product-photography-watch.jpg", alt: "Product photography", category: "products", title: "Luxury Watch" },
-  { id: "11", src: "/jewelry-product-photography.jpg", alt: "Jewelry product", category: "products", title: "Jewelry Collection" },
+  { id: "11", src: "/jewelry-photography.jpg", alt: "Jewelry product", category: "products", title: "Jewelry Collection" },
   { id: "12", src: "/product-photography-cosmetics.jpg", alt: "Beauty products", category: "products", title: "Beauty Products" },
   { id: "13", src: "/studio-setup-professional-lighting.jpg", alt: "Studio shoot", category: "studio", title: "Studio Lighting" },
   { id: "14", src: "/studio-backdrop-photography.jpg", alt: "Studio backdrop", category: "studio", title: "Studio Backdrop" },
@@ -83,7 +83,7 @@ export default function PortfolioPage() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <section className="pt-32 pb-12 px-6">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto ">
           <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground mb-4">Portfolio</h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
             Explore our curated collection of work across weddings, portraits, events, products, and studio shoots.
@@ -126,13 +126,13 @@ export default function PortfolioPage() {
                 className="group relative overflow-hidden rounded-lg bg-muted cursor-pointer aspect-square border-gold"
                 onClick={() => handleImageClick(image)}
               >
-                <Image
-                  src={image.src || "/placeholder.svg"}
-                  alt={image.alt}
-                    width={300}
-                  height={300}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+                
+                  <Image
+                    src={image.src || "/placeholder.svg"}
+                    alt={image.alt}
+                    fill
+                    className="object-cover w-full h-full transition-transform duration-500 shimmer-effect group-hover:scale-105"
+                  />
 
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-end">
                   <div className="w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
