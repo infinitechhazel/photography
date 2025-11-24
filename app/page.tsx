@@ -233,7 +233,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div ref={scrollRef} className="flex overflow-y-hidden overflow-x-auto gap-8 snap-x snap-mandatory scrollbar-hide scroll-smooth">
+            <div ref={scrollRef} className="flex overflow-y-hidden overflow-x-auto gap-8  snap-x snap-mandatory scrollbar-hide scroll-smooth">
               {testimonials.map((testimonial, index) => (
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
@@ -241,7 +241,7 @@ export default function Home() {
                   transition={{ duration: 0.8 }}
                   key={index}
                   tabIndex={1}
-                  className="p-8 min-w-[300px] rounded-xl snap-center border border-gold/30 bg-gray-50 shadow-md hover:border-gold transition-all duration-300 hover:shadow-xl hover:shadow-gold/20 space-y-4 hover:bg-white/50"
+                  className="p-8 min-w-[300px] rounded-xl snap-center border mb-6 border-gold/30 bg-gray-50 shadow-md hover:border-gold transition-all duration-300 hover:shadow-xl hover:shadow-gold/20 space-y-4 hover:bg-white/50"
                 >
                   <div className="flex gap-1">
                     {Array(testimonial.rating)

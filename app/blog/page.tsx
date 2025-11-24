@@ -125,7 +125,7 @@ const posts = [
           <div
             className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center 
                     bg-linear-to-r from-gold/20 via-gold/10 to-transparent 
-                    rounded-2xl overflow-hidden border border-gold/20 
+                    rounded-2xl overflow-hidden border border-gold/30 
                     hover:border-gold/40 transition-all duration-300 p-6 sm:p-8"
           >
             <Image
@@ -189,7 +189,7 @@ const posts = [
                   viewport={{ once: true, amount: 0.5 }}
                   key={index}
                 >
-                  <Card key={index} className="gap-0 p-0 h-[500px] group overflow-hidden border-2 border-border hover:border-gold transition-all duration-300">
+                  <Card key={index} className="gap-0 p-0 group overflow-hidden border border-gold/30 hover:border-gold transition-all duration-300">
                     <div className="relative aspect-video overflow-hidden">
                       <Image
                         src={post.image || "/placeholder.svg"}

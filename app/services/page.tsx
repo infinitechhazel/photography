@@ -118,7 +118,7 @@ export default function ServicesPage() {
           <div className="grid md:grid-cols-2 xl:grid-cols-3">
             {photographyServices.map((service, index) => (
               <CardContainer className="inter-var" containerClassName="py-2 lg:py-8">
-                <CardBody className="bg-gray-50 relative w-full min-w-[260px] group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black h-auto rounded-xl md:p-4">
+                <CardBody className="bg-gray-50 relative w-full min-w-[260px] group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black h-auto md:h-[500px] rounded-xl md:p-4">
                   <CardItem translateZ="50">
                     <div
                       key={index}
@@ -173,7 +173,7 @@ export default function ServicesPage() {
           <div className="grid md:grid-cols-2 xl:grid-cols-3">
             {studioRentalServices.map((service, index) => (
               <CardContainer className="inter-var" containerClassName="py-2 lg:py-8">
-                <CardBody className="bg-gray-50 relative group/card w-full min-w-[260px] dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black h-auto rounded-xl md:p-4">
+                <CardBody className="bg-gray-50 relative group/card w-full min-w-[260px] dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black h-auto md:h-[500px] rounded-xl md:p-4">
                   <CardItem translateZ="50">
                     <div
                       key={index}
