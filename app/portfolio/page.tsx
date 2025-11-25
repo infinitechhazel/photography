@@ -1,5 +1,4 @@
 "use client"
-
 import { GalleryLightbox } from "@/components/gallery-lightbox"
 import { Button } from "@/components/ui/button"
 import { useLockBodyScroll } from "@/hooks/use-scroll"
@@ -35,20 +34,20 @@ const galleryImages: GalleryImage[] = [
   { id: "15", src: "/studio-model-photography-professional.jpg", alt: "Studio model", category: "studio", title: "Model Session" },
 ]
 
+const categories: { value: Category; label: string }[] = [
+  { value: "all", label: "All Work" },
+  { value: "weddings", label: "Weddings" },
+  { value: "portraits", label: "Portraits" },
+  { value: "events", label: "Events" },
+  { value: "products", label: "Products" },
+  { value: "studio", label: "Studio" },
+]
+
 export default function PortfolioPage() {
   const [selectedCategory, setSelectedCategory] = useState<Category>("all")
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   useLockBodyScroll(lightboxOpen)
-
-  const categories: { value: Category; label: string }[] = [
-    { value: "all", label: "All Work" },
-    { value: "weddings", label: "Weddings" },
-    { value: "portraits", label: "Portraits" },
-    { value: "events", label: "Events" },
-    { value: "products", label: "Products" },
-    { value: "studio", label: "Studio Shoots" },
-  ]
 
   const filteredImages = useMemo(() => {
     if (selectedCategory === "all") return galleryImages
@@ -126,13 +125,12 @@ export default function PortfolioPage() {
                 className="group relative overflow-hidden rounded-lg bg-muted cursor-pointer aspect-square border-gold"
                 onClick={() => handleImageClick(image)}
               >
-                
-                  <Image
-                    src={image.src || "/placeholder.svg"}
-                    alt={image.alt}
-                    fill
-                    className="object-cover w-full h-full transition-transform duration-500 shimmer-effect group-hover:scale-105"
-                  />
+                <Image
+                  src={image.src || "/placeholder.svg"}
+                  alt={image.alt}
+                  fill
+                  className="object-cover w-full h-full transition-transform duration-500 shimmer-effect group-hover:scale-105"
+                />
 
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-end">
                   <div className="w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">

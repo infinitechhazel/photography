@@ -3,7 +3,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { CardBody, CardContainer, CardItem } from "@/components/ui/shadcn-io/3d-card"
 
-export default function ServicesPage() {
   const photographyServices = [
     {
       title: "Wedding Photography",
@@ -88,6 +87,8 @@ export default function ServicesPage() {
     },
   ]
 
+export default function ServicesPage() {
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
@@ -117,7 +118,7 @@ export default function ServicesPage() {
 
           <div className="grid md:grid-cols-2 xl:grid-cols-3">
             {photographyServices.map((service, index) => (
-              <CardContainer className="inter-var" containerClassName="py-2 lg:py-8">
+              <CardContainer className="inter-var" containerClassName="py-2">
                 <CardBody className="bg-gray-50 relative w-full min-w-[260px] group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black h-auto md:h-[500px] rounded-xl md:p-4">
                   <CardItem translateZ="50">
                     <div
@@ -126,7 +127,7 @@ export default function ServicesPage() {
                     >
                       <div>
                         <h3 className="text-xl font-serif font-bold text-foreground mb-2 group-hover:text-gold transition-colors">{service.title}</h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">{service.description}</p>
+                        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">{service.description}</p>
                       </div>
 
                       <div className="space-y-3 grow">
@@ -172,7 +173,7 @@ export default function ServicesPage() {
 
           <div className="grid md:grid-cols-2 xl:grid-cols-3">
             {studioRentalServices.map((service, index) => (
-              <CardContainer className="inter-var" containerClassName="py-2 lg:py-8">
+              <CardContainer className="inter-var" containerClassName="py-2">
                 <CardBody className="bg-gray-50 relative group/card w-full min-w-[260px] dark:hover:shadow-2xl dark:hover:shadow-emerald-500/10 dark:bg-black h-auto md:h-[500px] rounded-xl md:p-4">
                   <CardItem translateZ="50">
                     <div
@@ -181,7 +182,7 @@ export default function ServicesPage() {
                     >
                       <div>
                         <h3 className="text-xl font-serif font-bold text-foreground mb-2 group-hover:text-gold transition-colors">{service.title}</h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed">{service.description}</p>
+                        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">{service.description}</p>
                       </div>
 
                       <div className="space-y-3 grow">

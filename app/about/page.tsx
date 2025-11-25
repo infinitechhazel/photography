@@ -3,7 +3,6 @@ import { Award, AwardIcon, Camera, CameraIcon, Heart, Palette, Users } from "luc
 import Image from "next/image"
 import Link from "next/link"
 
-const About = () => {
   const values = [
     {
       icon: Camera,
@@ -54,6 +53,8 @@ const About = () => {
     },
   ]
 
+const About = () => {
+
   return (
     <div className="min-h-screen pt-16 bg-background">
       {/* Hero Section */}
@@ -69,7 +70,7 @@ const About = () => {
       </section>
 
       {/* Story Section */}
-      <section className="py-10 px-4 bg-slate-900 text-primary-foreground">
+      <section className="py-10 px-6 bg-slate-900 text-primary-foreground">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-6">Our Story</h2>
@@ -98,7 +99,7 @@ const About = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-10 px-4">
+      <section className="py-10 px-6">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Our Values</h2>
@@ -177,7 +178,7 @@ const About = () => {
                   <AwardIcon className="h-8 w-8 text-gold mx-auto" />
                 </div>
                 <h3 className="font-serif font-bold text-xl my-2">Production Capabilities</h3>
-                <p className="text-muted-foreground text-sm">Editing workstations equipped with industry‑standard software</p>
+                <p className="text-muted-foreground text-sm">Editing workstations equipped with industry-standard software</p>
               </div>
 
               <div className="p-8 bg-card rounded-xl border border-gold/30 hover:border-gold transition-colors">

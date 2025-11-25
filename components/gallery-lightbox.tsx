@@ -1,6 +1,5 @@
 "use client"
-
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ChevronLeft, ChevronRight, X } from "lucide-react"
 import Image from "next/image"
 import { Button } from "./ui/button"
@@ -21,6 +20,20 @@ interface GalleryLightboxProps {
 
 export function GalleryLightbox({ image, onClose, onPrevious, onNext, totalImages, currentIndex }: GalleryLightboxProps) {
   const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        onPrevious()
+      }
+      if (e.key === "ArrowRight") {
+        onNext()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [onPrevious, onNext])
 
   return (
     <div className="fixed inset-0 z-50 my-auto bg-black/20 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-300">
@@ -63,7 +76,6 @@ export function GalleryLightbox({ image, onClose, onPrevious, onNext, totalImage
       >
         <ChevronLeft size={32} />
       </Button>
-
       <Button
         onClick={onNext}
         className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-gold transition-colors p-3 hover:bg-white/5 rounded-full md:bg-gold md:hover:text-white  md:p-4 md:shadow-lg md:hover:bg-yellow-400/50"
@@ -71,6 +83,7 @@ export function GalleryLightbox({ image, onClose, onPrevious, onNext, totalImage
       >
         <ChevronRight size={32} />
       </Button>
+      <div className="fixed inset-0 bg-black/20 -z-10" onClick={onClose} />
     </div>
   )
 }

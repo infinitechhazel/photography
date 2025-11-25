@@ -1,8 +1,6 @@
 "use client"
 import { useState } from "react"
 
-const FAQ = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
   const faqs = [
     {
       question: "What is your booking process?",
@@ -73,6 +71,9 @@ const FAQ = () => {
         "Yes! We encourage you to share your photos on social media. We only ask that you tag us or provide credit when posting. All images remain under our copyright, but you have full personal usage rights.",
     },
   ]
+
+const FAQ = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
     <div className="min-h-screen pt-20">

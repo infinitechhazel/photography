@@ -2,96 +2,106 @@
 import CommonQuestions from "@/components/common-questions"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { ChevronLeft, ChevronRight, Star } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+
+const categories = [
+  { name: "Weddings", path: "/portfolio", image: "/wedding-photography.jpg" },
+  { name: "Portraits", path: "/portfolio", image: "/wedding-photography.jpg" },
+  { name: "Events", path: "/portfolio", image: "/wedding-photography.jpg" },
+  { name: "Products", path: "/portfolio", image: "/wedding-photography.jpg" },
+]
+
+const testimonials = [
+  {
+    name: "Sarah & Michael",
+    role: "Couple",
+    content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
+    rating: 5,
+  },
+  {
+    name: "Emma Thompson",
+    role: "Entrepreneur",
+    content: "Our product photography exceeded expectations. The attention to detail and lighting expertise really elevated our brand.",
+    rating: 5,
+  },
+  {
+    name: "James Chen",
+    role: "Corporate Client",
+    content: "From concept to delivery, the team was exceptional. Our event coverage captured the exact energy and essence we wanted.",
+    rating: 5,
+  },
+  {
+    name: "Sarah & Michael",
+    role: "Couple",
+    content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
+    rating: 5,
+  },
+  {
+    name: "Emma Thompson",
+    role: "Entrepreneur",
+    content: "Our product photography exceeded expectations. The attention to detail and lighting expertise really elevated our brand.",
+    rating: 5,
+  },
+  {
+    name: "James Chen",
+    role: "Corporate Client",
+    content: "From concept to delivery, the team was exceptional. Our event coverage captured the exact energy and essence we wanted.",
+    rating: 5,
+  },
+  {
+    name: "Sarah & Michael",
+    role: "Couple",
+    content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
+    rating: 5,
+  },
+  {
+    name: "Emma Thompson",
+    role: "Entrepreneur",
+    content: "Our product photography exceeded expectations. The attention to detail and lighting expertise really elevated our brand.",
+    rating: 5,
+  },
+  {
+    name: "James Chen",
+    role: "Corporate Client",
+    content: "From concept to delivery, the team was exceptional. Our event coverage captured the exact energy and essence we wanted.",
+    rating: 5,
+  },
+  {
+    name: "Sarah & Michael",
+    role: "Couple",
+    content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
+    rating: 5,
+  },
+  {
+    name: "Emma Thompson",
+    role: "Entrepreneur",
+    content: "Our product photography exceeded expectations. The attention to detail and lighting expertise really elevated our brand.",
+    rating: 5,
+  },
+  {
+    name: "James Chen",
+    role: "Corporate Client",
+    content: "From concept to delivery, the team was exceptional. Our event coverage captured the exact energy and essence we wanted.",
+    rating: 5,
+  },
+]
 
 export default function Home() {
-  const categories = [
-    { name: "Weddings", path: "/portfolio", image: "/wedding-photography.jpg" },
-    { name: "Portraits", path: "/portfolio", image: "/wedding-photography.jpg" },
-    { name: "Events", path: "/portfolio", image: "/wedding-photography.jpg" },
-    { name: "Products", path: "/portfolio", image: "/wedding-photography.jpg" },
-  ]
-
-  const testimonials = [
-    {
-      name: "Sarah & Michael",
-      role: "Couple",
-      content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
-      rating: 5,
-    },
-    {
-      name: "Emma Thompson",
-      role: "Entrepreneur",
-      content: "Our product photography exceeded expectations. The attention to detail and lighting expertise really elevated our brand.",
-      rating: 5,
-    },
-    {
-      name: "James Chen",
-      role: "Corporate Client",
-      content: "From concept to delivery, the team was exceptional. Our event coverage captured the exact energy and essence we wanted.",
-      rating: 5,
-    },
-    {
-      name: "Sarah & Michael",
-      role: "Couple",
-      content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
-      rating: 5,
-    },
-    {
-      name: "Emma Thompson",
-      role: "Entrepreneur",
-      content: "Our product photography exceeded expectations. The attention to detail and lighting expertise really elevated our brand.",
-      rating: 5,
-    },
-    {
-      name: "James Chen",
-      role: "Corporate Client",
-      content: "From concept to delivery, the team was exceptional. Our event coverage captured the exact energy and essence we wanted.",
-      rating: 5,
-    },
-    {
-      name: "Sarah & Michael",
-      role: "Couple",
-      content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
-      rating: 5,
-    },
-    {
-      name: "Emma Thompson",
-      role: "Entrepreneur",
-      content: "Our product photography exceeded expectations. The attention to detail and lighting expertise really elevated our brand.",
-      rating: 5,
-    },
-    {
-      name: "James Chen",
-      role: "Corporate Client",
-      content: "From concept to delivery, the team was exceptional. Our event coverage captured the exact energy and essence we wanted.",
-      rating: 5,
-    },
-    {
-      name: "Sarah & Michael",
-      role: "Couple",
-      content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
-      rating: 5,
-    },
-    {
-      name: "Emma Thompson",
-      role: "Entrepreneur",
-      content: "Our product photography exceeded expectations. The attention to detail and lighting expertise really elevated our brand.",
-      rating: 5,
-    },
-    {
-      name: "James Chen",
-      role: "Corporate Client",
-      content: "From concept to delivery, the team was exceptional. Our event coverage captured the exact energy and essence we wanted.",
-      rating: 5,
-    },
-  ]
-
   const scrollRef = useRef<HTMLDivElement | null>(null)
+  const [isAtStart, setIsAtStart] = useState(true)
+  const [isAtEnd, setIsAtEnd] = useState(false)
+
+  const checkScrollPosition = () => {
+    if (!scrollRef.current) return
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+
+    setIsAtStart(scrollLeft === 0)
+    setIsAtEnd(scrollLeft + clientWidth >= scrollWidth)
+  }
 
   const scrollLeft = () => {
     if (scrollRef.current) {
@@ -104,6 +114,16 @@ export default function Home() {
       scrollRef.current.scrollBy({ left: 600, behavior: "smooth" })
     }
   }
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    checkScrollPosition() // initial check
+    el.addEventListener("scroll", checkScrollPosition)
+
+    return () => el.removeEventListener("scroll", checkScrollPosition)
+  }, [])
 
   return (
     <main className="min-h-screen">
@@ -167,8 +187,8 @@ export default function Home() {
             <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mx-auto mb-8" />
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Where Art Meets Excellence</h2>
             <p className="text-lg text-primary-foreground/80 leading-relaxed">
-              Our studio combines cutting-edge technology with artistic vision, creating the perfect environment for capturing your
-              most important moments. From intimate portraits to grand celebrations, we bring your vision to life.
+              Our studio combines cutting-edge technology with artistic vision, creating the perfect environment for capturing your most important
+              moments. From intimate portraits to grand celebrations, we bring your vision to life.
             </p>
           </div>
         </section>
@@ -263,10 +283,22 @@ export default function Home() {
               ))}
             </div>
             <div className="hidden lg:flex justify-center mt-4 gap-4">
-              <button onClick={scrollLeft} className="bg-gold text-white p-4 rounded-full shadow-lg hover:bg-gold/80 transition">
+              <button
+                onClick={scrollLeft}
+                disabled={isAtStart}
+                className={`bg-gold text-white p-4 rounded-full shadow-lg transition ${
+                  isAtStart ? "opacity-50 cursor-not-allowed" : "hover:bg-gold/80"
+                }`}
+              >
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <button onClick={scrollRight} className="bg-gold text-white p-4 rounded-full shadow-lg hover:bg-gold/80 transition">
+              <button
+                onClick={scrollRight}
+                disabled={isAtEnd}
+                className={`bg-gold text-white p-4 rounded-full shadow-lg transition ${
+                  isAtEnd ? "opacity-50 cursor-not-allowed" : "hover:bg-gold/80"
+                }`}
+              >
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>

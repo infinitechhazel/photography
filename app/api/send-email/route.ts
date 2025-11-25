@@ -14,7 +14,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   })
 
   const mailOptionsOthers = {
-    from: process.env.EMAIL_USER,
+    from: `"Studio Team" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: `Booking Details`,
     html: `
@@ -78,37 +78,51 @@ export async function POST(req: NextRequest, res: NextResponse) {
                       <table width="100%" cellpadding="0" cellspacing="0">
                         <tr>
                           <td style="font-size:14px;color:#6b7280;padding-top:8px;">Name</td>
-                          <td align="right" style="font-size:16px;color:#111827;padding-top:8px;">${firstName} ${lastName}</td>
                         </tr>
-                          <tr>
+                        <tr>
+                          <td style="font-size:16px;color:#111827;padding-top:8px;">${firstName} ${lastName}</td>
+                        </tr>
+                        <tr>
                           <td style="font-size:14px;color:#6b7280;padding-top:8px;">Email</td>
-                          <td align="right" style="font-size:16px;color:#111827;padding-top:8px;">${email}</td>
                         </tr>
-                          <tr>
+                        <tr>
+                          <td style="font-size:16px;color:#111827;padding-top:8px;">${email}</td>
+                        </tr>
+                        <tr>
                           <td style="font-size:14px;color:#6b7280;padding-top:8px;">Phone</td>
-                          <td align="right" style="font-size:16px;color:#111827;padding-top:8px;">${phone}</td>
+                        </tr>
+                        <tr>
+                          <td style="font-size:16px;color:#111827;padding-top:8px;">${phone || "Not provided"}</td>
                         </tr>
                         <tr>
                           <td style="font-size:14px;color:#6b7280;padding-top:8px;">Date & Time</td>
-                          <td align="right" style="font-size:16px;color:#111827;padding-top:8px;">${date} at ${time}</td>
                         </tr>
-                         <tr>
+                        <tr>
+                          <td style="font-size:16px;color:#111827;padding-top:8px;">${date} at ${time}</td>
+                        </tr>
+                        <tr>
                           <td style="font-size:14px;color:#6b7280;padding-top:8px;">Service</td>
-                          <td align="right" style="font-size:16px;color:#111827;padding-top:8px;">
+                        </tr>
+                        <tr>
+                          <td style="font-size:16px;color:#111827;padding-top:8px;">
                            ${labels[serviceType as keyof typeof labels] || serviceType}
                           </td>
                         </tr>
                         <tr>
-                         <tr>
                           <td style="font-size:14px;color:#6b7280;padding-top:8px;">Guest</td>
-                          <td align="right" style="font-size:16px;color:#111827;padding-top:8px;">${guests}</td>
                         </tr>
                         <tr>
-                         <tr>
-                          <td style="font-size:14px;color:#6b7280;padding-top:8px;">Message</td>
-                          <td align="right" style="font-size:16px;color:#111827;padding-top:8px;">${message}</td>
+                          <td style="font-size:16px;color:#111827;padding-top:8px;">${guests}</td>
+                        </tr>
+                        ${
+                          message &&
+                          `<tr>
+                          <td style="font-size:14px;color:#6b7280;padding-top:8px;">Additional Details</td>
                         </tr>
                         <tr>
+                          <td style="font-size:16px;color:#111827;padding-top:8px;">${message}</td>
+                        </tr>`
+                        }
                       </table>
                     </td></tr>
                   </table>
@@ -139,7 +153,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     </body>
     </html>
-
     `,
   }
 

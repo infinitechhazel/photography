@@ -48,7 +48,7 @@ export function Navigation() {
           : "bg-background/95 backdrop-blur-sm border-b border-gold/20"
       } ${isOpen ? "fixed inset-0 z-50 backdrop-blur-sm" : ""}`}
     >
-      <div ref={menuRef} className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+      <div ref={menuRef} className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
@@ -127,7 +127,7 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden mt-4 pb-4 space-y-3 ">
+          <div className="lg:hidden mt-4 pb-4 space-y-3">
             <Link
               href="/"
               className={`block text-sm font-medium transition-colors ${

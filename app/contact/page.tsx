@@ -25,13 +25,29 @@ interface FormData {
   message: string
 }
 
+const allTimes = ["09:00 AM", "10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"]
+
+const bookedDates = [
+  { date: "2025-11-21", time: ["10:00 AM"] },
+  { date: "2025-11-24", time: ["10:00 AM", "02:00 PM"] },
+  { date: "2025-11-25", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
+  { date: "2025-11-30", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
+  { date: "2025-12-01", time: ["10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM"] },
+  { date: "2025-12-11", time: ["10:00 AM"] },
+  { date: "2025-12-21", time: ["10:00 AM"] },
+  { date: "2025-12-22", time: ["09:00 AM"] },
+  { date: "2025-12-23", time: ["10:00 AM"] },
+  { date: "2025-12-24", time: ["10:00 AM"] },
+  { date: "2025-12-25", time: ["10:00 AM"] },
+  { date: "2025-12-26", time: ["10:00 AM"] },
+]
+
 export default function BookingPage() {
   const [step, setStep] = useState(1)
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [currentDate, setCurrentDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
-
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -46,23 +62,6 @@ export default function BookingPage() {
 
   const [errors, setErrors] = useState<Partial<FormData>>({})
   const isMobile = useIsMobile()
-
-  const allTimes = ["09:00 AM", "10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"]
-
-  const bookedDates = [
-    { date: "2025-11-21", time: ["10:00 AM"] },
-    { date: "2025-11-24", time: ["10:00 AM", "02:00 PM"] },
-    { date: "2025-11-25", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
-    { date: "2025-11-30", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
-    { date: "2025-12-01", time: ["10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM"] },
-    { date: "2025-12-11", time: ["10:00 AM"] },
-    { date: "2025-12-21", time: ["10:00 AM"] },
-    { date: "2025-12-22", time: ["09:00 AM"] },
-    { date: "2025-12-23", time: ["10:00 AM"] },
-    { date: "2025-12-24", time: ["10:00 AM"] },
-    { date: "2025-12-25", time: ["10:00 AM"] },
-    { date: "2025-12-26", time: ["10:00 AM"] },
-  ]
 
   const getTimeSlots = (date: string): TimeSlot[] => {
     if (!date) return []
@@ -250,17 +249,6 @@ export default function BookingPage() {
           duration: 5000,
         })
 
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          serviceType: "",
-          date: "",
-          time: "",
-          guests: "1",
-          message: "",
-        })
         setErrors({ email: "", phone: "", date: "", time: "" })
       } else {
         toast.error("Failed to send message", {
@@ -283,6 +271,17 @@ export default function BookingPage() {
       setIsSubmitting(false)
       setSubmitted(false)
       setStep(1)
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        serviceType: "",
+        date: "",
+        time: "",
+        guests: "1",
+        message: "",
+      })
     }, 3000)
   }
 
@@ -645,13 +644,13 @@ export default function BookingPage() {
                   </div>
 
                   <div className="bg-gold/10 border border-gold rounded-lg p-4">
-                    <p className="text-sm text-gold">
+                    <p className="text-sm">
                       By submitting this form, you agree to our{" "}
-                      <Link href="/privacy" className="text-gold underline">
+                      <Link href="/privacy" target="_blank" rel="noopener noreferrer" className="text-gold underline">
                         privacy policy
                       </Link>{" "}
                       and{" "}
-                      <Link href="/terms" className="text-gold underline">
+                      <Link href="/terms" target="_blank" rel="noopener noreferrer" className="text-gold underline">
                         terms of service
                       </Link>
                       .
@@ -781,7 +780,7 @@ export default function BookingPage() {
               <h3 className="text-sm uppercase tracking-widest font-semibold text-gold">Visit Our Studio</h3>
               <div className="w-full h-64 rounded-lg overflow-hidden border border-border">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.1271925565936!2d-74.00601!3d40.71282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a316bb7ae0f%3A0x6b8e63f0c2a6e8a!2s123%20Creative%20St%2C%20New%20York%2C%20NY%2010001!5e0!3m2!1sen!2sus!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.12719!2d-74.00601!3d40.71282!2m3!1f0!2f0!3f0!3m2!1i1024!28!4f13.1!3m3!1m2!1s0x89c25a316bb7ae0f%3A0x6b8e63f0c2a6e8a!2s123%20Creative%20St%2C%20New%20York%2C%20NY%2010001!5e0!3m2!1sen!2sus!4v1234567890"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
