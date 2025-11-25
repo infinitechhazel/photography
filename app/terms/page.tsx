@@ -1,16 +1,16 @@
-
 const Terms = () => {
   return (
     <>
       <main className="min-h-screen bg-background pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-8">Terms of Service</h1>
-          
+
           <div className="space-y-8 text-muted-foreground">
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">Agreement to Terms</h2>
               <p>
-                By booking our photography services or using our website, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+                By booking our photography services or using our website, you agree to be bound by these Terms of Service. If you do not agree to
+                these terms, please do not use our services.
               </p>
             </section>
 
@@ -89,7 +89,8 @@ const Terms = () => {
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">Model Release</h2>
               <p>
-                By participating in a photography session, you grant us permission to use your likeness in photographs for portfolio, marketing, and promotional purposes unless you opt-out in writing before the session.
+                By participating in a photography session, you grant us permission to use your likeness in photographs for portfolio, marketing, and
+                promotional purposes unless you opt-out in writing before the session.
               </p>
             </section>
 
@@ -108,32 +109,32 @@ const Terms = () => {
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">Dispute Resolution</h2>
               <p>
-                Any disputes arising from these terms will be resolved through mediation before pursuing legal action. Both parties agree to communicate in good faith to resolve any issues.
+                Any disputes arising from these terms will be resolved through mediation before pursuing legal action. Both parties agree to
+                communicate in good faith to resolve any issues.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">Changes to Terms</h2>
               <p>
-                We reserve the right to modify these terms at any time. Changes will be posted on this page and take effect immediately. Existing bookings are governed by the terms in place at the time of booking.
+                We reserve the right to modify these terms at any time. Changes will be posted on this page and take effect immediately. Existing
+                bookings are governed by the terms in place at the time of booking.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">Contact</h2>
-              <p>
-                Questions about these terms? Contact us at terms@studiophoto.com or visit our contact page.
-              </p>
+              <p>Questions about these terms? Contact us at terms@studiophoto.com or visit our contact page.</p>
             </section>
 
             <p className="text-sm mt-12 pt-8 border-t border-border">
-              Last Updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              Last Updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
             </p>
           </div>
         </div>
       </main>
     </>
-  );
-};
+  )
+}
 
-export default Terms;
+export default Terms

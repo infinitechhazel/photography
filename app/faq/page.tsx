@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { useState } from "react"
 
 const FAQ = () => {
@@ -8,10 +8,6 @@ const FAQ = () => {
       question: "What is your booking process?",
       answer:
         "Simply fill out the form above with your details and preferred date. We'll review your request and confirm within 24 hours. A deposit secures your booking.",
-    },
-    {
-      question: "How far in advance should I book?",
-      answer: "We recommend booking at least 4-6 weeks in advance for most services. Peak seasons (spring/summer) may require longer lead times.",
     },
     {
       question: "What is your cancellation policy?",
@@ -25,11 +21,6 @@ const FAQ = () => {
       question: "What types of photography services do you offer?",
       answer:
         "We offer a comprehensive range of photography services including weddings, portraits, events, product photography, and studio shoots. Each service is tailored to meet your specific needs and vision.",
-    },
-    {
-      question: "How far in advance should I book a session?",
-      answer:
-        "We recommend booking at least 2-3 months in advance, especially for weddings and events. However, we understand that sometimes you need a photographer on shorter notice, so please reach out and we'll do our best to accommodate you.",
     },
     {
       question: "What is your cancellation policy?",
@@ -100,7 +91,6 @@ const FAQ = () => {
       {/* FAQ Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-           
           <div className="max-w-3xl mx-auto">
             {faqs.map((faq, index) => (
               <details
@@ -128,8 +118,12 @@ const FAQ = () => {
       <section className="py-20 px-6 bg-linear-to-r from-slate-900 via-primary/95 to-slate-900 text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Still Have <span className="gradient-text">Questions?</span></h2>
-            <p className="text-lg text-primary-foreground/90 mb-8">We're here to help! Reach out to us and we'll get back to you as soon as possible.</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Still Have <span className="gradient-text">Questions?</span>
+            </h2>
+            <p className="text-lg text-primary-foreground/90 mb-8">
+              We're here to help! Reach out to us and we'll get back to you as soon as possible.
+            </p>
             <a href="/contact" className="inline-block gold-glow px-8 py-3 rounded-lg font-semibold transition-smooth">
               Contact Us
             </a>

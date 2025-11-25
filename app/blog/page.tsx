@@ -17,7 +17,7 @@ const posts = [
     title: "10 Tips for Perfect Wedding Photography",
     excerpt:
       "Discover the secrets to capturing stunning wedding moments that will be treasured for a lifetime. From lighting to composition, we share our expert tips.",
-    date: "March 15, 2024",
+    date: "March 15, 2025",
     author: "Studio Team",
     label: "Wedding Tips",
     category: "wedding",
@@ -28,7 +28,7 @@ const posts = [
     title: "The Art of Portrait Photography",
     excerpt:
       "Learn how to bring out the best in every portrait session. We explore lighting techniques, posing, and creating a comfortable atmosphere for clients.",
-    date: "March 10, 2024",
+    date: "March 10, 2025",
     author: "Studio Team",
     label: "Portrait Tips",
     category: "portrait",
@@ -39,7 +39,7 @@ const posts = [
     title: "Event Photography Best Practices",
     excerpt:
       "Master the art of event photography with our comprehensive guide. From preparation to execution, ensure you never miss a crucial moment.",
-    date: "March 5, 2024",
+    date: "March 5, 2025",
     author: "Studio Team",
     label: "Event Tips",
     category: "event",
@@ -50,7 +50,7 @@ const posts = [
     title: "Product Photography Essentials",
     excerpt:
       "Highlight your products with stunning visuals. Learn techniques for lighting, angles, and backgrounds that make items stand out.",
-    date: "February 28, 2024",
+    date: "February 28, 2025",
     author: "Studio Team",
     label: "Product Tips",
     category: "product",
@@ -61,33 +61,11 @@ const posts = [
     title: "Commercial Photography Insights",
     excerpt:
       "Explore how to create compelling images for advertising and branding. We cover storytelling, composition, and working with clients.",
-    date: "February 20, 2024",
+    date: "February 20, 2025",
     author: "Studio Team",
     label: "Commercial Tips",
     category: "commercial",
     image: "/commercial-photography.jpg",
-  },
-  {
-    id: "6",
-    title: "Studio Setup Guide",
-    excerpt:
-      "A complete guide to building a professional studio. From lighting rigs to backdrops, learn how to create the perfect environment.",
-    date: "February 10, 2024",
-    author: "Studio Team",
-    label: "Studio Tips",
-    category: "studio",
-    image: "/studio-setup.jpg",
-  },
-  {
-    id: "7",
-    title: "Choosing the Right Gear",
-    excerpt:
-      "We break down the essential cameras, lenses, and accessories every photographer should consider for different types of shoots.",
-    date: "February 1, 2024",
-    author: "Studio Team",
-    label: "Gear Tips",
-    category: "equipment",
-    image: "/photography-gear.jpg",
   },
 ];
 
@@ -101,7 +79,7 @@ const posts = [
     { id: "behind-the-scenes", label: "Behind the Scenes" },
   ]
 
-  const featuredPost = posts[5]
+  const featuredPost = posts[0]
   const filteredPosts = selectedCategory === "all" ? posts : posts.filter((post) => post.category === selectedCategory)
 
   const post = posts.find((p) => p.id === selectedPost)
@@ -149,7 +127,7 @@ const posts = [
 
               <Button
                 onClick={() => setSelectedPost(featuredPost.id)}
-                className="px-4 sm:px-6 py-2 border-2 border-gold text-foreground font-semibold rounded-lg 
+                className="px-4 sm:px-6 py-2 gold-glow 
                      hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 transition-all duration-200 text-sm sm:text-base"
               >
                 Read Full Post
@@ -219,7 +197,7 @@ const posts = [
 
                       <p className=" text-muted-foreground mb-4 leading-relaxed line-clamp-3">{post.excerpt}</p>
 
-                      <Button variant="outline" className="h-auto gold-glow  group" onClick={() => setSelectedPost(post.id)}>
+                      <Button className="h-auto gold-glow  group" onClick={() => setSelectedPost(post.id)}>
                         Read More
                         <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </Button>

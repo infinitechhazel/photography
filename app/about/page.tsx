@@ -32,28 +32,24 @@ const About = () => {
       name: "Alexandra Sterling",
       role: "Founder & Creative Director",
       specialty: "Weddings & Portraits",
-      bio: "With 20+ years of experience, Alexandra established Luminous Studio with a vision to redefine luxury photography.",
       image: "/founder-portrait.jpg",
     },
     {
       name: "Marcus Davidson",
       role: "Lead Photographer",
       specialty: "Events & Commercial",
-      bio: "An award-winning photojournalist, Marcus brings dynamic energy and technical excellence to every project.",
       image: "/photographer-marcus.jpg",
     },
     {
       name: "Elena Vasquez",
       role: "Portrait Specialist",
       specialty: "Studio Portraits & Fashion",
-      bio: "Elena's artistic vision and meticulous attention to detail create timeless, elegant portrait photography.",
       image: "/photographer-elena.jpg",
     },
     {
       name: "James Liu",
       role: "Product & Commercial",
       specialty: "Product & E-commerce",
-      bio: "James specializes in transforming products into visual storytelling, combining technical precision with creative flair.",
       image: "/photographer-james.jpg",
     },
   ]
@@ -88,7 +84,7 @@ const About = () => {
 
             <p>
               Our journey began with a simple belief: every moment deserves to be preserved beautifully. This philosophy drives everything we do, from
-              the initial consultation to the final delivery of your images. We've invested in state-of-the-art equipment and continually refine our
+              the initial consultation to the final delivery of your images. We've invested in equipment and continually refine our
               craft to ensure we deliver nothing but the best.
             </p>
 
@@ -161,7 +157,7 @@ const About = () => {
 
           <div className="space-y-8">
             <p className="text-lg text-muted-foreground leading-relaxed text-center max-w-3xl mx-auto">
-              Nestled in the heart of the city, our state-of-the-art studio spans 5,000 square feet of pure creative potential. Every corner has been
+              Nestled in the heart of the city, our studio spans 5,000 square feet of pure creative potential. Every corner has been
               thoughtfully designed to inspire, accommodate, and bring artistic visions to life.
             </p>
 
@@ -181,9 +177,7 @@ const About = () => {
                   <AwardIcon className="h-8 w-8 text-gold mx-auto" />
                 </div>
                 <h3 className="font-serif font-bold text-xl my-2">Production Capabilities</h3>
-                <p className="text-muted-foreground text-sm">
-                  Full video production, drone photography, editing suites, and post-production facilities.
-                </p>
+                <p className="text-muted-foreground text-sm">Editing workstations equipped with industry‑standard software</p>
               </div>
 
               <div className="p-8 bg-card rounded-xl border border-gold/30 hover:border-gold transition-colors">
@@ -211,7 +205,7 @@ const About = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {teamMembers.map((member, index) => (
               <div key={index} className="group rounded-xl overflow-hidden border border-gold/30 hover:border-gold transition-all duration-300">
                 {/* Image */}
@@ -233,7 +227,6 @@ const About = () => {
                     <p className="text-sm uppercase tracking-widest text-gold font-semibold">{member.role}</p>
                   </div>
                   <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">{member.specialty}</p>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
                 </div>
               </div>
             ))}

@@ -99,7 +99,7 @@ export default function ServicesPage() {
           <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-4">Our Services</p>
           <h1 className="text-4xl md:text-6xl font-bold font-serif leading-tight text-balance mb-6">Premium Photography & Studio Solutions</h1>
           <p className="text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-            From professional photography sessions to state-of-the-art studio rentals, we provide everything you need to bring your creative vision to
+            From professional photography sessions to studio rentals, we provide everything you need to bring your creative vision to
             life.
           </p>
         </div>
@@ -231,7 +231,7 @@ export default function ServicesPage() {
               </h2>
 
               <p className="text-base sm:text-lg text-primary-foreground/95 leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
-                Our studio features state-of-the-art equipment and professional amenities designed for photographers, videographers, and creative
+                Our studio features equipment and professional amenities designed for photographers, videographers, and creative
                 professionals.
               </p>
 

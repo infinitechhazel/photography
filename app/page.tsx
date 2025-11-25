@@ -167,7 +167,7 @@ export default function Home() {
             <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mx-auto mb-8" />
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Where Art Meets Excellence</h2>
             <p className="text-lg text-primary-foreground/80 leading-relaxed">
-              Our state-of-the-art studio combines cutting-edge technology with artistic vision, creating the perfect environment for capturing your
+              Our studio combines cutting-edge technology with artistic vision, creating the perfect environment for capturing your
               most important moments. From intimate portraits to grand celebrations, we bring your vision to life.
             </p>
           </div>

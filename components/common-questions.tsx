@@ -9,10 +9,6 @@ const CommonQuestions = () => {
       a: "Simply fill out the form above with your details and preferred date. We'll review your request and confirm within 24 hours. A deposit secures your booking.",
     },
     {
-      q: "How far in advance should I book?",
-      a: "We recommend booking at least 4-6 weeks in advance for most services. Peak seasons (spring/summer) may require longer lead times.",
-    },
-    {
       q: "What is your cancellation policy?",
       a: "Cancellations made 30+ days before the session receive a full refund. Cancellations within 30 days forfeit the deposit.",
     },
