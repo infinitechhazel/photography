@@ -3,58 +3,61 @@ import { Award, AwardIcon, Camera, CameraIcon, Heart, Palette, Users } from "luc
 import Image from "next/image"
 import Link from "next/link"
 
-  const values = [
-    {
-      icon: Camera,
-      title: "Artistic Excellence",
-      description: "We bring a unique artistic vision to every shoot, creating images that are both beautiful and meaningful.",
-    },
-    {
-      icon: Award,
-      title: "Professional Quality",
-      description: "Our commitment to quality ensures that every photo meets the highest standards of professional photography.",
-    },
-    {
-      icon: Heart,
-      title: "Personal Connection",
-      description: "We take time to understand your story and vision, creating a comfortable and collaborative experience.",
-    },
-    {
-      icon: Users,
-      title: "Client Committment",
-      description: "Your satisfaction is our priority. We work closely with you to ensure your expectations are exceeded.",
-    },
-  ]
+const values = [
+  {
+    icon: Camera,
+    title: "Artistic Excellence",
+    description: "We bring a unique artistic vision to every shoot, creating images that are both beautiful and meaningful.",
+  },
+  {
+    icon: Award,
+    title: "Professional Quality",
+    description: "Our commitment to quality ensures that every photo meets the highest standards of professional photography.",
+  },
+  {
+    icon: Heart,
+    title: "Personal Connection",
+    description: "We take time to understand your story and vision, creating a comfortable and collaborative experience.",
+  },
+  {
+    icon: Users,
+    title: "Client Committment",
+    description: "Your satisfaction is our priority. We work closely with you to ensure your expectations are exceeded.",
+  },
+]
 
-  const teamMembers = [
-    {
-      name: "Alexandra Sterling",
-      role: "Founder & Creative Director",
-      specialty: "Weddings & Portraits",
-      image: "/founder-portrait.jpg",
-    },
-    {
-      name: "Marcus Davidson",
-      role: "Lead Photographer",
-      specialty: "Events & Commercial",
-      image: "/photographer-marcus.jpg",
-    },
-    {
-      name: "Elena Vasquez",
-      role: "Portrait Specialist",
-      specialty: "Studio Portraits & Fashion",
-      image: "/photographer-elena.jpg",
-    },
-    {
-      name: "James Liu",
-      role: "Product & Commercial",
-      specialty: "Product & E-commerce",
-      image: "/photographer-james.jpg",
-    },
-  ]
+const teamMembers = [
+  {
+    name: "Alexandra Sterling",
+    role: "Founder & Creative Director",
+    specialty: "Weddings & Portraits",
+    image: "/founder-portrait.jpg",
+    bio: "Alexandra is the visionary behind the studio and has spent over a decade documenting life's most meaningful moments. Her work blends editorial elegance with genuine emotion, creating timeless imagery with a cinematic feel. She leads every project with intention, artistry, and a deep passion for storytelling.",
+  },
+  {
+    name: "Marcus Davidson",
+    role: "Lead Photographer",
+    specialty: "Events & Commercial",
+    image: "/photographer-marcus.jpg",
+    bio: "Marcus brings unmatched energy and attention to detail to every event and commercial project. With a background in brand photography and live events, he excels at capturing dynamic moments, visual identity, and the essence of environments with clarity and impact.",
+  },
+  {
+    name: "Elena Vasquez",
+    role: "Portrait Specialist",
+    specialty: "Studio Portraits & Fashion",
+    image: "/photographer-elena.jpg",
+    bio: "Elena specializes in high-end portrait and fashion photography, merging technical precision with creative expression. Known for her relaxed directing style and eye for detail, she makes every subject feel confident, comfortable, and unforgettable in front of the camera.",
+  },
+  {
+    name: "James Liu",
+    role: "Product & Commercial",
+    specialty: "Product & E-commerce",
+    image: "/photographer-james.jpg",
+    bio: "With a background in product design and lighting theory, James approaches photography with a refined, technical mindset. His work elevates brands through clean composition, consistent lighting, and curated styling that highlights craftsmanship and product appeal.",
+  },
+]
 
 const About = () => {
-
   return (
     <div className="min-h-screen pt-16 bg-background">
       {/* Hero Section */}
@@ -77,20 +80,18 @@ const About = () => {
             <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mx-auto mb-8" />
           </div>
 
-          <div className="space-y-6 text-lg leading-relaxed text-primary-foreground/80">
+          <div className="space-y-6 text-lg leading-relaxed text-primary-foreground/80 text-center">
             <p>
               Founded with a passion for capturing life's most precious moments, our studio has grown into a premier destination for professional
               photography. With over a decade of experience, we've had the privilege of documenting countless weddings, portraits, and special events.
             </p>
-
             <p>
               Our journey began with a simple belief: every moment deserves to be preserved beautifully. This philosophy drives everything we do, from
-              the initial consultation to the final delivery of your images. We've invested in equipment and continually refine our
-              craft to ensure we deliver nothing but the best.
+              the initial consultation to the final delivery of your images. We've invested in equipment and continually refine our craft to ensure we
+              deliver nothing but the best.
             </p>
-
             <p>
-              What sets us apart is our unique blend of technical expertise and artistic vision. We don't just take photos - we create visual stories
+              What sets us apart is our unique blend of technical expertise and artistic vision. We don't just take photos, we create visual stories
               that you'll treasure for generations. Our team brings diverse backgrounds and specialties, allowing us to approach each project with
               fresh perspectives and innovative techniques.
             </p>
@@ -158,8 +159,8 @@ const About = () => {
 
           <div className="space-y-8">
             <p className="text-lg text-muted-foreground leading-relaxed text-center max-w-3xl mx-auto">
-              Nestled in the heart of the city, our studio spans 5,000 square feet of pure creative potential. Every corner has been
-              thoughtfully designed to inspire, accommodate, and bring artistic visions to life.
+              Our studio is thoughtfully designed to spark creativity and support every artistic vision. Each space is intentionally crafted to
+              inspire, accommodate, and bring ideas to life.
             </p>
 
             <div className="grid md:grid-cols-3 gap-6">
@@ -228,6 +229,7 @@ const About = () => {
                     <p className="text-sm uppercase tracking-widest text-gold font-semibold">{member.role}</p>
                   </div>
                   <p className="text-xs uppercase tracking-widest text-muted-foreground font-semibold">{member.specialty}</p>
+                  <p className="text-muted-foreground text-sm ">{member.bio}</p>
                 </div>
               </div>
             ))}

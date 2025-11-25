@@ -7,98 +7,98 @@ import Image from "next/image"
 import { useState } from "react"
 import { motion } from "motion/react"
 
+const posts = [
+  {
+    id: "1",
+    title: "10 Tips for Perfect Wedding Photography",
+    excerpt:
+      "Discover the secrets to capturing stunning wedding moments that will be treasured for a lifetime. From lighting to composition, we share our expert tips.",
+    content:
+      "Wedding photography is about more than just taking pictures, it’s about telling a story. Start by understanding the couple’s vision and scouting the venue for the best lighting opportunities. Use natural light whenever possible, but don’t be afraid to bring in soft artificial lighting for consistency. Pay attention to candid moments, as they often capture the most genuine emotions. Composition matters: frame shots with leading lines, symmetry, and depth to add artistry. Finally, always back up your files immediately after the shoot to ensure nothing is lost.",
+    date: "March 15, 2025",
+    author: "Studio Team",
+    label: "Wedding Tips",
+    category: "wedding",
+    image: "/wedding-photography.jpg",
+  },
+  {
+    id: "2",
+    title: "The Art of Portrait Photography",
+    excerpt:
+      "Learn how to bring out the best in every portrait session. We explore lighting techniques, posing, and creating a comfortable atmosphere for clients.",
+    content:
+      "Portrait photography is about capturing personality as much as appearance. Start by building rapport with your subject to make them feel comfortable. Lighting plays a crucial role. Soft, diffused light often works best to flatter facial features. Experiment with angles and poses to highlight unique characteristics, and don’t be afraid to incorporate props or environments that reflect the subject’s identity. A relaxed atmosphere leads to authentic expressions, which are the hallmark of a great portrait.",
+    date: "March 10, 2025",
+    author: "Studio Team",
+    label: "Portrait Tips",
+    category: "portrait",
+    image: "/portrait-photography.jpg",
+  },
+  {
+    id: "3",
+    title: "Event Photography Best Practices",
+    excerpt:
+      "Master the art of event photography with our comprehensive guide. From preparation to execution, ensure you never miss a crucial moment.",
+    content:
+      "Event photography requires preparation, anticipation, and adaptability. Before the event, familiarize yourself with the schedule and key participants. Arrive early to scout the venue and plan your angles. During the event, focus on capturing candid moments that convey emotion and atmosphere, while also documenting important highlights like speeches or performances. Use a fast lens to handle low-light conditions, and always carry backup gear. Delivering a balanced mix of wide shots, close-ups, and detail images ensures a complete visual story.",
+    date: "March 5, 2025",
+    author: "Studio Team",
+    label: "Event Tips",
+    category: "event",
+    image: "/event-photography.jpg",
+  },
+  {
+    id: "4",
+    title: "Product Photography Essentials",
+    excerpt: "Highlight your products with stunning visuals. Learn techniques for lighting, angles, and backgrounds that make items stand out.",
+    content:
+      "Product photography is about making items look appealing and true to life. Begin with a clean background that doesn’t distract from the subject. Lighting should be even and controlled. Softboxes or natural diffused light work well to eliminate harsh shadows. Experiment with angles to showcase key features, and consider close-up shots for details. Props can add context, but keep them minimal to avoid clutter. Post-processing should enhance clarity and color accuracy, ensuring the product looks both attractive and authentic.",
+    date: "February 28, 2025",
+    author: "Studio Team",
+    label: "Product Tips",
+    category: "product",
+    image: "/product-photography.jpg",
+  },
+  {
+    id: "5",
+    title: "Commercial Photography Insights",
+    excerpt: "Explore how to create compelling images for advertising and branding. We cover storytelling, composition, and working with clients.",
+    content:
+      "Commercial photography blends creativity with strategy. The goal is to produce images that align with a brand’s identity and marketing objectives. Start by understanding the client’s vision and target audience. Use composition techniques to guide the viewer’s eye toward the product or message. Storytelling is key. Images should evoke emotions that resonate with consumers. Collaboration with art directors and stylists often enhances the final result. Delivering polished, high-quality visuals helps businesses stand out in competitive markets.",
+    date: "February 20, 2025",
+    author: "Studio Team",
+    label: "Commercial Tips",
+    category: "product",
+    image: "/commercial-photography.jpg",
+  },
+  {
+    id: "6",
+    title: "Behind the Lens: A Day in the Studio",
+    excerpt: "Step inside our creative space and see how we prepare for shoots, from setting up backdrops to working with clients.",
+    content:
+      "A typical day in the studio begins with setting up equipment and testing lighting. Backdrops are arranged depending on the theme of the shoot, and props are carefully selected to complement the subject. Collaboration with clients is key, we walk them through the process to make them feel comfortable and confident. Breaks are scheduled to keep energy levels high, and the lounge area provides a space for relaxation. By the end of the day, we review the shots together, ensuring that the client’s vision has been captured.",
+    date: "April 2, 2025",
+    author: "Studio Team",
+    label: "Studio Life",
+    category: "studio",
+    image: "/studio-day.jpg",
+  },
+]
+
+const categories = [
+  { id: "all", label: "All Posts" },
+  { id: "wedding", label: "Weddings" },
+  { id: "portrait", label: "Portraits" },
+  { id: "event", label: "Events" },
+  { id: "product", label: "Products" },
+  { id: "studio", label: "Studio" },
+]
+
+const featuredPost = posts[0]
+
 const Blog = () => {
   const [selectedPost, setSelectedPost] = useState<string | null>(null)
   const [selectedCategory, setSelectedCategory] = useState("all")
-
-  const posts = [
-    {
-      id: "1",
-      title: "10 Tips for Perfect Wedding Photography",
-      excerpt:
-        "Discover the secrets to capturing stunning wedding moments that will be treasured for a lifetime. From lighting to composition, we share our expert tips.",
-      content:
-        "Wedding photography is about more than just taking pictures, it’s about telling a story. Start by understanding the couple’s vision and scouting the venue for the best lighting opportunities. Use natural light whenever possible, but don’t be afraid to bring in soft artificial lighting for consistency. Pay attention to candid moments, as they often capture the most genuine emotions. Composition matters: frame shots with leading lines, symmetry, and depth to add artistry. Finally, always back up your files immediately after the shoot to ensure nothing is lost.",
-      date: "March 15, 2025",
-      author: "Studio Team",
-      label: "Wedding Tips",
-      category: "wedding",
-      image: "/wedding-photography.jpg",
-    },
-    {
-      id: "2",
-      title: "The Art of Portrait Photography",
-      excerpt:
-        "Learn how to bring out the best in every portrait session. We explore lighting techniques, posing, and creating a comfortable atmosphere for clients.",
-      content:
-        "Portrait photography is about capturing personality as much as appearance. Start by building rapport with your subject to make them feel comfortable. Lighting plays a crucial role. Soft, diffused light often works best to flatter facial features. Experiment with angles and poses to highlight unique characteristics, and don’t be afraid to incorporate props or environments that reflect the subject’s identity. A relaxed atmosphere leads to authentic expressions, which are the hallmark of a great portrait.",
-      date: "March 10, 2025",
-      author: "Studio Team",
-      label: "Portrait Tips",
-      category: "portrait",
-      image: "/portrait-photography.jpg",
-    },
-    {
-      id: "3",
-      title: "Event Photography Best Practices",
-      excerpt:
-        "Master the art of event photography with our comprehensive guide. From preparation to execution, ensure you never miss a crucial moment.",
-      content:
-        "Event photography requires preparation, anticipation, and adaptability. Before the event, familiarize yourself with the schedule and key participants. Arrive early to scout the venue and plan your angles. During the event, focus on capturing candid moments that convey emotion and atmosphere, while also documenting important highlights like speeches or performances. Use a fast lens to handle low-light conditions, and always carry backup gear. Delivering a balanced mix of wide shots, close-ups, and detail images ensures a complete visual story.",
-      date: "March 5, 2025",
-      author: "Studio Team",
-      label: "Event Tips",
-      category: "event",
-      image: "/event-photography.jpg",
-    },
-    {
-      id: "4",
-      title: "Product Photography Essentials",
-      excerpt: "Highlight your products with stunning visuals. Learn techniques for lighting, angles, and backgrounds that make items stand out.",
-      content:
-        "Product photography is about making items look appealing and true to life. Begin with a clean background that doesn’t distract from the subject. Lighting should be even and controlled. Softboxes or natural diffused light work well to eliminate harsh shadows. Experiment with angles to showcase key features, and consider close-up shots for details. Props can add context, but keep them minimal to avoid clutter. Post-processing should enhance clarity and color accuracy, ensuring the product looks both attractive and authentic.",
-      date: "February 28, 2025",
-      author: "Studio Team",
-      label: "Product Tips",
-      category: "product",
-      image: "/product-photography.jpg",
-    },
-    {
-      id: "5",
-      title: "Commercial Photography Insights",
-      excerpt: "Explore how to create compelling images for advertising and branding. We cover storytelling, composition, and working with clients.",
-      content:
-        "Commercial photography blends creativity with strategy. The goal is to produce images that align with a brand’s identity and marketing objectives. Start by understanding the client’s vision and target audience. Use composition techniques to guide the viewer’s eye toward the product or message. Storytelling is key. Images should evoke emotions that resonate with consumers. Collaboration with art directors and stylists often enhances the final result. Delivering polished, high-quality visuals helps businesses stand out in competitive markets.",
-      date: "February 20, 2025",
-      author: "Studio Team",
-      label: "Commercial Tips",
-      category: "product",
-      image: "/commercial-photography.jpg",
-    },
-    {
-      id: "6",
-      title: "Behind the Lens: A Day in the Studio",
-      excerpt: "Step inside our creative space and see how we prepare for shoots, from setting up backdrops to working with clients.",
-      content:
-        "A typical day in the studio begins with setting up equipment and testing lighting. Backdrops are arranged depending on the theme of the shoot, and props are carefully selected to complement the subject. Collaboration with clients is key, we walk them through the process to make them feel comfortable and confident. Breaks are scheduled to keep energy levels high, and the lounge area provides a space for relaxation. By the end of the day, we review the shots together, ensuring that the client’s vision has been captured.",
-      date: "April 2, 2025",
-      author: "Studio Team",
-      label: "Studio Life",
-      category: "studio",
-      image: "/studio-day.jpg",
-    },
-  ]
-
-  const categories = [
-    { id: "all", label: "All Posts" },
-    { id: "wedding", label: "Weddings" },
-    { id: "portrait", label: "Portraits" },
-    { id: "event", label: "Events" },
-    { id: "product", label: "Products" },
-    { id: "studio", label: "Studio" },
-  ]
-
-  const featuredPost = posts[0]
   const filteredPosts = selectedCategory === "all" ? posts : posts.filter((post) => post.category === selectedCategory)
 
   const post = posts.find((p) => p.id === selectedPost)
@@ -179,7 +179,7 @@ const Blog = () => {
         <section className="pt-2 pb-10">
           <div className="container mx-auto max-w-6xl">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPosts.map((post, index) => (
+              {filteredPosts.length > 0 && filteredPosts.map((post, index) => (
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}

@@ -119,7 +119,7 @@ export default function Home() {
     const el = scrollRef.current
     if (!el) return
 
-    checkScrollPosition() // initial check
+    checkScrollPosition()
     el.addEventListener("scroll", checkScrollPosition)
 
     return () => el.removeEventListener("scroll", checkScrollPosition)
@@ -130,7 +130,6 @@ export default function Home() {
       <div className="min-h-screen">
         {/* Hero Section */}
         <section className="pt-20 pb-16 px-4 sm:px-6 relative">
-          {/* Background Glow */}
           <div className="absolute inset-0 opacity-30 pointer-events-none">
             <div className="absolute top-10 right-1/4 w-40 h-40 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-gold rounded-full blur-3xl animate-pulse"></div>
             <div className="absolute bottom-0 left-1/3 w-32 h-32 sm:w-56 sm:h-56 md:w-80 md:h-80 bg-gold/20 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
@@ -181,7 +180,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Studio Teaser */}
         <section className="py-24 px-4 bg-slate-900 text-primary-foreground">
           <div className="container mx-auto text-center max-w-3xl">
             <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mx-auto mb-8" />

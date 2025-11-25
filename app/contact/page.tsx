@@ -28,7 +28,7 @@ interface FormData {
 const allTimes = ["09:00 AM", "10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"]
 
 const bookedDates = [
-  { date: "2025-11-21", time: ["10:00 AM"] },
+  { date: "2025-11-28", time: ["10:00 AM"] },
   { date: "2025-11-24", time: ["10:00 AM", "02:00 PM"] },
   { date: "2025-11-25", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
   { date: "2025-11-30", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
@@ -502,7 +502,6 @@ export default function BookingPage() {
                             <button
                               key={index}
                               onClick={() => day && handleDateSelect(day)}
-                              disabled={isBooked}
                               className={`aspect-square rounded-lg font-semibold transition-all duration-200 flex items-center justify-center text-sm ${
                                 !day
                                   ? "invisible"

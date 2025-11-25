@@ -6,15 +6,17 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { firstName, lastName, email, message, phone, serviceType, date, time, guests } = await req.json()
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_SECURE || "587"),
+    secure: false,
     auth: {
-      user: process.env.EMAIL_USER as string,
-      pass: process.env.EMAIL_PASS as string,
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
     },
   })
 
   const mailOptionsOthers = {
-    from: `"Studio Team" <${process.env.EMAIL_USER}>`,
+    from: `"Studio Team" <${process.env.SMTP_USER}>`,
     to: email,
     subject: `Booking Details`,
     html: `
@@ -22,7 +24,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     <html lang="en">
     <head>
       <meta charset="utf-8">
-      <title>Booking Confirmation</title>
+      <title>Booking Details</title>
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <style>
         @media only screen and (max-width:600px) {
@@ -37,7 +39,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     <body style="margin:0;padding:0;background-color:#f7f5f0;font-family:Helvetica,Arial,sans-serif;color:#333333;">
 
       <div style="display:none;max-height:0;overflow:hidden;color:#fff;opacity:0;">
-        Your booking is confirmed — Booking ref: {booking_ref}
+        Your booking is confirmed 
       </div>
 
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f7f5f0;">
@@ -55,7 +57,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                         <img src="{company_logo_url}" alt="logo" width="140" style="display:block;">
                       </td>
                       <td align="right" style="font-size:14px;color:#CDA434;font-weight:600;text-transform:uppercase;">
-                        Booking Confirmed
+                        Booking Request
                       </td>
                     </tr>
                   </table>
@@ -66,7 +68,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
               <tr>
                 <td class="hero" style="padding:28px 24px;">
                   <h1 style="margin:0;font-size:24px;color:#111827;font-weight:600;">Hi ${firstName},</h1>
-                  <p style="margin-top:8px;font-size:15px;color:#6b7280;">Your booking has been successfully confirmed. Below are your details.</p>
+                  <p style="margin-top:8px;font-size:15px;color:#6b7280;"> 
+                    We’ve received your booking inquiry. Below are the details you submitted. Our team will review and confirm availability shortly.
+                  </p>
                 </td>
               </tr>
 
