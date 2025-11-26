@@ -164,16 +164,16 @@ export default function PortfolioPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/services"
-              className="px-8 py-4 border-2 border-gold text-gold font-semibold rounded-lg hover:bg-gold/10 transition-all duration-300 text-center"
-            >
-              Explore Services
-            </Link>
-            <Link
               href="/contact"
-              className="gold-glow px-8 py-4 text-primary font-semibold rounded-lg hover:shadow-lg transition-all duration-300 text-center"
+              className="gold-glow px-6 py-2 text-primary font-semibold rounded-lg hover:shadow-lg transition-all duration-300 text-center"
             >
               Book Your Session
+            </Link>
+            <Link
+              href="/services"
+              className="px-6 py-2 border-2 border-gold text-gold font-semibold rounded-lg hover:bg-gold/10 transition-all duration-300 text-center"
+            >
+              Explore Services
             </Link>
           </div>
         </div>

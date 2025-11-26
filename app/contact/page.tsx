@@ -734,6 +734,7 @@ export default function BookingPage() {
                   +1 (212) 555-1234
                 </a>
                 <p className="text-sm text-muted-foreground">Monday - Friday, 8AM - 5PM</p>
+                <p className="text-sm text-muted-foreground">Sat - Sun: By Appointment</p>
               </div>
 
               <div className="space-y-2">

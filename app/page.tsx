@@ -2,7 +2,7 @@
 import CommonQuestions from "@/components/common-questions"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { AwardIcon, Briefcase, Building2, Camera, CameraIcon, ChevronLeft, ChevronRight, Clock, Package, Palette, Users } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
@@ -17,7 +17,7 @@ const categories = [
 
 const testimonials = [
   {
-    name: "Sarah & Michael",
+    name: "Sarah Michael",
     role: "Couple",
     content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
     rating: 5,
@@ -47,15 +47,17 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: "The Ramirez Family",
+    name: "Ramirez Family",
     role: "Family Portrait Clients",
-    content: "We were blown away by how natural and joyful the photos felt. The photographer was amazing with the kids and made the experience effortless.",
+    content:
+      "We were blown away by how natural and joyful the photos felt. The photographer was amazing with the kids and made the experience effortless.",
     rating: 5,
   },
   {
     name: "Isabelle Carter",
     role: "Studio Rental Client",
-    content: "The space was clean, well-equipped, and thoughtfully designed. The lighting setup saved us hours—highly recommended for professional shoots.",
+    content:
+      "The space was clean, well-equipped, and thoughtfully designed. The lighting setup saved us hours—highly recommended for professional shoots.",
     rating: 5,
   },
   {
@@ -65,10 +67,51 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: "Alyssa & Jonathan",
+    name: "Alyssa Jonathan",
     role: "Wedding Clients",
-    content: "We were moved to tears seeing our final gallery. Every candid smile, every emotional moment—it was captured so beautifully and authentically.",
+    content:
+      "We were moved to tears seeing our final gallery. Every candid smile, every emotional moment—it was captured so beautifully and authentically.",
     rating: 5,
+  },
+]
+
+const services = [
+  {
+    icon: Camera,
+    title: "Wedding Photography",
+    description: "Comprehensive wedding day coverage with artistic storytelling, capturing every precious moment from preparation to celebration.",
+    features: ["Full day coverage", "Pre-wedding consultation", "Edited digital gallery", "Print package options", "Online gallery sharing"],
+  },
+  {
+    icon: Users,
+    title: "Portrait Sessions",
+    description: "Professional portrait photography for individuals, families, and groups in our studio or your preferred location.",
+    features: ["Studio or outdoor settings", "Wardrobe consultation", "Professional retouching", "Multiple outfit changes", "High-resolution files"],
+  },
+  {
+    icon: Briefcase,
+    title: "Event Photography",
+    description: "Corporate events, parties, and special occasions documented with professionalism and creative flair.",
+    features: ["Event coverage", "Candid and posed shots", "Quick turnaround", "Social media ready images", "Group photography"],
+  },
+  {
+    icon: Package,
+    title: "Product Photography",
+    description: "High-quality commercial photography that showcases your products with stunning detail and appeal.",
+    features: ["Studio lighting setup", "Multiple angles", "White background options", "Lifestyle product shots", "E-commerce ready images"],
+  },
+]
+
+const studioRental = [
+  {
+    icon: Building2,
+    title: "Professional Studio Space",
+    description: "State-of-the-art photography studio available for rent with all equipment included.",
+  },
+  {
+    icon: Clock,
+    title: "Flexible Booking",
+    description: "Hourly or daily rental options to fit your project needs and budget.",
   },
 ]
 
@@ -220,8 +263,66 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Photography Services */}
+        <section className="py-5 px-6">
+          <div className="container mx-auto">
+            <div className="text-center mb-16 space-y-4">
+              <p className="text-sm uppercase tracking-[0.25em] text-gold font-semibold">Services</p>
+
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground">Photography Services</h2>
+
+              <p className="text-muted-foreground max-w-xl mx-auto">
+                Crafted experiences designed to capture moments, elevate brands, and tell unforgettable stories.
+              </p>
+            </div>
+
+            {/* Services Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+              {services.map((service, index) => (
+                <Card
+                  key={index}
+                  className="p-8 border border-gold/20 bg-card/40 backdrop-blur-sm rounded-xl 
+                     hover:border-gold hover:shadow-lg hover:shadow-gold/20 transition-all duration-300 flex flex-col"
+                >
+                  <service.icon className="h-12 w-12 text-gold mb-6" />
+
+                  <h3 className="text-2xl font-serif font-semibold mb-4 text-foreground">{service.title}</h3>
+
+                  <p className="text-muted-foreground mb-6 leading-relaxed grow">{service.description}</p>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Studio Rental */}
+        <section className="py-10 px-6">
+          <div className="container mx-auto">
+            <div className="text-center mb-16 space-y-4">
+              <p className="text-sm uppercase tracking-[0.25em] text-gold font-semibold">Services</p>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground">Studio Rental</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Rent our professional studio space equipped with premium lighting, backdrops, and equipment
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
+              {studioRental.map((item, index) => (
+                <Card
+                  key={index}
+                  className="p-8 text-center border border-gold/20 bg-card/40 backdrop-blur-md rounded-xl hover:border-gold hover:shadow-lg hover:shadow-gold/20 hover:scale-[1.02] transition-all duration-300"
+                >
+                  <item.icon className="h-12 w-12 text-gold mx-auto mb-4 transition-transform duration-300 group-hover:scale-110" />
+                  <h3 className="text-xl font-serif font-semibold mb-3 text-foreground">{item.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Testimonials */}
-        <section className="py-20 lg:py-24 px-6 bg-background">
+        <section className="py-20 lg:py-24 px-8 bg-background">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-3 drop-shadow-lg">Client Love</p>
@@ -254,9 +355,20 @@ export default function Home() {
                   </div>
                   <p className="text-foreground leading-relaxed italic">"{testimonial.content}"</p>
 
-                  <div className="pt-4 border-t border-gold/30">
-                    <p className="font-semibold text-foreground">{testimonial.name}</p>
-                    <p className="text-sm text-gold font-medium">{testimonial.role}</p>
+                  <div className="pt-4 border-t border-gold/30 flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-gold/20 text-gold font-semibold flex items-center justify-center text-lg">
+                      {testimonial.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")
+                        .substring(0, 2)
+                        .toUpperCase()}
+                    </div>
+
+                    <div>
+                      <p className="font-semibold text-foreground">{testimonial.name}</p>
+                      <p className="text-sm text-gold font-medium">{testimonial.role}</p>
+                    </div>
                   </div>
                 </motion.div>
               ))}

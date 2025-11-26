@@ -265,8 +265,8 @@ const Blog = () => {
                       </DialogHeader>
 
                       <DialogDescription className="text-base leading-relaxed space-y-4">
-                        <p>{post.excerpt}</p>
-                        <p>{post.content}</p>
+                        <span className="block mb-4 text-xl font-medium text-gold/90 italic border-l-4 border-gold pl-6 py-2">{post.excerpt}</span>
+                        {post.content}
                       </DialogDescription>
                     </>
                   </DialogContent>
@@ -275,40 +275,40 @@ const Blog = () => {
             </div>
           </div>
         </section>
+      </section>
 
-        {/* Call to Action Section */}
-        <section className="py-20 px-6 relative overflow-hidden bg-linear-to-b from-transparent to-primary/5">
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse"></div>
-            <div
-              className="absolute bottom-0 right-1/3 w-80 h-80 bg-gold/20 rounded-full blur-3xl animate-pulse"
-              style={{ animationDelay: "2s" }}
-            ></div>
+      {/* Call to Action Section */}
+      <section className="py-20 px-6 relative overflow-hidden bg-linear-to-b from-transparent to-primary/5">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse"></div>
+          <div
+            className="absolute bottom-0 right-1/3 w-80 h-80 bg-gold/20 rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: "2s" }}
+          ></div>
+        </div>
+        <div className="max-w-4xl mx-auto relative z-10 text-center space-y-8">
+          <div className="space-y-4">
+            <p className="text-sm uppercase tracking-widest text-gold font-semibold drop-shadow-lg">Ready to Tell Your Story?</p>
+            <h2 className="text-4xl md:text-5xl font-bold font-serif leading-tight text-balance">
+              Let's Create <span className="gradient-text">Something Beautiful</span> Together
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+              Inspired by our blog? It's time to turn your vision into stunning photography. Schedule a consultation with our team today.
+            </p>
           </div>
-          <div className="max-w-4xl mx-auto relative z-10 text-center space-y-8">
-            <div className="space-y-4">
-              <p className="text-sm uppercase tracking-widest text-gold font-semibold drop-shadow-lg">Ready to Tell Your Story?</p>
-              <h2 className="text-4xl md:text-5xl font-bold font-serif leading-tight text-balance">
-                Let's Create <span className="gradient-text">Something Beautiful</span> Together
-              </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-                Inspired by our blog? It's time to turn your vision into stunning photography. Schedule a consultation with our team today.
-              </p>
-            </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link
-                href="/services"
-                className="px-8 py-4 border-2 border-gold text-foreground font-semibold rounded-lg hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 transition-all duration-200 inline-block"
-              >
-                Explore Our Services
-              </Link>
-              <Link href="/contact" className="px-8 py-4 gold-glow text-primary font-semibold rounded-lg transition-all hover:scale-105 inline-block">
-                Book Your Session
-              </Link>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <Link href="/contact" className="px-6 py-2 gold-glow text-primary font-semibold rounded-lg transition-all hover:scale-105 inline-block">
+              Book Your Session
+            </Link>
+            <Link
+              href="/services"
+              className="px-6 py-2 border-2 border-gold text-foreground font-semibold rounded-lg hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 transition-all duration-200 inline-block"
+            >
+              Explore Our Services
+            </Link>
           </div>
-        </section>
+        </div>
       </section>
     </div>
   )

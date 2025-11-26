@@ -150,11 +150,12 @@ const About = () => {
         </div>
       </section>
 
+      {/* Studio Section */}
       <section className="py-5 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12 space-y-4">
             <p className="text-sm uppercase tracking-widest text-gold font-semibold">Our Creative Space</p>
-            <h2 className="text-4xl font-serif font-bold">The Luminous Studio</h2>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold">The Luminous Studio</h2>
           </div>
 
           <div className="space-y-8">
