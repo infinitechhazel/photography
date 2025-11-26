@@ -35,57 +35,39 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: "Sarah & Michael",
-    role: "Couple",
-    content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
+    name: "Lara Mendoza",
+    role: "Fashion Model",
+    content: "Every shot felt intentional and beautifully executed. The artistic direction and lighting made the images look editorial and timeless.",
     rating: 5,
   },
   {
-    name: "Emma Thompson",
-    role: "Entrepreneur",
-    content: "Our product photography exceeded expectations. The attention to detail and lighting expertise really elevated our brand.",
+    name: "David Reyes",
+    role: "CEO, Crestline Systems",
+    content: "Professional, reliable, and incredibly easy to work with. Our executive portraits look polished and modern—exactly what we needed.",
     rating: 5,
   },
   {
-    name: "James Chen",
-    role: "Corporate Client",
-    content: "From concept to delivery, the team was exceptional. Our event coverage captured the exact energy and essence we wanted.",
+    name: "The Ramirez Family",
+    role: "Family Portrait Clients",
+    content: "We were blown away by how natural and joyful the photos felt. The photographer was amazing with the kids and made the experience effortless.",
     rating: 5,
   },
   {
-    name: "Sarah & Michael",
-    role: "Couple",
-    content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
+    name: "Isabelle Carter",
+    role: "Studio Rental Client",
+    content: "The space was clean, well-equipped, and thoughtfully designed. The lighting setup saved us hours—highly recommended for professional shoots.",
     rating: 5,
   },
   {
-    name: "Emma Thompson",
-    role: "Entrepreneur",
-    content: "Our product photography exceeded expectations. The attention to detail and lighting expertise really elevated our brand.",
+    name: "Oliver Grant",
+    role: "Creative Director",
+    content: "The team understood our branding instantly. The resulting commercial visuals were cohesive, powerful, and agency-level quality.",
     rating: 5,
   },
   {
-    name: "James Chen",
-    role: "Corporate Client",
-    content: "From concept to delivery, the team was exceptional. Our event coverage captured the exact energy and essence we wanted.",
-    rating: 5,
-  },
-  {
-    name: "Sarah & Michael",
-    role: "Couple",
-    content: "Luminous Studio captured our wedding day with absolute perfection. The professionalism and artistic vision were outstanding.",
-    rating: 5,
-  },
-  {
-    name: "Emma Thompson",
-    role: "Entrepreneur",
-    content: "Our product photography exceeded expectations. The attention to detail and lighting expertise really elevated our brand.",
-    rating: 5,
-  },
-  {
-    name: "James Chen",
-    role: "Corporate Client",
-    content: "From concept to delivery, the team was exceptional. Our event coverage captured the exact energy and essence we wanted.",
+    name: "Alyssa & Jonathan",
+    role: "Wedding Clients",
+    content: "We were moved to tears seeing our final gallery. Every candid smile, every emotional moment—it was captured so beautifully and authentically.",
     rating: 5,
   },
 ]
@@ -270,8 +252,7 @@ export default function Home() {
                         </span>
                       ))}
                   </div>
-
-                  <p className="text-foreground leading-relaxed italic line-clamp-5">"{testimonial.content}"</p>
+                  <p className="text-foreground leading-relaxed italic">"{testimonial.content}"</p>
 
                   <div className="pt-4 border-t border-gold/30">
                     <p className="font-semibold text-foreground">{testimonial.name}</p>

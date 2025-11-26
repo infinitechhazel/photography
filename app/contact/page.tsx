@@ -345,7 +345,9 @@ export default function BookingPage() {
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold mb-2 text-foreground">First Name *</label>
+                      <label className="block text-sm font-semibold mb-2 text-foreground">
+                        First Name <span className="text-red-500">*</span>
+                      </label>
                       <input
                         type="text"
                         name="firstName"
@@ -372,7 +374,9 @@ export default function BookingPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold mb-2 text-foreground">Email Address *</label>
+                    <label className="block text-sm font-semibold mb-2 text-foreground">
+                      Email Address <span className="text-red-500">*</span>
+                    </label>
                     <input
                       type="email"
                       name="email"
@@ -410,7 +414,9 @@ export default function BookingPage() {
                   </div>
 
                   <div className="relative">
-                    <label className="block text-sm font-semibold mb-2 text-foreground">Service Type *</label>
+                    <label className="block text-sm font-semibold mb-2 text-foreground">
+                      Service Type <span className="text-red-500">*</span>
+                    </label>
                     <select
                       name="serviceType"
                       value={formData.serviceType}
@@ -535,7 +541,9 @@ export default function BookingPage() {
 
                   {formData.date && (
                     <div className="animate-fadeIn">
-                      <label className="block text-sm font-semibold mb-4 text-foreground">Select a Time *</label>
+                      <label className="block text-sm font-semibold mb-4 text-foreground">
+                        Select a Time <span className="text-red-500">*</span>
+                      </label>
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         {timeSlots.map((slot) => (
                           <button

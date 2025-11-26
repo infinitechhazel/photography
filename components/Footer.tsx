@@ -50,11 +50,15 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm">
                 <Phone className="h-4 w-4 text-gold mt-0.5" />
-                <span>+1 (555) 123-4567</span>
+                <a href="tel:+1 (555) 123-4567" className="text-sm hover:text-gold transition-smooth">
+                  +1 (555) 123-4567
+                </a>
               </li>
               <li className="flex items-start gap-2 text-sm">
                 <Mail className="h-4 w-4 text-gold mt-0.5" />
-                <span>info@studiophoto.com</span>
+                <a href="mailto:info@studiophoto.com" className="text-sm hover:text-gold transition-smooth ">
+                  info@studiophoto.com
+                </a>
               </li>
               <li className="flex items-start gap-2 text-sm">
                 <MapPin className="h-4 w-4 text-gold mt-0.5" />

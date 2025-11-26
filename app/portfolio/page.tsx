@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { useLockBodyScroll } from "@/hooks/use-scroll"
 import { motion } from "motion/react"
 import Image from "next/image"
+import Link from "next/link"
 import { useState, useMemo } from "react"
 
 type Category = "all" | "weddings" | "portraits" | "events" | "products" | "studio"
@@ -115,33 +116,65 @@ export default function PortfolioPage() {
       <section className="py-12 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredImages.length > 0 && filteredImages.map((image) => (
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true, amount: 0.5 }}
-                key={image.id}
-                className="group relative overflow-hidden rounded-lg bg-muted cursor-pointer aspect-square border-gold"
-                onClick={() => handleImageClick(image)}
-              >
-                <Image
-                  src={image.src || "/placeholder.svg"}
-                  alt={image.alt}
-                  fill
-                  className="object-cover w-full h-full transition-transform duration-500 shimmer-effect group-hover:scale-105"
-                />
+            {filteredImages.length > 0 &&
+              filteredImages.map((image) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  key={image.id}
+                  className="group relative overflow-hidden rounded-lg bg-muted cursor-pointer aspect-square border-gold"
+                  onClick={() => handleImageClick(image)}
+                >
+                  <Image
+                    src={image.src || "/placeholder.svg"}
+                    alt={image.alt}
+                    fill
+                    className="object-cover w-full h-full transition-transform duration-500 shimmer-effect group-hover:scale-105"
+                  />
 
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-end">
-                  <div className="w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="text-gold font-serif text-lg font-semibold">{image.title}</p>
-                    <p className="text-white text-sm">Click to view</p>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-end">
+                    <div className="w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                      <p className="text-gold font-serif text-lg font-semibold">{image.title}</p>
+                      <p className="text-white text-sm">Click to view</p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="absolute top-0 left-0 h-1 w-0 bg-gold group-hover:w-full transition-all duration-500" />
-              </motion.div>
-            ))}
+                  <div className="absolute top-0 left-0 h-1 w-0 bg-gold group-hover:w-full transition-all duration-500" />
+                </motion.div>
+              ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="relative py-20 px-6 bg-slate-900 overflow-hidden text-white">
+        <div className="absolute top-10 left-10 w-72 h-72 bg-gold/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 right-10 w-72 h-72 bg-gold/5 rounded-full blur-3xl animate-pulse" />
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
+            <span className="gradient-text">Ready to Create</span> Something Beautiful?
+          </h2>
+
+          <p className="text-lg text-background mb-8 max-w-2xl mx-auto">
+            Transform your vision into stunning imagery. Whether it's a wedding, portrait session, event coverage, product showcase, or studio rental,
+            our team is ready to bring your story to life.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/services"
+              className="px-8 py-4 border-2 border-gold text-gold font-semibold rounded-lg hover:bg-gold/10 transition-all duration-300 text-center"
+            >
+              Explore Services
+            </Link>
+            <Link
+              href="/contact"
+              className="gold-glow px-8 py-4 text-primary font-semibold rounded-lg hover:shadow-lg transition-all duration-300 text-center"
+            >
+              Book Your Session
+            </Link>
           </div>
         </div>
       </section>

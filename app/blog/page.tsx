@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import Image from "next/image"
 import { useState } from "react"
 import { motion } from "motion/react"
+import Link from "next/link"
 
 const posts = [
   {
@@ -148,9 +149,10 @@ const Blog = () => {
                 variant="outline"
                 onClick={() => setSelectedPost(featuredPost.id)}
                 className="px-4 sm:px-6 py-2 gold-glow 
-                     hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 transition-all duration-200 text-sm sm:text-base"
+                     hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 group transition-all duration-200 text-sm sm:text-base"
               >
                 Read Full Post
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </div>
           </div>
@@ -179,52 +181,53 @@ const Blog = () => {
         <section className="pt-2 pb-10">
           <div className="container mx-auto max-w-6xl">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredPosts.length > 0 && filteredPosts.map((post, index) => (
-                <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  key={index}
-                >
-                  <Card key={index} className="gap-0 p-0 group overflow-hidden border border-gold/30 hover:border-gold transition-all duration-300">
-                    <div className="relative aspect-video overflow-hidden">
-                      <Image
-                        src={post.image || "/placeholder.svg"}
-                        alt={post.title}
-                        width={300}
-                        height={200}
-                        className="w-full h-full object-cover transition-transform shimmer-effect duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute top-4 left-4">
-                        <span className="px-3 py-1 bg-gold text-black text-xs font-semibold rounded-full">{post.label}</span>
-                      </div>
-                    </div>
-
-                    <div className="p-6">
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          <span>{post.date}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <User className="h-4 w-4" />
-                          <span>{post.author}</span>
+              {filteredPosts.length > 0 &&
+                filteredPosts.map((post, index) => (
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    key={index}
+                  >
+                    <Card key={index} className="gap-0 p-0 group overflow-hidden border border-gold/30 hover:border-gold transition-all duration-300">
+                      <div className="relative aspect-video overflow-hidden">
+                        <Image
+                          src={post.image || "/placeholder.svg"}
+                          alt={post.title}
+                          width={300}
+                          height={200}
+                          className="w-full h-full object-cover transition-transform shimmer-effect duration-500 group-hover:scale-110"
+                        />
+                        <div className="absolute top-4 left-4">
+                          <span className="px-3 py-1 bg-gold text-black text-xs font-semibold rounded-full">{post.label}</span>
                         </div>
                       </div>
 
-                      <h3 className="text-xl font-bold mb-3 group-hover:text-gold transition-smooth">{post.title}</h3>
+                      <div className="p-6">
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            <span>{post.date}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <User className="h-4 w-4" />
+                            <span>{post.author}</span>
+                          </div>
+                        </div>
 
-                      <p className=" text-muted-foreground mb-4 leading-relaxed line-clamp-3">{post.excerpt}</p>
+                        <h3 className="text-xl font-bold mb-3 group-hover:text-gold transition-smooth line-clamp-1">{post.title}</h3>
 
-                      <Button variant="outline" className="h-auto gold-glow  group" onClick={() => setSelectedPost(post.id)}>
-                        Read More
-                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </Button>
-                    </div>
-                  </Card>
-                </motion.div>
-              ))}
+                        <p className=" text-muted-foreground mb-4 leading-relaxed line-clamp-3">{post.excerpt}</p>
+
+                        <Button variant="outline" className="h-auto gold-glow group" onClick={() => setSelectedPost(post.id)}>
+                          Read More
+                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </Button>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
 
               {/* Blog Post Dialog */}
               <Dialog open={selectedPost !== null} onOpenChange={() => setSelectedPost(null)}>
@@ -269,6 +272,40 @@ const Blog = () => {
                   </DialogContent>
                 )}
               </Dialog>
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action Section */}
+        <section className="py-20 px-6 relative overflow-hidden bg-linear-to-b from-transparent to-primary/5">
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold rounded-full blur-3xl animate-pulse"></div>
+            <div
+              className="absolute bottom-0 right-1/3 w-80 h-80 bg-gold/20 rounded-full blur-3xl animate-pulse"
+              style={{ animationDelay: "2s" }}
+            ></div>
+          </div>
+          <div className="max-w-4xl mx-auto relative z-10 text-center space-y-8">
+            <div className="space-y-4">
+              <p className="text-sm uppercase tracking-widest text-gold font-semibold drop-shadow-lg">Ready to Tell Your Story?</p>
+              <h2 className="text-4xl md:text-5xl font-bold font-serif leading-tight text-balance">
+                Let's Create <span className="gradient-text">Something Beautiful</span> Together
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                Inspired by our blog? It's time to turn your vision into stunning photography. Schedule a consultation with our team today.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Link
+                href="/services"
+                className="px-8 py-4 border-2 border-gold text-foreground font-semibold rounded-lg hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 transition-all duration-200 inline-block"
+              >
+                Explore Our Services
+              </Link>
+              <Link href="/contact" className="px-8 py-4 gold-glow text-primary font-semibold rounded-lg transition-all hover:scale-105 inline-block">
+                Book Your Session
+              </Link>
             </div>
           </div>
         </section>
