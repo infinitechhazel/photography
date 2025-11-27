@@ -1,4 +1,5 @@
 import { labels } from "@/lib/constants"
+import { formatDisplayTime, formatFullDate } from "@/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
 import nodemailer from "nodemailer"
 
@@ -102,7 +103,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                           <td style="font-size:14px;color:#6b7280;padding-top:8px;">Date & Time</td>
                         </tr>
                         <tr>
-                          <td style="font-size:16px;color:#111827;padding-top:8px;">${date} at ${time}</td>
+                          <td style="font-size:16px;color:#111827;padding-top:8px;">${formatFullDate(date)} at ${formatDisplayTime(time)}</td>
                         </tr>
                         <tr>
                           <td style="font-size:14px;color:#6b7280;padding-top:8px;">Service</td>

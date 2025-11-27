@@ -7,9 +7,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { labels } from "@/lib/constants"
+import { formatDisplayTime, formatFullDate } from "@/lib/utils"
 
 interface TimeSlot {
-  time: string
+  raw: string // "24-hour format"
+  display: string // "12-hour format"
   available: boolean
 }
 
@@ -25,22 +27,7 @@ interface FormData {
   message: string
 }
 
-const allTimes = ["09:00 AM", "10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"]
-
-const bookedDates = [
-  { date: "2025-11-28", time: ["10:00 AM"] },
-  { date: "2025-11-24", time: ["10:00 AM", "02:00 PM"] },
-  { date: "2025-11-25", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
-  { date: "2025-11-30", time: ["09:00 AM", "10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"] },
-  { date: "2025-12-01", time: ["10:00 AM", "11:00 AM", "02:00 PM", "03:00 PM", "04:00 PM"] },
-  { date: "2025-12-11", time: ["10:00 AM"] },
-  { date: "2025-12-21", time: ["10:00 AM"] },
-  { date: "2025-12-22", time: ["09:00 AM"] },
-  { date: "2025-12-23", time: ["10:00 AM"] },
-  { date: "2025-12-24", time: ["10:00 AM"] },
-  { date: "2025-12-25", time: ["10:00 AM"] },
-  { date: "2025-12-26", time: ["10:00 AM"] },
-]
+const allTimes = ["09:00:00", "10:00:00", "11:00:00", "13:00:00", "14:00:00", "15:00:00", "16:00:00", "17:00:00"]
 
 export default function BookingPage() {
   const [step, setStep] = useState(1)
@@ -48,6 +35,10 @@ export default function BookingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [currentDate, setCurrentDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [bookedDates, setBookedDates] = useState<{ date: string; time: string }[]>([])
+  const [loading, setLoading] = useState(true)
+  const [errors, setErrors] = useState<Partial<FormData>>({})
+  const isMobile = useIsMobile()
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -60,8 +51,18 @@ export default function BookingPage() {
     message: "",
   })
 
-  const [errors, setErrors] = useState<Partial<FormData>>({})
-  const isMobile = useIsMobile()
+  const fetchBookedDates = async () => {
+    try {
+      const res = await fetch("/api/bookings")
+      if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`)
+      const data = await res.json()
+      setBookedDates(data)
+    } catch (err) {
+      console.error("Error fetching booked dates:", err)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const getTimeSlots = (date: string): TimeSlot[] => {
     if (!date) return []
@@ -69,10 +70,12 @@ export default function BookingPage() {
     const bookedTimes = bookedDates.filter((b) => b.date === date).flatMap((b) => (Array.isArray(b.time) ? b.time : [b.time]))
 
     return allTimes.map((time) => ({
-      time,
+      raw: time,
+      display: formatDisplayTime(time),
       available: !bookedTimes.includes(time),
     }))
   }
+
   const timeSlots = getTimeSlots(formData.date)
 
   // Get calendar days
@@ -150,15 +153,15 @@ export default function BookingPage() {
 
     setFormData((prev) => ({
       ...prev,
-      date: newDate.toLocaleDateString("en-CA"), // formatted YYYY-MM-DD
+      date: newDate.toLocaleDateString("en-CA"),
       time: "",
     }))
   }
 
-  const handleTimeSelect = (time: string) => {
+  const handleTimeSelect = (slot: TimeSlot) => {
     setFormData((prev) => ({
       ...prev,
-      time: time,
+      time: slot.raw,
     }))
   }
 
@@ -233,22 +236,45 @@ export default function BookingPage() {
 
     try {
       setIsSubmitting(true)
-      const res = await fetch("/api/send-email", {
+
+      const bookingRes = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       })
 
-      const data = await res.json()
+      let bookingData: any = null
+      if (bookingRes.ok) {
+        await fetchBookedDates()
+        bookingData = await bookingRes.json()
+      } else {
+        const errorText = await bookingRes.text()
+        console.error("Booking error:", bookingRes.status, errorText)
+      }
 
-      if (data.success) {
+      let emailData: any = null
+      if (bookingRes.ok) {
+        const emailRes = await fetch("/api/send-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        })
+
+        if (emailRes.ok) {
+          emailData = await emailRes.json()
+        } else {
+          const errorText = await emailRes.text()
+          console.error("Email error:", emailRes.status, errorText)
+        }
+      }
+
+      if (bookingRes.ok && emailData?.success) {
         setSubmitted(true)
         toast.success("Message Sent!", {
           description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
           position: "top-right",
           duration: 5000,
         })
-
         setErrors({ email: "", phone: "", date: "", time: "" })
       } else {
         toast.error("Failed to send message", {
@@ -257,14 +283,14 @@ export default function BookingPage() {
           duration: 5000,
         })
       }
-    } catch (error) {
-      console.error(error)
-      setIsSubmitting(false)
-      toast.error("Something went wrong", {
-        description: "Please try again later.",
+    } catch (err) {
+      toast.error("Unexpected error", {
+        description: "Something went wrong. Please try again later.",
         position: "top-right",
         duration: 5000,
       })
+    } finally {
+      setIsSubmitting(false)
     }
 
     setTimeout(() => {
@@ -287,6 +313,10 @@ export default function BookingPage() {
 
   const days = getDaysArray()
   const monthName = currentDate.toLocaleDateString("en-CA", { month: "long", year: "numeric" })
+
+  useEffect(() => {
+    fetchBookedDates()
+  }, [])
 
   useEffect(() => {
     if (Object.keys(errors).length > 0) {
@@ -500,28 +530,32 @@ export default function BookingPage() {
                       </div>
 
                       <div className="grid grid-cols-7 gap-2">
-                        {days.map((day, index) => {
-                          const isBooked = isDateBooked(day, currentDate) || isPastDate(day)
-                          const isSelected = isDateSelected(day)
+                        {loading ? (
+                          <p>Loading...</p>
+                        ) : (
+                          days.map((day, index) => {
+                            const isBooked = isDateBooked(day, currentDate) || isPastDate(day)
+                            const isSelected = isDateSelected(day)
 
-                          return (
-                            <button
-                              key={index}
-                              onClick={() => day && handleDateSelect(day)}
-                              className={`aspect-square rounded-lg font-semibold transition-all duration-200 flex items-center justify-center text-sm ${
-                                !day
-                                  ? "invisible"
-                                  : isBooked
-                                  ? "bg-muted/50 text-muted-foreground cursor-not-allowed opacity-50"
-                                  : isSelected
-                                  ? "bg-linear-to-br from-gold to-gold-dark text-primary scale-110 shadow-xl shadow-gold/10"
-                                  : "bg-gold/20 hover:bg-gold/20 hover:border hover:border-gold text-foreground hover:shadow-lg hover:shadow-gold/20 border border-transparent"
-                              }`}
-                            >
-                              {day}
-                            </button>
-                          )
-                        })}
+                            return (
+                              <button
+                                key={index}
+                                onClick={() => day && handleDateSelect(day)}
+                                className={`aspect-square rounded-lg font-semibold transition-all duration-200 flex items-center justify-center text-sm ${
+                                  !day
+                                    ? "invisible"
+                                    : isBooked
+                                    ? "bg-muted/50 text-muted-foreground cursor-not-allowed opacity-50"
+                                    : isSelected
+                                    ? "bg-linear-to-br from-gold to-gold-dark text-primary scale-110 shadow-xl shadow-gold/10"
+                                    : "bg-gold/20 hover:bg-gold/20 hover:border hover:border-gold text-foreground hover:shadow-lg hover:shadow-gold/20 border border-transparent"
+                                }`}
+                              >
+                                {day}
+                              </button>
+                            )
+                          })
+                        )}
                       </div>
 
                       <div className="mt-8 pt-8 border-t border-gold/20 flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6">
@@ -547,19 +581,19 @@ export default function BookingPage() {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         {timeSlots.map((slot) => (
                           <button
-                            key={slot.time}
+                            key={slot.display}
                             type="button"
-                            onClick={() => slot.available && handleTimeSelect(slot.time)}
+                            onClick={() => slot.available && handleTimeSelect(slot)}
                             disabled={!slot.available}
                             className={`p-2 h-16 rounded-lg border-2 transition-all font-semibold text-center ${
-                              formData.time === slot.time
+                              formData.time === slot.display
                                 ? "border-gold bg-gold/10 text-gold"
                                 : slot.available
                                 ? "border-border bg-card text-foreground hover:border-gold cursor-pointer"
                                 : "border-border bg-muted text-muted-foreground cursor-not-allowed opacity-50"
                             }`}
                           >
-                            <div>{slot.time}</div>
+                            <div>{slot.display}</div>
                             {!slot.available && <div className="text-xs text-muted-foreground mt-1">Booked</div>}
                           </button>
                         ))}
@@ -633,12 +667,7 @@ export default function BookingPage() {
                       <div>
                         <p className="text-sm mb-1">Session Date & Time</p>
                         <p className="font-semibold text-gold">
-                          {new Date(formData.date).toLocaleDateString("en-CA", {
-                            weekday: "short",
-                            month: "short",
-                            day: "numeric",
-                          })}{" "}
-                          at {formData.time}
+                          {formatFullDate(formData.date)} at {formatDisplayTime(formData.time)}
                         </p>
                       </div>
                     </div>
