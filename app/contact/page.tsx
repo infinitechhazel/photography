@@ -21,6 +21,7 @@ interface FormData {
   email: string
   phone: string
   serviceType: string
+  customService: string
   date: string
   time: string
   guests: string
@@ -45,6 +46,7 @@ export default function BookingPage() {
     email: "",
     phone: "",
     serviceType: "",
+    customService: "",
     date: "",
     time: "",
     guests: "1",
@@ -165,18 +167,6 @@ export default function BookingPage() {
     }))
   }
 
-  const handleNext = () => {
-    if (validateStep(step)) {
-      setStep((prev) => prev + 1)
-    }
-  }
-
-  const handleBack = () => {
-    if (step > 1) {
-      setStep(step - 1)
-    }
-  }
-
   const validateStep = (currentStep: number) => {
     const newErrors: Partial<FormData> = {}
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -195,6 +185,9 @@ export default function BookingPage() {
 
     if (currentStep === 2) {
       if (!formData.serviceType) newErrors.serviceType = "Service type required"
+      if (formData.serviceType === "others" && !formData.customService.trim()) {
+        newErrors.customService = "Please specify your service"
+      }
     }
 
     if (currentStep === 3) {
@@ -218,6 +211,7 @@ export default function BookingPage() {
       setFormData((prev) => ({
         ...prev,
         [name]: value,
+        ...(name === "serviceType" && value !== "others" ? { customService: "" } : {}),
       }))
     }
 
@@ -234,13 +228,18 @@ export default function BookingPage() {
 
     if (step !== 4) return
 
+    const payload = {
+      ...formData,
+      serviceType: formData.serviceType === "others" ? formData.customService : formData.serviceType,
+    }
+
     try {
       setIsSubmitting(true)
 
       const bookingRes = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       })
 
       let bookingData: any = null
@@ -257,7 +256,7 @@ export default function BookingPage() {
         const emailRes = await fetch("/api/send-email", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(payload),
         })
 
         if (emailRes.ok) {
@@ -303,6 +302,7 @@ export default function BookingPage() {
         email: "",
         phone: "",
         serviceType: "",
+        customService: "",
         date: "",
         time: "",
         guests: "1",
@@ -464,14 +464,33 @@ export default function BookingPage() {
                       <option value="product">Product Photography</option>
                       <option value="commercial">Commercial Photography</option>
                       <option value="studio">Studio Rental</option>
+                      <option value="others">Others</option>
                     </select>
 
-                    <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
-                      <svg className="mt-6 h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <div
+                      className={`pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400 ${
+                        formData.serviceType === "others" ? "mb-14" : "mt-0"
+                      }`}
+                    >
+                      <svg className="mt-6 h-5 w-5 " fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                       </svg>
                     </div>
 
+                    {formData.serviceType === "others" && (
+                      <input
+                        type="text"
+                        name="customService"
+                        placeholder="Please specify your service"
+                        value={formData.customService}
+                        required
+                        onChange={handleChange}
+                        className={`mt-3 w-full px-4 py-3 border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold ${
+                          errors.customService ? "border-red-500" : "border-border"
+                        }`}
+                      />
+                    )}
+                    {errors.customService && <p className="text-red-500 text-sm mt-1">{errors.customService}</p>}
                     {errors.serviceType && <p className="text-red-500 text-sm mt-1">{errors.serviceType}</p>}
                   </div>
 
@@ -586,7 +605,7 @@ export default function BookingPage() {
                             onClick={() => slot.available && handleTimeSelect(slot)}
                             disabled={!slot.available}
                             className={`p-2 h-16 rounded-lg border-2 transition-all font-semibold text-center ${
-                              formData.time === slot.display
+                              formatDisplayTime(formData.time) === slot.display
                                 ? "border-gold bg-gold/10 text-gold"
                                 : slot.available
                                 ? "border-border bg-card text-foreground hover:border-gold cursor-pointer"
@@ -606,12 +625,7 @@ export default function BookingPage() {
                     <div className="bg-gold/10 border border-gold rounded-lg p-4 animate-fadeIn">
                       <p className="text-sm text-muted-foreground mb-1">Selected Session</p>
                       <p className="font-semibold text-foreground">
-                        {new Date(formData.date).toLocaleDateString("en-CA", {
-                          weekday: "long",
-                          month: "long",
-                          day: "numeric",
-                        })}{" "}
-                        at {formData.time}
+                        {formatFullDate(formData.date)} at {formatDisplayTime(formData.time)}
                       </p>
                     </div>
                   )}
@@ -657,7 +671,9 @@ export default function BookingPage() {
                       <div>
                         <p className="text-sm mb-1">Service Type</p>
                         <p className="font-semibold capitalize text-gold">
-                          {labels[formData.serviceType as keyof typeof labels] || formData.serviceType}
+                          {formData.serviceType === "others"
+                            ? formData.customService
+                            : labels[formData.serviceType as keyof typeof labels] ?? formData.serviceType}
                         </p>
                       </div>
                       <div>
@@ -706,7 +722,11 @@ export default function BookingPage() {
               <div className="flex gap-4 pt-8">
                 <Button
                   type="button"
-                  onClick={handleBack}
+                  onClick={() => {
+                    if (step > 1) {
+                      setStep((prev) => prev - 1)
+                    }
+                  }}
                   disabled={step === 1}
                   className={`flex-1 py-4 font-semibold text-lg rounded-lg transition-all duration-200 ${
                     step === 1 ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-muted text-foreground hover:bg-border"
@@ -726,7 +746,11 @@ export default function BookingPage() {
                 ) : (
                   <Button
                     type="button"
-                    onClick={handleNext}
+                    onClick={() => {
+                      if (validateStep(step)) {
+                        setStep((prev) => prev + 1)
+                      }
+                    }}
                     className="flex-1 py-4 gold-glow bg-gold text-primary font-semibold text-lg rounded-lg hover:shadow-lg  transition-all duration-200  active:scale-95"
                   >
                     Next
@@ -759,18 +783,18 @@ export default function BookingPage() {
 
               <div className="space-y-2">
                 <h3 className="text-sm uppercase tracking-widest font-semibold text-gold mb-3">Phone</h3>
-                <a href="tel:+12125551234" className="text-lg font-semibold text-foreground hover:text-gold transition-colors">
+                <Link href="tel:+12125551234" className="text-lg font-semibold text-foreground hover:text-gold transition-colors">
                   +1 (212) 555-1234
-                </a>
+                </Link>
                 <p className="text-sm text-muted-foreground">Monday - Friday, 8AM - 5PM</p>
                 <p className="text-sm text-muted-foreground">Sat - Sun: By Appointment</p>
               </div>
 
               <div className="space-y-2">
                 <h3 className="text-sm uppercase tracking-widest font-semibold text-gold mb-3">Email</h3>
-                <a href="mailto:hello@luminousstudio.com" className="text-lg font-semibold text-foreground hover:text-gold transition-colors">
+                <Link href="mailto:hello@luminousstudio.com" className="text-lg font-semibold text-foreground hover:text-gold transition-colors">
                   hello@luminousstudio.com
-                </a>
+                </Link>
                 <p className="text-sm text-muted-foreground">We typically respond within 24 hours</p>
               </div>
 
@@ -778,7 +802,7 @@ export default function BookingPage() {
               <div className="space-y-3 pt-4">
                 <h3 className="text-sm uppercase tracking-widest font-semibold text-gold">Follow Us</h3>
                 <div className="flex gap-4">
-                  <a
+                  <Link
                     href="https://instagram.com"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -787,8 +811,8 @@ export default function BookingPage() {
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.322a1.44 1.44 0 110-2.881 1.44 1.44 0 010 2.881z" />
                     </svg>
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -797,8 +821,8 @@ export default function BookingPage() {
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                     </svg>
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="https://twitter.com"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -807,7 +831,7 @@ export default function BookingPage() {
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M23.953 4.57a10 10 0 002.856-3.51 10.02 10.02 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
                     </svg>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
