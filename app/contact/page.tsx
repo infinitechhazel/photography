@@ -549,32 +549,30 @@ export default function BookingPage() {
                       </div>
 
                       <div className="grid grid-cols-7 gap-2">
-                        {loading ? (
-                          <p>Loading...</p>
-                        ) : (
-                          days.map((day, index) => {
-                            const isBooked = isDateBooked(day, currentDate) || isPastDate(day)
-                            const isSelected = isDateSelected(day)
+                        {loading
+                          ? Array.from({ length: 28 }).map((_, i) => <div key={i} className="aspect-square rounded-lg bg-gray-300 animate-pulse" />)
+                          : days.map((day, index) => {
+                              const isBooked = isDateBooked(day, currentDate) || isPastDate(day)
+                              const isSelected = isDateSelected(day)
 
-                            return (
-                              <button
-                                key={index}
-                                onClick={() => day && handleDateSelect(day)}
-                                className={`aspect-square rounded-lg font-semibold transition-all duration-200 flex items-center justify-center text-sm ${
-                                  !day
-                                    ? "invisible"
-                                    : isBooked
-                                    ? "bg-muted/50 text-muted-foreground cursor-not-allowed opacity-50"
-                                    : isSelected
-                                    ? "bg-linear-to-br from-gold to-gold-dark text-primary scale-110 shadow-xl shadow-gold/10"
-                                    : "bg-gold/20 hover:bg-gold/20 hover:border hover:border-gold text-foreground hover:shadow-lg hover:shadow-gold/20 border border-transparent"
-                                }`}
-                              >
-                                {day}
-                              </button>
-                            )
-                          })
-                        )}
+                              return (
+                                <button
+                                  key={index}
+                                  onClick={() => day && handleDateSelect(day)}
+                                  className={`aspect-square rounded-lg font-semibold transition-all duration-200 flex items-center justify-center text-sm ${
+                                    !day
+                                      ? "invisible"
+                                      : isBooked
+                                      ? "bg-muted/50 text-muted-foreground cursor-not-allowed opacity-50"
+                                      : isSelected
+                                      ? "bg-linear-to-br from-gold to-gold-dark text-primary scale-110 shadow-xl shadow-gold/10"
+                                      : "bg-gold/20 hover:bg-gold/20 hover:border hover:border-gold text-foreground hover:shadow-lg hover:shadow-gold/20 border border-transparent"
+                                  }`}
+                                >
+                                  {day}
+                                </button>
+                              )
+                            })}
                       </div>
 
                       <div className="mt-8 pt-8 border-t border-gold/20 flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-6">
