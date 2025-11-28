@@ -10,19 +10,6 @@ import Link from "next/link"
 
 const posts = [
   {
-    id: "1",
-    title: "10 Tips for Perfect Wedding Photography",
-    excerpt:
-      "Discover the secrets to capturing stunning wedding moments that will be treasured for a lifetime. From lighting to composition, we share our expert tips.",
-    content:
-      "Wedding photography is about more than just taking pictures, it’s about telling a story. Start by understanding the couple’s vision and scouting the venue for the best lighting opportunities. Use natural light whenever possible, but don’t be afraid to bring in soft artificial lighting for consistency. Pay attention to candid moments, as they often capture the most genuine emotions. Composition matters: frame shots with leading lines, symmetry, and depth to add artistry. Finally, always back up your files immediately after the shoot to ensure nothing is lost.",
-    date: "March 15, 2025",
-    author: "Studio Team",
-    label: "Wedding Tips",
-    category: "wedding",
-    image: "/wedding-photography.jpg",
-  },
-  {
     id: "2",
     title: "The Art of Portrait Photography",
     excerpt:
@@ -33,7 +20,7 @@ const posts = [
     author: "Studio Team",
     label: "Portrait Tips",
     category: "portrait",
-    image: "/portrait-photography.jpg",
+    image: "/party-portrait.jpg",
   },
   {
     id: "3",
@@ -46,7 +33,7 @@ const posts = [
     author: "Studio Team",
     label: "Event Tips",
     category: "event",
-    image: "/event-photography.jpg",
+    image: "/event.jpg",
   },
   {
     id: "4",
@@ -58,7 +45,7 @@ const posts = [
     author: "Studio Team",
     label: "Product Tips",
     category: "product",
-    image: "/product-photography.jpg",
+    image: "/product.jpg",
   },
   {
     id: "5",
@@ -70,7 +57,7 @@ const posts = [
     author: "Studio Team",
     label: "Commercial Tips",
     category: "product",
-    image: "/commercial-photography.jpg",
+    image: "/product-2.jpg",
   },
   {
     id: "6",
@@ -82,7 +69,7 @@ const posts = [
     author: "Studio Team",
     label: "Studio Life",
     category: "studio",
-    image: "/studio-day.jpg",
+    image: "/studio-setup-professional-lighting.jpg",
   },
 ]
 
@@ -95,7 +82,19 @@ const categories = [
   { id: "studio", label: "Studio" },
 ]
 
-const featuredPost = posts[0]
+const featuredPost = {
+  id: "1",
+  title: "10 Tips for Perfect Wedding Photography",
+  excerpt:
+    "Discover the secrets to capturing stunning wedding moments that will be treasured for a lifetime. From lighting to composition, we share our expert tips.",
+  content:
+    "Wedding photography is about more than just taking pictures, it’s about telling a story. Start by understanding the couple’s vision and scouting the venue for the best lighting opportunities. Use natural light whenever possible, but don’t be afraid to bring in soft artificial lighting for consistency. Pay attention to candid moments, as they often capture the most genuine emotions. Composition matters: frame shots with leading lines, symmetry, and depth to add artistry. Finally, always back up your files immediately after the shoot to ensure nothing is lost.",
+  date: "March 15, 2025",
+  author: "Studio Team",
+  label: "Wedding Tips",
+  category: "wedding",
+  image: "/wedding.jpg",
+}
 
 const Blog = () => {
   const [selectedPost, setSelectedPost] = useState<string | null>(null)
@@ -121,18 +120,26 @@ const Blog = () => {
       <section className="py-8 sm:py-12 px-4 sm:px-6 relative overflow-hidden">
         <div className="max-w-6xl mx-auto">
           <div
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center 
-                    bg-linear-to-r from-gold/20 via-gold/10 to-transparent 
-                    rounded-2xl overflow-hidden border border-gold/30 
-                    hover:border-gold/40 transition-all duration-300 p-6 sm:p-8"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center
+                 bg-linear-to-r from-gold/20 via-gold/10 to-transparent
+                 rounded-2xl overflow-hidden border border-gold/30
+                 hover:border-gold/40 transition-all duration-300 p-6 sm:p-8"
           >
-            <Image
-              src={featuredPost.image || "/placeholder.svg"}
-              alt={featuredPost.title}
-              width={300}
-              height={200}
-              className="w-full h-56 sm:h-64 md:h-80 object-cover rounded-lg shimmer-effect group-hover:scale-110"
-            />
+            <div className="relative w-full">
+              <div className="relative w-full">
+                <Image
+                  src={featuredPost.image || "/placeholder.svg"}
+                  alt={featuredPost.title}
+                  width={1200}
+                  height={800}
+                  sizes="(max-width: 768px) 100vw,
+                        (max-width: 1200px) 50vw,
+                        50vw"
+                  className="w-full h-auto object-cover rounded-lg shimmer-effect group-hover:scale-105 transition-transform"
+                  priority
+                />
+              </div>
+            </div>
 
             <div className="space-y-3 sm:space-y-4">
               <p className="text-xs sm:text-sm uppercase tracking-widest text-gold font-semibold">Featured Post</p>
@@ -148,7 +155,7 @@ const Blog = () => {
               <Button
                 variant="outline"
                 onClick={() => setSelectedPost(featuredPost.id)}
-                className="px-4 sm:px-6 py-2 gold-glow 
+                className="px-4 sm:px-6 py-2 gold-glow
                      hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/20 group transition-all duration-200 text-sm sm:text-base"
               >
                 Read Full Post
@@ -195,8 +202,7 @@ const Blog = () => {
                         <Image
                           src={post.image || "/placeholder.svg"}
                           alt={post.title}
-                          width={300}
-                          height={200}
+                          fill
                           className="w-full h-full object-cover transition-transform shimmer-effect duration-500 group-hover:scale-110"
                         />
                         <div className="absolute top-4 left-4">
@@ -236,13 +242,7 @@ const Blog = () => {
                     <>
                       <DialogHeader>
                         <div className="relative aspect-video w-full my-6 rounded-lg overflow-hidden">
-                          <Image
-                            src={post.image || "/placeholder.svg"}
-                            alt={post.title}
-                            width={300}
-                            height={200}
-                            className="w-full h-full object-cover shimmer-effect"
-                          />
+                          <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="w-full h-full object-cover shimmer-effect" />
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-muted-foreground mb-4 flex-wrap">

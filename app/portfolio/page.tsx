@@ -18,13 +18,13 @@ interface GalleryImage {
 }
 
 const galleryImages: GalleryImage[] = [
-  { id: "1", src: "/luxury-wedding-ceremony.jpg", alt: "Wedding ceremony", category: "weddings", title: "Elegant Ceremony" },
-  { id: "2", src: "/bride-and-groom.png", alt: "Bride and groom", category: "weddings", title: "Bride & Groom" },
-  { id: "3", src: "/wedding-reception-details.jpg", alt: "Reception details", category: "weddings", title: "Reception Details" },
-  { id: "4", src: "/professional-headshot.png", alt: "Professional headshot", category: "portraits", title: "Professional Portrait" },
-  { id: "5", src: "/lifestyle-portrait.jpg", alt: "Lifestyle portrait", category: "portraits", title: "Lifestyle Session" },
+  { id: "1", src: "/wedding.jpg", alt: "Wedding ceremony", category: "weddings", title: "Elegant Ceremony" },
+  { id: "2", src: "/bride-and-groom.jpg", alt: "Bride and groom", category: "weddings", title: "Bride & Groom" },
+  { id: "3", src: "/event-2.jpg", alt: "Reception details", category: "weddings", title: "Reception Details" },
+  { id: "4", src: "/portrait-3.jpg", alt: "Professional headshot", category: "portraits", title: "Professional Portrait" },
+  { id: "5", src: "/portrait-lifestyle.jpg", alt: "Lifestyle portrait", category: "portraits", title: "Lifestyle Session" },
   { id: "6", src: "/family-portrait-outdoors.jpg", alt: "Family portrait", category: "portraits", title: "Family Portrait" },
-  { id: "7", src: "/corporate-event-networking.png", alt: "Corporate event", category: "events", title: "Corporate Event" },
+  { id: "7", src: "/corporate-event-networking.jpg", alt: "Corporate event", category: "events", title: "Corporate Event" },
   { id: "8", src: "/gala-event-photography.jpg", alt: "Gala event", category: "events", title: "Gala Evening" },
   { id: "9", src: "/party-event-celebration.jpg", alt: "Party event", category: "events", title: "Celebration Party" },
   { id: "10", src: "/luxury-product-photography-watch.jpg", alt: "Product photography", category: "products", title: "Luxury Watch" },

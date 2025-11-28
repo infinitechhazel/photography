@@ -2,17 +2,19 @@
 import CommonQuestions from "@/components/common-questions"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { AwardIcon, Briefcase, Building2, Camera, CameraIcon, ChevronLeft, ChevronRight, Clock, Package, Palette, Users } from "lucide-react"
+import { AwardIcon, Briefcase, Building2, Camera, ChevronLeft, ChevronRight, Clock, Package, Users } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 
+const images = ["/wedding-feature.jpg", "/party-portrait.jpg", "/event.jpg", "/product.jpg"]
+
 const categories = [
-  { name: "Weddings", path: "/portfolio", image: "/wedding-photography.jpg" },
-  { name: "Portraits", path: "/portfolio", image: "/wedding-photography.jpg" },
-  { name: "Events", path: "/portfolio", image: "/wedding-photography.jpg" },
-  { name: "Products", path: "/portfolio", image: "/wedding-photography.jpg" },
+  { name: "Weddings", path: "/portfolio", image: "/wedding-feature.jpg" },
+  { name: "Portraits", path: "/portfolio", image: "/party-portrait.jpg" },
+  { name: "Events", path: "/portfolio", image: "/event.jpg" },
+  { name: "Products", path: "/portfolio", image: "/product.jpg" },
 ]
 
 const testimonials = [
@@ -193,13 +195,7 @@ export default function Home() {
               {/* Hero Image */}
               <div className="relative overflow-hidden h-72 sm:h-80 lg:h-full min-h-72">
                 <div className="absolute inset-0 bg-linear-to-br from-gold/30 via-transparent to-primary/30 rounded-2xl shadow-2xl shadow-gold/20"></div>
-                <Image
-                  src="/jewelry-product-photography.png"
-                  alt="Luxury photography studio"
-                  width={250}
-                  height={250}
-                  className="w-full h-full object-contain rounded-2xl"
-                />
+                <Image src="/studio-hero.jpg" alt="Luxury photography studio" fill className="w-full h-full object-cover rounded-2xl" priority />
               </div>
             </div>
           </div>
@@ -240,9 +236,8 @@ export default function Home() {
                       <Image
                         src={category.image || "/placeholder.svg"}
                         alt={category.name}
-                        width={250}
-                        height={250}
-                        className="w-full h-full object-cover transition-transform shimmer-effect duration-500 group-hover:scale-110"
+                        fill
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
                       <div className="absolute bottom-0 left-0 right-0 p-6">
