@@ -2,13 +2,13 @@
 import CommonQuestions from "@/components/common-questions"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { AwardIcon, Briefcase, Building2, Camera, ChevronLeft, ChevronRight, Clock, Package, Users } from "lucide-react"
+import { Briefcase, Building2, Camera, ChevronLeft, ChevronRight, Clock, Package, Users } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
-
-const images = ["/wedding-feature.jpg", "/party-portrait.jpg", "/event.jpg", "/product.jpg"]
+import FilmStrip from "@/components/film-strip"
+import PhotographyParallax from "@/components/parallax"
 
 const categories = [
   { name: "Weddings", path: "/portfolio", image: "/wedding-feature.jpg" },
@@ -155,6 +155,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <div className="min-h-screen">
+        <PhotographyParallax />
         {/* Hero Section */}
         <section className="pt-20 pb-16 px-4 sm:px-6 relative">
           <div className="absolute inset-0 opacity-30 pointer-events-none">
@@ -200,6 +201,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <FilmStrip />
 
         <section className="py-24 px-4 bg-slate-900 text-primary-foreground">
           <div className="container mx-auto text-center max-w-3xl">

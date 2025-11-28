@@ -10,6 +10,19 @@ import Link from "next/link"
 
 const posts = [
   {
+    id: "1",
+    title: "10 Tips for Perfect Wedding Photography",
+    excerpt:
+      "Discover the secrets to capturing stunning wedding moments that will be treasured for a lifetime. From lighting to composition, we share our expert tips.",
+    content:
+      "Wedding photography is about more than just taking pictures, it’s about telling a story. Start by understanding the couple’s vision and scouting the venue for the best lighting opportunities. Use natural light whenever possible, but don’t be afraid to bring in soft artificial lighting for consistency. Pay attention to candid moments, as they often capture the most genuine emotions. Composition matters: frame shots with leading lines, symmetry, and depth to add artistry. Finally, always back up your files immediately after the shoot to ensure nothing is lost.",
+    date: "March 15, 2025",
+    author: "Studio Team",
+    label: "Wedding Tips",
+    category: "wedding",
+    image: "/wedding.jpg",
+  },
+  {
     id: "2",
     title: "The Art of Portrait Photography",
     excerpt:
@@ -82,19 +95,7 @@ const categories = [
   { id: "studio", label: "Studio" },
 ]
 
-const featuredPost = {
-  id: "1",
-  title: "10 Tips for Perfect Wedding Photography",
-  excerpt:
-    "Discover the secrets to capturing stunning wedding moments that will be treasured for a lifetime. From lighting to composition, we share our expert tips.",
-  content:
-    "Wedding photography is about more than just taking pictures, it’s about telling a story. Start by understanding the couple’s vision and scouting the venue for the best lighting opportunities. Use natural light whenever possible, but don’t be afraid to bring in soft artificial lighting for consistency. Pay attention to candid moments, as they often capture the most genuine emotions. Composition matters: frame shots with leading lines, symmetry, and depth to add artistry. Finally, always back up your files immediately after the shoot to ensure nothing is lost.",
-  date: "March 15, 2025",
-  author: "Studio Team",
-  label: "Wedding Tips",
-  category: "wedding",
-  image: "/wedding.jpg",
-}
+const featuredPost = posts[5]
 
 const Blog = () => {
   const [selectedPost, setSelectedPost] = useState<string | null>(null)
@@ -126,16 +127,15 @@ const Blog = () => {
                  hover:border-gold/40 transition-all duration-300 p-6 sm:p-8"
           >
             <div className="relative w-full">
-              <div className="relative w-full">
+              <div className="relative w-full aspect-video">
                 <Image
                   src={featuredPost.image || "/placeholder.svg"}
                   alt={featuredPost.title}
-                  width={1200}
-                  height={800}
+                  fill
                   sizes="(max-width: 768px) 100vw,
-                        (max-width: 1200px) 50vw,
-                        50vw"
-                  className="w-full h-auto object-cover rounded-lg shimmer-effect group-hover:scale-105 transition-transform"
+             (max-width: 1200px) 50vw,
+             50vw"
+                  className="object-cover rounded-lg shimmer-effect group-hover:scale-105 transition-transform"
                   priority
                 />
               </div>
