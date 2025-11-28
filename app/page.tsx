@@ -239,7 +239,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true, amount: 0.5 }}
-                  className="p-0 h-96 md:h-full group overflow-hidden"
+                  className="p-0 h-full group overflow-hidden"
                 >
                   <Card className="relative aspect-3/4 overflow-hidden border border-gold/30 hover:border-border-linear-to-r hover:from-yellow-600 hover:to-yellow-500 transition-all duration-300">
                     <Image
