@@ -11,10 +11,10 @@ import FilmStrip from "@/components/film-strip"
 import PhotographyParallax from "@/components/parallax"
 
 const categories = [
-  { name: "Weddings", path: "/portfolio", image: "/wedding-feature.webp" },
-  { name: "Portraits", path: "/portfolio", image: "/party-portrait.webp" },
-  { name: "Events", path: "/portfolio", image: "/event-party-celeb.webp" },
-  { name: "Products", path: "/portfolio", image: "/product.webp" },
+  { name: "Weddings", image: "/wedding-feature.webp" },
+  { name: "Portraits", image: "/party-portrait.webp" },
+  { name: "Events", image: "/event-party-celeb.webp" },
+  { name: "Products", image: "/product.webp" },
 ]
 
 const testimonials = [
@@ -233,36 +233,41 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {categories.map((category) => (
-                <Link key={category.name} href={category.path} className="group">
-                  <Card className="p-0 h-96 md:h-full overflow-hidden border border-gold/30 hover:border-border-linear-to-r hover:from-yellow-600 hover:to-yellow-500 transition-all duration-300">
-                    <motion.div
-                      initial={{ opacity: 0, y: 50 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8 }}
-                      viewport={{ once: true, amount: 0.5 }}
-                      className="relative aspect-3/4 overflow-hidden"
-                    >
-                      <Image
-                        src={category.image || "/placeholder.svg"}
-                        alt={category.name}
-                        fill
-                        loading="eager"
-                        sizes="w-full h-full"
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
-                      <div className="absolute bottom-0 left-0 right-0 p-6">
-                        <h3 className="text-2xl font-bold text-white mb-2">{category.name}</h3>
-                        <div className="h-0.5 w-12 bg-linear-to-r from-yellow-600 to-yellow-500 transition-all duration-300 group-hover:w-full" />
-                      </div>
-                    </motion.div>
+                <motion.div
+                  key={category.name}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  className="p-0 h-96 md:h-full group overflow-hidden"
+                >
+                  <Card className="relative aspect-3/4 overflow-hidden border border-gold/30 hover:border-border-linear-to-r hover:from-yellow-600 hover:to-yellow-500 transition-all duration-300">
+                    <Image
+                      src={category.image || "/placeholder.svg"}
+                      alt={category.name}
+                      fill
+                      loading="eager"
+                      sizes="w-full h-full"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <h3 className="text-2xl font-bold text-white mb-2">{category.name}</h3>
+                      <div className="h-0.5 w-12 bg-linear-to-r from-yellow-600 to-yellow-500 transition-all duration-300 group-hover:w-full" />
+                    </div>
                   </Card>
-                </Link>
+                </motion.div>
               ))}
             </div>
 
             <div className="text-center mt-12">
-              <Button asChild variant="outline" aria-label="View Full Portfolio" size="lg" className="px-8 py-2 min-w-40 border-2 border-gold gold-glow">
+              <Button
+                asChild
+                variant="outline"
+                aria-label="View Full Portfolio"
+                size="lg"
+                className="px-8 py-2 min-w-40 border-2 border-gold gold-glow"
+              >
                 <Link href="/portfolio">View Full Portfolio</Link>
               </Button>
             </div>
@@ -349,7 +354,6 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
                   key={index}
-                  tabIndex={1}
                   className="p-8 min-w-[300px] rounded-xl snap-center border mb-6 border-gold/30 bg-gray-50 shadow-md hover:border-gold transition-all duration-300 hover:shadow-xl hover:shadow-gold/20 space-y-4 hover:bg-white/50"
                 >
                   <div className="flex gap-1">
@@ -393,7 +397,7 @@ export default function Home() {
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
-              aria-label="Scroll right"
+                aria-label="Scroll right"
                 onClick={scrollRight}
                 disabled={isAtEnd}
                 className={`bg-gold text-white p-4 rounded-full shadow-lg transition ${

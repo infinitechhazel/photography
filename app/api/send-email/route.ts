@@ -70,7 +70,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 <td class="hero" style="padding:28px 24px;">
                   <h1 style="margin:0;font-size:24px;color:#111827;font-weight:600;">Hi ${firstName},</h1>
                   <p style="margin-top:8px;font-size:15px;color:#6b7280;"> 
-                    We’ve received your booking inquiry. Below are the details you submitted. Our team will review and confirm availability shortly.
+                    We’ve received your booking inquiry. Below are the details you submitted.
                   </p>
                 </td>
               </tr>
