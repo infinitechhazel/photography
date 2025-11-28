@@ -18,21 +18,21 @@ interface GalleryImage {
 }
 
 const galleryImages: GalleryImage[] = [
-  { id: "1", src: "/wedding.jpg", alt: "Wedding ceremony", category: "weddings", title: "Elegant Ceremony" },
-  { id: "2", src: "/bride-and-groom.jpg", alt: "Bride and groom", category: "weddings", title: "Bride & Groom" },
-  { id: "3", src: "/event-2.jpg", alt: "Reception details", category: "weddings", title: "Reception Details" },
-  { id: "4", src: "/portrait-3.jpg", alt: "Professional headshot", category: "portraits", title: "Professional Portrait" },
-  { id: "5", src: "/portrait-lifestyle.jpg", alt: "Lifestyle portrait", category: "portraits", title: "Lifestyle Session" },
-  { id: "6", src: "/family-portrait-outdoors.jpg", alt: "Family portrait", category: "portraits", title: "Family Portrait" },
-  { id: "7", src: "/corporate-event-networking.jpg", alt: "Corporate event", category: "events", title: "Corporate Event" },
-  { id: "8", src: "/gala-event-photography.jpg", alt: "Gala event", category: "events", title: "Gala Evening" },
-  { id: "9", src: "/party-event-celebration.jpg", alt: "Party event", category: "events", title: "Celebration Party" },
-  { id: "10", src: "/luxury-product-photography-watch.jpg", alt: "Product photography", category: "products", title: "Luxury Watch" },
-  { id: "11", src: "/jewelry-photography.jpg", alt: "Jewelry product", category: "products", title: "Jewelry Collection" },
-  { id: "12", src: "/product-photography-cosmetics.jpg", alt: "Beauty products", category: "products", title: "Beauty Products" },
-  { id: "13", src: "/studio-setup-professional-lighting.jpg", alt: "Studio shoot", category: "studio", title: "Studio Lighting" },
-  { id: "14", src: "/studio-backdrop-photography.jpg", alt: "Studio backdrop", category: "studio", title: "Studio Backdrop" },
-  { id: "15", src: "/studio-model-photography-professional.jpg", alt: "Studio model", category: "studio", title: "Model Session" },
+  { id: "1", src: "/wedding-reception-details.webp", alt: "Wedding ceremony", category: "weddings", title: "Elegant Ceremony" },
+  { id: "2", src: "/bride-and-groom.webp", alt: "Bride and groom", category: "weddings", title: "Bride & Groom" },
+  { id: "3", src: "/event-2.webp", alt: "Reception details", category: "weddings", title: "Reception Details" },
+  { id: "4", src: "/portrait-3.webp", alt: "Professional headshot", category: "portraits", title: "Professional Portrait" },
+  { id: "5", src: "/portrait-lifestyle.webp", alt: "Lifestyle portrait", category: "portraits", title: "Lifestyle Session" },
+  { id: "6", src: "/family-portrait-outdoors.webp", alt: "Family portrait", category: "portraits", title: "Family Portrait" },
+  { id: "7", src: "/corporate-event-networking.webp", alt: "Corporate event", category: "events", title: "Corporate Event" },
+  { id: "8", src: "/gala-event-photography.webp", alt: "Gala event", category: "events", title: "Gala Evening" },
+  { id: "9", src: "/party-event-celebration.webp", alt: "Party event", category: "events", title: "Celebration Party" },
+  { id: "10", src: "/luxury-product-photography-watch.webp", alt: "Product photography", category: "products", title: "Luxury Watch" },
+  { id: "11", src: "/jewelry-photography.webp", alt: "Jewelry product", category: "products", title: "Jewelry Collection" },
+  { id: "12", src: "/product-photography-cosmetics.webp", alt: "Beauty products", category: "products", title: "Beauty Products" },
+  { id: "13", src: "/studio-setup-professional-lighting.webp", alt: "Studio shoot", category: "studio", title: "Studio Lighting" },
+  { id: "14", src: "/studio-backdrop-photography.webp", alt: "Studio backdrop", category: "studio", title: "Studio Backdrop" },
+  { id: "15", src: "/studio-model-photography-professional.webp", alt: "Studio model", category: "studio", title: "Model Session" },
 ]
 
 const categories: { value: Category; label: string }[] = [
@@ -97,6 +97,7 @@ export default function PortfolioPage() {
           <div className="flex flex-wrap gap-3">
             {categories.map((cat) => (
               <Button
+                aria-label={cat.label}
                 key={cat.value}
                 onClick={() => setSelectedCategory(cat.value)}
                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
@@ -131,6 +132,7 @@ export default function PortfolioPage() {
                     src={image.src || "/placeholder.svg"}
                     alt={image.alt}
                     fill
+                    sizes="w-full h-full"
                     className="object-cover w-full h-full transition-transform duration-500 shimmer-effect group-hover:scale-105"
                   />
 

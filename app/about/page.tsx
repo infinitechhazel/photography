@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card"
+import { CountingNumber } from "@/components/ui/shadcn-io/counting-number"
 import { Award, AwardIcon, Camera, CameraIcon, Heart, Palette, Users } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -31,28 +32,28 @@ const teamMembers = [
     name: "Alexandra Sterling",
     role: "Founder & Creative Director",
     specialty: "Weddings & Portraits",
-    image: "/team-1.jpg",
+    image: "/team-1.webp",
     bio: "Alexandra is the visionary behind the studio and has spent over a decade documenting life's most meaningful moments. Her work blends editorial elegance with genuine emotion, creating timeless imagery with a cinematic feel. She leads every project with intention, artistry, and a deep passion for storytelling.",
   },
   {
     name: "Marcus Davidson",
     role: "Lead Photographer",
     specialty: "Events & Commercial",
-    image: "/team-2.jpg",
+    image: "/team-2.webp",
     bio: "Marcus brings unmatched energy and attention to detail to every event and commercial project. With a background in brand photography and live events, he excels at capturing dynamic moments, visual identity, and the essence of environments with clarity and impact.",
   },
   {
     name: "Elena Vasquez",
     role: "Portrait Specialist",
     specialty: "Studio Portraits & Fashion",
-    image: "/team-3.jpg",
+    image: "/team-3.webp",
     bio: "Elena specializes in high-end portrait and fashion photography, merging technical precision with creative expression. Known for her relaxed directing style and eye for detail, she makes every subject feel confident, comfortable, and unforgettable in front of the camera.",
   },
   {
     name: "James Liu",
     role: "Product & Commercial",
     specialty: "Product & E-commerce",
-    image: "/team-4.jpg",
+    image: "/team-4.webp",
     bio: "With a background in product design and lighting theory, James approaches photography with a refined, technical mindset. His work elevates brands through clean composition, consistent lighting, and curated styling that highlights craftsmanship and product appeal.",
   },
 ]
@@ -130,19 +131,26 @@ const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="p-8">
-              <div className="text-5xl font-bold text-gold mb-2">10+</div>
+              <div className="text-5xl font-bold text-gold mb-2">
+                <CountingNumber number={10} inView={true} transition={{ stiffness: 100, damping: 30 }} />+
+              </div>
               <div className="text-xl font-semibold mb-2">Years</div>
               <p className="text-muted-foreground">Over a decade of capturing moments</p>
             </div>
 
             <div className="p-8">
-              <div className="text-5xl font-bold text-gold mb-2">500+</div>
+              <div className="text-5xl font-bold text-gold mb-2">
+                <CountingNumber number={500} inView={true} transition={{ stiffness: 100, damping: 30 }} />+
+              </div>
               <div className="text-xl font-semibold mb-2">Happy Clients</div>
               <p className="text-muted-foreground">Satisfied customers across all services</p>
             </div>
 
             <div className="p-8">
-              <div className="text-5xl font-bold text-gold mb-2">50K+</div>
+              <div className="text-5xl font-bold text-gold mb-2">
+                <CountingNumber number={50} inView={true} transition={{ stiffness: 100, damping: 30 }} />
+                K+
+              </div>
               <div className="text-xl font-semibold mb-2">Photos Taken</div>
               <p className="text-muted-foreground">Thousands of memories preserved</p>
             </div>
@@ -216,8 +224,8 @@ const About = () => {
                   <Image
                     src={member.image || "/placeholder.svg"}
                     alt={member.name}
-                    width={300}
-                    height={300}
+                    fill
+                    sizes="w-full h-full"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

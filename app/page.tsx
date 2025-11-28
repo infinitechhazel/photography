@@ -11,10 +11,10 @@ import FilmStrip from "@/components/film-strip"
 import PhotographyParallax from "@/components/parallax"
 
 const categories = [
-  { name: "Weddings", path: "/portfolio", image: "/wedding-feature.jpg" },
-  { name: "Portraits", path: "/portfolio", image: "/party-portrait.jpg" },
-  { name: "Events", path: "/portfolio", image: "/event.jpg" },
-  { name: "Products", path: "/portfolio", image: "/product.jpg" },
+  { name: "Weddings", path: "/portfolio", image: "/wedding-feature.webp" },
+  { name: "Portraits", path: "/portfolio", image: "/party-portrait.webp" },
+  { name: "Events", path: "/portfolio", image: "/event-party-celeb.webp" },
+  { name: "Products", path: "/portfolio", image: "/product.webp" },
 ]
 
 const testimonials = [
@@ -156,6 +156,7 @@ export default function Home() {
     <main className="min-h-screen">
       <div className="min-h-screen">
         <PhotographyParallax />
+
         {/* Hero Section */}
         <section className="pt-20 pb-16 px-4 sm:px-6 relative">
           <div className="absolute inset-0 opacity-30 pointer-events-none">
@@ -196,15 +197,20 @@ export default function Home() {
               {/* Hero Image */}
               <div className="relative overflow-hidden h-72 sm:h-80 lg:h-full min-h-72">
                 <div className="absolute inset-0 bg-linear-to-br from-gold/30 via-transparent to-primary/30 rounded-2xl shadow-2xl shadow-gold/20"></div>
-                <Image src="/studio-hero.jpg" alt="Luxury photography studio" fill className="w-full h-full object-cover rounded-2xl" priority />
+                <Image
+                  src="/studio-hero.webp"
+                  alt="Luxury photography studio"
+                  fill
+                  sizes="w-full h-full"
+                  className="w-full h-full object-cover rounded-2xl"
+                  priority
+                />
               </div>
             </div>
           </div>
         </section>
 
-        <FilmStrip />
-
-        <section className="py-24 px-4 bg-slate-900 text-primary-foreground">
+        <section className="py-32 px-4 bg-slate-900 text-primary-foreground">
           <div className="container mx-auto text-center max-w-3xl">
             <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mx-auto mb-8" />
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Where Art Meets Excellence</h2>
@@ -240,6 +246,8 @@ export default function Home() {
                         src={category.image || "/placeholder.svg"}
                         alt={category.name}
                         fill
+                        loading="eager"
+                        sizes="w-full h-full"
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
@@ -254,7 +262,7 @@ export default function Home() {
             </div>
 
             <div className="text-center mt-12">
-              <Button asChild variant="outline" size="lg" className="px-8 py-2 min-w-40 border-2 border-gold gold-glow">
+              <Button asChild variant="outline" aria-label="View Full Portfolio" size="lg" className="px-8 py-2 min-w-40 border-2 border-gold gold-glow">
                 <Link href="/portfolio">View Full Portfolio</Link>
               </Button>
             </div>
@@ -319,6 +327,8 @@ export default function Home() {
           </div>
         </section>
 
+        <FilmStrip />
+
         {/* Testimonials */}
         <section className="py-20 lg:py-24 px-8 bg-background">
           <div className="max-w-6xl mx-auto">
@@ -373,6 +383,7 @@ export default function Home() {
             </div>
             <div className="hidden lg:flex justify-center mt-4 gap-4">
               <button
+                aria-label="Scroll left"
                 onClick={scrollLeft}
                 disabled={isAtStart}
                 className={`bg-gold text-white p-4 rounded-full shadow-lg transition ${
@@ -382,6 +393,7 @@ export default function Home() {
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
+              aria-label="Scroll right"
                 onClick={scrollRight}
                 disabled={isAtEnd}
                 className={`bg-gold text-white p-4 rounded-full shadow-lg transition ${

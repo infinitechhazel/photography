@@ -377,59 +377,63 @@ export default function BookingPage() {
                     <div>
                       <label className="block text-sm font-semibold mb-2 text-foreground">
                         First Name <span className="text-red-500">*</span>
+                        <input
+                          type="text"
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleChange}
+                          className={`w-full px-4 py-3 mt-2 border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition ${
+                            errors.firstName ? "border-red-500" : "border-border"
+                          }`}
+                          placeholder="John"
+                        />
                       </label>
-                      <input
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        className={`w-full px-4 py-3 border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition ${
-                          errors.firstName ? "border-red-500" : "border-border"
-                        }`}
-                        placeholder="John"
-                      />
                       {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold mb-2 text-foreground">Last Name</label>
-                      <input
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
-                        placeholder="Doe"
-                      />
+                      <label className="block text-sm font-semibold mb-2 text-foreground">
+                        Last Name
+                        <input
+                          type="text"
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 mt-2 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
+                          placeholder="Doe"
+                        />
+                      </label>
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-semibold mb-2 text-foreground">
                       Email Address <span className="text-red-500">*</span>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className={`w-full px-4 py-3 mt-2 border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition ${
+                          errors.email ? "border-red-500" : "border-border"
+                        }`}
+                        placeholder="your@email.com"
+                      />
                     </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className={`w-full px-4 py-3 border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition ${
-                        errors.email ? "border-red-500" : "border-border"
-                      }`}
-                      placeholder="your@email.com"
-                    />
                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold mb-2 text-foreground">Phone Number</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
-                      placeholder="(+63) 912 345 6789"
-                    />
+                    <label className="block text-sm font-semibold mb-2 text-foreground">
+                      Phone Number
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 mt-2 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
+                        placeholder="(+63) 912 345 6789"
+                      />
+                    </label>
                   </div>
                 </div>
               )}
@@ -446,69 +450,68 @@ export default function BookingPage() {
                   <div className="relative">
                     <label className="block text-sm font-semibold mb-2 text-foreground">
                       Service Type <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      name="serviceType"
-                      value={formData.serviceType}
-                      onChange={handleChange}
-                      className={`w-full px-4 py-3 appearance-none border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition ${
-                        errors.serviceType ? "border-red-500" : "border-border"
-                      }`}
-                    >
-                      <option value="" disabled>
-                        Select a service
-                      </option>
-                      <option value="wedding">Wedding Photography</option>
-                      <option value="portrait">Portrait Session</option>
-                      <option value="event">Event Photography</option>
-                      <option value="product">Product Photography</option>
-                      <option value="commercial">Commercial Photography</option>
-                      <option value="studio">Studio Rental</option>
-                      <option value="others">Others</option>
-                    </select>
-
-                    <div
-                      className={`pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400 ${
-                        formData.serviceType === "others" ? "mb-14" : "mt-0"
-                      }`}
-                    >
-                      <svg className="mt-6 h-5 w-5 " fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
-
-                    {formData.serviceType === "others" && (
-                      <input
-                        type="text"
-                        name="customService"
-                        placeholder="Please specify your service"
-                        value={formData.customService}
-                        required
+                      <select
+                        name="serviceType"
+                        value={formData.serviceType}
                         onChange={handleChange}
-                        className={`mt-3 w-full px-4 py-3 border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold ${
-                          errors.customService ? "border-red-500" : "border-border"
+                        className={`w-full px-4 py-3 mt-2 appearance-none font-normal border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition ${
+                          errors.serviceType ? "border-red-500" : "border-border"
                         }`}
-                      />
-                    )}
+                      >
+                        <option value="" disabled>
+                          Select a service
+                        </option>
+                        <option value="wedding">Wedding Photography</option>
+                        <option value="portrait">Portrait Session</option>
+                        <option value="event">Event Photography</option>
+                        <option value="product">Product Photography</option>
+                        <option value="commercial">Commercial Photography</option>
+                        <option value="studio">Studio Rental</option>
+                        <option value="others">Others</option>
+                      </select>
+                      <div
+                        className={`pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400 ${
+                          formData.serviceType === "others" ? "mb-14" : "mt-0"
+                        }`}
+                      >
+                        <svg className="mt-6 h-5 w-5 " fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
+                      {formData.serviceType === "others" && (
+                        <input
+                          type="text"
+                          name="customService"
+                          placeholder="Please specify your service"
+                          value={formData.customService}
+                          required
+                          onChange={handleChange}
+                          className={`mt-3 w-full px-4 py-3 font-normal border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold ${
+                            errors.customService ? "border-red-500" : "border-border"
+                          }`}
+                        />
+                      )}
+                    </label>
                     {errors.customService && <p className="text-red-500 text-sm mt-1">{errors.customService}</p>}
                     {errors.serviceType && <p className="text-red-500 text-sm mt-1">{errors.serviceType}</p>}
                   </div>
 
                   <div className="relative">
-                    <label className="block text-sm font-semibold mb-2 text-foreground">Number of People</label>
-                    <select
-                      name="guests"
-                      value={formData.guests}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 appearance-none border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
-                    >
-                      <option value="1">1 person</option>
-                      <option value="2">2 people</option>
-                      <option value="3-5">3-5 people</option>
-                      <option value="6-10">6-10 people</option>
-                      <option value="10+">10+ people</option>
-                    </select>
-
+                    <label className="block text-sm font-semibold mb-2 text-foreground">
+                      Number of People
+                      <select
+                        name="guests"
+                        value={formData.guests}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 mt-2 appearance-none font-normal border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition"
+                      >
+                        <option value="1">1 person</option>
+                        <option value="2">2 people</option>
+                        <option value="3-5">3-5 people</option>
+                        <option value="6-10">6-10 people</option>
+                        <option value="10+">10+ people</option>
+                      </select>
+                    </label>
                     <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
                       <svg className="mt-6 h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -531,11 +534,19 @@ export default function BookingPage() {
                     <div className="p-8 rounded-2xl border border-gold/30 bg-card shadow-xl shadow-gold/10 hover:shadow-gold/20 transition-all duration-300">
                       {/* Month Header */}
                       <div className="flex items-center justify-between mb-8">
-                        <Button onClick={handlePrevMonth} className="p-2 hover:bg-gold/10 rounded-lg transition-colors duration-200">
+                        <Button
+                          aria-label={`Previous month from ${monthName}`}
+                          onClick={handlePrevMonth}
+                          className="p-2 hover:bg-gold/10 rounded-lg transition-colors duration-200"
+                        >
                           <ChevronLeft className="w-6 h-6 text-gold" />
                         </Button>
                         <h2 className="md:text-2xl text-sm font-serif font-bold gradient-text">{monthName}</h2>
-                        <Button onClick={handleNextMonth} className="p-2 hover:bg-gold/10 rounded-lg transition-colors duration-200">
+                        <Button
+                          aria-label={`Next month from ${monthName}`}
+                          onClick={handleNextMonth}
+                          className="p-2 hover:bg-gold/10 rounded-lg transition-colors duration-200"
+                        >
                           <ChevronRight className="w-6 h-6 text-gold" />
                         </Button>
                       </div>
@@ -557,6 +568,7 @@ export default function BookingPage() {
 
                               return (
                                 <button
+                                  aria-label={String(day) || "Disabled day"}
                                   key={index}
                                   onClick={() => day && handleDateSelect(day)}
                                   className={`aspect-square rounded-lg font-semibold transition-all duration-200 flex items-center justify-center text-sm ${
@@ -598,6 +610,7 @@ export default function BookingPage() {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         {timeSlots.map((slot) => (
                           <button
+                            aria-label={String(slot.display) || "Disabled time slot"}
                             key={slot.display}
                             type="button"
                             onClick={() => slot.available && handleTimeSelect(slot)}
@@ -629,14 +642,16 @@ export default function BookingPage() {
                   )}
 
                   <div>
-                    <label className="block text-sm font-semibold mb-2 text-foreground">Additional Details</label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition resize-none h-32"
-                      placeholder="Tell us more about your vision..."
-                    />
+                    <label className="block text-sm font-semibold mb-2 text-foreground">
+                      Additional Details
+                      <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 mt-2 font-normal border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition resize-none h-32"
+                        placeholder="Tell us more about your vision..."
+                      />
+                    </label>
                   </div>
                 </div>
               )}
@@ -719,6 +734,7 @@ export default function BookingPage() {
               {/* Navigation Buttons */}
               <div className="flex gap-4 pt-8">
                 <Button
+                  aria-label="Back button"
                   type="button"
                   onClick={() => {
                     if (step > 1) {
@@ -734,6 +750,7 @@ export default function BookingPage() {
                 </Button>
                 {step === 4 ? (
                   <Button
+                    aria-label="submit button"
                     type="submit"
                     onClick={handleSubmit}
                     disabled={isSubmitting}
@@ -743,6 +760,7 @@ export default function BookingPage() {
                   </Button>
                 ) : (
                   <Button
+                    aria-label="Next button"
                     type="button"
                     onClick={() => {
                       if (validateStep(step)) {

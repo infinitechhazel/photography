@@ -16,11 +16,11 @@ const posts = [
       "Discover the secrets to capturing stunning wedding moments that will be treasured for a lifetime. From lighting to composition, we share our expert tips.",
     content:
       "Wedding photography is about more than just taking pictures, it’s about telling a story. Start by understanding the couple’s vision and scouting the venue for the best lighting opportunities. Use natural light whenever possible, but don’t be afraid to bring in soft artificial lighting for consistency. Pay attention to candid moments, as they often capture the most genuine emotions. Composition matters: frame shots with leading lines, symmetry, and depth to add artistry. Finally, always back up your files immediately after the shoot to ensure nothing is lost.",
-    date: "March 15, 2025",
+    date: "Mar 15, 2025",
     author: "Studio Team",
     label: "Wedding Tips",
     category: "wedding",
-    image: "/wedding.jpg",
+    image: "/blog-wedding.webp",
   },
   {
     id: "2",
@@ -29,11 +29,11 @@ const posts = [
       "Learn how to bring out the best in every portrait session. We explore lighting techniques, posing, and creating a comfortable atmosphere for clients.",
     content:
       "Portrait photography is about capturing personality as much as appearance. Start by building rapport with your subject to make them feel comfortable. Lighting plays a crucial role. Soft, diffused light often works best to flatter facial features. Experiment with angles and poses to highlight unique characteristics, and don’t be afraid to incorporate props or environments that reflect the subject’s identity. A relaxed atmosphere leads to authentic expressions, which are the hallmark of a great portrait.",
-    date: "March 10, 2025",
+    date: "Mar 10, 2025",
     author: "Studio Team",
     label: "Portrait Tips",
     category: "portrait",
-    image: "/party-portrait.jpg",
+    image: "/party-portrait.webp",
   },
   {
     id: "3",
@@ -42,11 +42,11 @@ const posts = [
       "Master the art of event photography with our comprehensive guide. From preparation to execution, ensure you never miss a crucial moment.",
     content:
       "Event photography requires preparation, anticipation, and adaptability. Before the event, familiarize yourself with the schedule and key participants. Arrive early to scout the venue and plan your angles. During the event, focus on capturing candid moments that convey emotion and atmosphere, while also documenting important highlights like speeches or performances. Use a fast lens to handle low-light conditions, and always carry backup gear. Delivering a balanced mix of wide shots, close-ups, and detail images ensures a complete visual story.",
-    date: "March 5, 2025",
+    date: "Mar 5, 2025",
     author: "Studio Team",
     label: "Event Tips",
     category: "event",
-    image: "/event.jpg",
+    image: "/event.webp",
   },
   {
     id: "4",
@@ -54,11 +54,11 @@ const posts = [
     excerpt: "Highlight your products with stunning visuals. Learn techniques for lighting, angles, and backgrounds that make items stand out.",
     content:
       "Product photography is about making items look appealing and true to life. Begin with a clean background that doesn’t distract from the subject. Lighting should be even and controlled. Softboxes or natural diffused light work well to eliminate harsh shadows. Experiment with angles to showcase key features, and consider close-up shots for details. Props can add context, but keep them minimal to avoid clutter. Post-processing should enhance clarity and color accuracy, ensuring the product looks both attractive and authentic.",
-    date: "February 28, 2025",
+    date: "Feb 28, 2025",
     author: "Studio Team",
     label: "Product Tips",
     category: "product",
-    image: "/product.jpg",
+    image: "/product.webp",
   },
   {
     id: "5",
@@ -66,11 +66,11 @@ const posts = [
     excerpt: "Explore how to create compelling images for advertising and branding. We cover storytelling, composition, and working with clients.",
     content:
       "Commercial photography blends creativity with strategy. The goal is to produce images that align with a brand’s identity and marketing objectives. Start by understanding the client’s vision and target audience. Use composition techniques to guide the viewer’s eye toward the product or message. Storytelling is key. Images should evoke emotions that resonate with consumers. Collaboration with art directors and stylists often enhances the final result. Delivering polished, high-quality visuals helps businesses stand out in competitive markets.",
-    date: "February 20, 2025",
+    date: "Feb 20, 2025",
     author: "Studio Team",
     label: "Commercial Tips",
     category: "product",
-    image: "/product-2.jpg",
+    image: "/product-2.webp",
   },
   {
     id: "6",
@@ -78,11 +78,11 @@ const posts = [
     excerpt: "Step inside our creative space and see how we prepare for shoots, from setting up backdrops to working with clients.",
     content:
       "A typical day in the studio begins with setting up equipment and testing lighting. Backdrops are arranged depending on the theme of the shoot, and props are carefully selected to complement the subject. Collaboration with clients is key, we walk them through the process to make them feel comfortable and confident. Breaks are scheduled to keep energy levels high, and the lounge area provides a space for relaxation. By the end of the day, we review the shots together, ensuring that the client’s vision has been captured.",
-    date: "April 2, 2025",
+    date: "Apr 2, 2025",
     author: "Studio Team",
     label: "Studio Life",
     category: "studio",
-    image: "/studio-setup-professional-lighting.jpg",
+    image: "/blog-studio.webp",
   },
 ]
 
@@ -153,6 +153,7 @@ const Blog = () => {
               </div>
 
               <Button
+                aria-label="Read full post"
                 variant="outline"
                 onClick={() => setSelectedPost(featuredPost.id)}
                 className="px-4 sm:px-6 py-2 gold-glow
@@ -172,6 +173,7 @@ const Blog = () => {
           <div className="flex flex-wrap gap-3 mb-12">
             {categories.map((cat) => (
               <button
+                aria-label={cat.label}
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-5 py-2 rounded-full font-semibold transition-all duration-200 text-sm ${
@@ -203,6 +205,7 @@ const Blog = () => {
                           src={post.image || "/placeholder.svg"}
                           alt={post.title}
                           fill
+                          sizes="w-full h-full"
                           className="w-full h-full object-cover transition-transform shimmer-effect duration-500 group-hover:scale-110"
                         />
                         <div className="absolute top-4 left-4">
@@ -226,7 +229,7 @@ const Blog = () => {
 
                         <p className=" text-muted-foreground mb-4 leading-relaxed line-clamp-3">{post.excerpt}</p>
 
-                        <Button variant="outline" className="h-auto gold-glow group" onClick={() => setSelectedPost(post.id)}>
+                        <Button variant="outline" aria-label="Read more" className="h-auto gold-glow group" onClick={() => setSelectedPost(post.id)}>
                           Read More
                           <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </Button>
@@ -242,7 +245,7 @@ const Blog = () => {
                     <>
                       <DialogHeader>
                         <div className="relative aspect-video w-full my-6 rounded-lg overflow-hidden">
-                          <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="w-full h-full object-cover shimmer-effect" />
+                          <Image src={post.image || "/placeholder.svg"} alt={post.title} fill sizes="w-full h-full" className="w-full h-full object-cover shimmer-effect" />
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-muted-foreground mb-4 flex-wrap">
