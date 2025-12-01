@@ -6,7 +6,7 @@ const CommonQuestions = () => {
   const faqs = [
     {
       q: "What is your booking process?",
-      a: "Simply fill out the form above with your details and preferred date. We'll review your request and confirm within 24 hours. A deposit secures your booking.",
+      a: "Simply fill out the form above with your details and preferred date. We’ll review your request and confirm within 24 hours. A deposit secures your booking.",
     },
     {
       q: "What is your cancellation policy?",

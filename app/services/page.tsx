@@ -213,7 +213,6 @@ export default function ServicesPage() {
       <section className="py-10 px-4 sm:px-6 bg-slate-900 text-primary-foreground w-full">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-            {/* Text Content */}
             <div>
               <p className="text-xs sm:text-sm uppercase tracking-widest text-gold font-semibold mb-3 sm:mb-4 text-center lg:text-left">
                 Studio Facilities
@@ -246,7 +245,6 @@ export default function ServicesPage() {
               </div>
             </div>
 
-            {/* Image Section */}
             <div className="relative h-64 sm:h-80 md:h-96 lg:h-112 w-full">
               <div className="absolute inset-0 bg-linear-to-br from-gold/20 via-transparent to-primary-foreground/10 rounded-2xl"></div>
               <Image

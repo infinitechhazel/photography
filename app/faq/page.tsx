@@ -5,7 +5,7 @@ import { useState } from "react"
     {
       question: "What is your booking process?",
       answer:
-        "Simply fill out the form above with your details and preferred date. We'll review your request and confirm within 24 hours. A deposit secures your booking.",
+        "Simply fill out the form above with your details and preferred date. We’ll review your request and confirm within 24 hours. A deposit secures your booking.",
     },
     {
       question: "What is your cancellation policy?",
@@ -28,7 +28,7 @@ import { useState } from "react"
     {
       question: "How long does it take to receive my photos?",
       answer:
-        "Turnaround time varies by service. Portrait sessions are typically delivered within 2 weeks, events within 3-4 weeks, and weddings within 6-8 weeks. We'll provide you with a specific timeline when you book.",
+        "Turnaround time varies by service. Portrait sessions are typically delivered within 2 weeks, events within 3-4 weeks, and weddings within 6-8 weeks. We’ll provide you with a specific timeline when you book.",
     },
     {
       question: "Do you provide raw, unedited files?",
@@ -43,7 +43,7 @@ import { useState } from "react"
     {
       question: "Do you travel for destination shoots?",
       answer:
-        "Absolutely! We love destination photography. Travel fees vary depending on location and duration. Contact us with your destination details and we'll provide a custom quote.",
+        "Absolutely! We love destination photography. Travel fees vary depending on location and duration. Contact us with your destination details and we’ll provide a custom quote.",
     },
     {
       question: "What should I wear for my photo session?",
@@ -53,12 +53,12 @@ import { useState } from "react"
     {
       question: "Can I request specific shots or poses?",
       answer:
-        "Of course! We encourage you to share your vision and any inspiration images. We'll work together to create a shot list that captures exactly what you're looking for while also providing our professional creative input.",
+        "Of course! We encourage you to share your vision and any inspiration images. We’ll work together to create a shot list that captures exactly what you’re looking for while also providing our professional creative input.",
     },
     {
-      question: "What happens if there's bad weather on my shoot day?",
+      question: "What happens if there’s bad weather on my shoot day?",
       answer:
-        "For outdoor sessions, we monitor weather closely. If conditions are unsuitable, we'll reschedule at no additional cost. For weddings and events, we always have backup plans and come prepared with equipment to work in various conditions.",
+        "For outdoor sessions, we monitor weather closely. If conditions are unsuitable, we’ll reschedule at no additional cost. For weddings and events, we always have backup plans and come prepared with equipment to work in various conditions.",
     },
     {
       question: "Do you offer payment plans?",
@@ -123,7 +123,7 @@ const FAQ = () => {
               Still Have <span className="gradient-text">Questions?</span>
             </h2>
             <p className="text-lg text-primary-foreground/90 mb-8">
-              We're here to help! Reach out to us and we'll get back to you as soon as possible.
+              We’re here to help! Reach out to us and we’ll get back to you as soon as possible.
             </p>
             <a href="/contact" className="inline-block gold-glow px-8 py-3 rounded-lg font-semibold transition-smooth">
               Contact Us

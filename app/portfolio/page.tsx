@@ -21,18 +21,23 @@ const galleryImages: GalleryImage[] = [
   { id: "1", src: "/wedding-reception-details.webp", alt: "Wedding ceremony", category: "weddings", title: "Elegant Ceremony" },
   { id: "2", src: "/bride-and-groom.webp", alt: "Bride and groom", category: "weddings", title: "Bride & Groom" },
   { id: "3", src: "/event-2.webp", alt: "Reception details", category: "weddings", title: "Reception Details" },
-  { id: "4", src: "/portrait-3.webp", alt: "Professional headshot", category: "portraits", title: "Professional Portrait" },
-  { id: "5", src: "/portrait-lifestyle.webp", alt: "Lifestyle portrait", category: "portraits", title: "Lifestyle Session" },
-  { id: "6", src: "/family-portrait-outdoors.webp", alt: "Family portrait", category: "portraits", title: "Family Portrait" },
-  { id: "7", src: "/corporate-event-networking.webp", alt: "Corporate event", category: "events", title: "Corporate Event" },
-  { id: "8", src: "/gala-event-photography.webp", alt: "Gala event", category: "events", title: "Gala Evening" },
-  { id: "9", src: "/party-event-celebration.webp", alt: "Party event", category: "events", title: "Celebration Party" },
-  { id: "10", src: "/luxury-product-photography-watch.webp", alt: "Product photography", category: "products", title: "Luxury Watch" },
-  { id: "11", src: "/jewelry-photography.webp", alt: "Jewelry product", category: "products", title: "Jewelry Collection" },
-  { id: "12", src: "/product-photography-cosmetics.webp", alt: "Beauty products", category: "products", title: "Beauty Products" },
-  { id: "13", src: "/studio-setup-professional-lighting.webp", alt: "Studio shoot", category: "studio", title: "Studio Lighting" },
-  { id: "14", src: "/studio-backdrop-photography.webp", alt: "Studio backdrop", category: "studio", title: "Studio Backdrop" },
-  { id: "15", src: "/studio-model-photography-professional.webp", alt: "Studio model", category: "studio", title: "Model Session" },
+  { id: "4", src: "/bride.jpg", alt: "Bride", category: "weddings", title: "Bride Gown" },
+  { id: "5", src: "/portrait-3.webp", alt: "Professional headshot", category: "portraits", title: "Professional Portrait" },
+  { id: "6", src: "/portrait-lifestyle.webp", alt: "Lifestyle portrait", category: "portraits", title: "Lifestyle Session" },
+  { id: "7", src: "/family-portrait-outdoors.webp", alt: "Family portrait", category: "portraits", title: "Family Portrait" },
+  { id: "8", src: "/street-photography.jpg", alt: "Street Photography", category: "portraits", title: "Street Photography" },
+  { id: "9", src: "/corporate-event-networking.webp", alt: "Corporate event", category: "events", title: "Corporate Event" },
+  { id: "10", src: "/gala-event-photography.webp", alt: "Gala event", category: "events", title: "Gala Evening" },
+  { id: "11", src: "/party-event-celebration.webp", alt: "Party event", category: "events", title: "Celebration Party" },
+  { id: "12", src: "/event-party.jpg", alt: "Vibrant party scene with guests celebrating", category: "events", title: "Evening Event" },
+  { id: "13", src: "/luxury-product-photography-watch.webp", alt: "Product photography", category: "products", title: "Luxury Watch" },
+  { id: "14", src: "/jewelry-photography.webp", alt: "Jewelry product", category: "products", title: "Jewelry Collection" },
+  { id: "15", src: "/product-photography-cosmetics.webp", alt: "Beauty products", category: "products", title: "Beauty Products" },
+  { id: "16", src: "/product-drinks.jpg", alt: "Drinks", category: "products", title: "Drinks" },
+  { id: "17", src: "/studio-setup-professional-lighting.webp", alt: "Studio shoot", category: "studio", title: "Studio Lighting" },
+  { id: "18", src: "/studio-backdrop-photography.webp", alt: "Studio backdrop", category: "studio", title: "Studio Backdrop" },
+  { id: "19", src: "/studio-model-photography-professional.webp", alt: "Studio model", category: "studio", title: "Model Session" },
+  { id: "20", src: "/studio-shoot.jpg", alt: "Studio model", category: "studio", title: "Model Session" },
 ]
 
 const categories: { value: Category; label: string }[] = [
@@ -116,7 +121,7 @@ export default function PortfolioPage() {
       {/* Gallery Grid */}
       <section className="py-12 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {filteredImages.length > 0 &&
               filteredImages.map((image) => (
                 <motion.div
@@ -160,7 +165,7 @@ export default function PortfolioPage() {
           </h2>
 
           <p className="text-lg text-background mb-8 max-w-2xl mx-auto">
-            Transform your vision into stunning imagery. Whether it's a wedding, portrait session, event coverage, product showcase, or studio rental,
+            Transform your vision into stunning imagery. Whether it’s a wedding, portrait session, event coverage, product showcase, or studio rental,
             our team is ready to bring your story to life.
           </p>
 

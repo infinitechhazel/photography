@@ -126,10 +126,6 @@ const Terms = () => {
               <h2 className="text-2xl font-semibold text-foreground mb-4">Contact</h2>
               <p>Questions about these terms? Contact us at terms@studiophoto.com or visit our contact page.</p>
             </section>
-
-            <p className="text-sm mt-12 pt-8 border-t border-border">
-              Last Updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-            </p>
           </div>
         </div>
       </main>

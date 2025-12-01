@@ -31,9 +31,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         @media only screen and (max-width:600px) {
           .container{width:100% !important;padding:12px !important;}
           .hero{padding:18px !important;}
-          .two-col{display:block !important;width:100% !important;}
-          .btn{width:100% !important;display:block !important;}
-          .small{font-size:14px !important;}
         }
       </style>
     </head>
@@ -46,7 +43,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f7f5f0;">
         <tr>
           <td align="center" style="padding:24px;">
-            
             <table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:10px;border:2px solid #CDA434;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
 
               <!-- Header -->

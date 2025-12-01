@@ -94,10 +94,6 @@ const Privacy = () => {
               <h2 className="text-2xl font-semibold text-foreground mb-4">Contact Us</h2>
               <p>If you have questions about this Privacy Policy, please contact us at privacy@studiophoto.com or through our contact page.</p>
             </section>
-
-            <p className="text-sm mt-12 pt-8 border-t border-border">
-              Last Updated: {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-            </p>
           </div>
         </div>
       </main>

@@ -133,8 +133,8 @@ const Blog = () => {
                   alt={featuredPost.title}
                   fill
                   sizes="(max-width: 768px) 100vw,
-             (max-width: 1200px) 50vw,
-             50vw"
+                        (max-width: 1200px) 50vw,
+                        50vw"
                   className="object-cover rounded-lg shimmer-effect group-hover:scale-105 transition-transform"
                   priority
                 />
@@ -225,7 +225,7 @@ const Blog = () => {
                           </div>
                         </div>
 
-                        <h3 className="text-xl font-bold mb-3 group-hover:text-gold transition-smooth line-clamp-1">{post.title}</h3>
+                        <h3 className="text-xl font-bold mb-3 group-hover:text-gold transition-smooth text-wrap">{post.title}</h3>
 
                         <p className=" text-muted-foreground mb-4 leading-relaxed line-clamp-3">{post.excerpt}</p>
 
@@ -245,7 +245,13 @@ const Blog = () => {
                     <>
                       <DialogHeader>
                         <div className="relative aspect-video w-full my-6 rounded-lg overflow-hidden">
-                          <Image src={post.image || "/placeholder.svg"} alt={post.title} fill sizes="w-full h-full" className="w-full h-full object-cover shimmer-effect" />
+                          <Image
+                            src={post.image || "/placeholder.svg"}
+                            alt={post.title}
+                            fill
+                            sizes="w-full h-full"
+                            className="w-full h-full object-cover shimmer-effect"
+                          />
                         </div>
 
                         <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 text-sm text-muted-foreground mb-4 flex-wrap">
@@ -293,10 +299,10 @@ const Blog = () => {
           <div className="space-y-4">
             <p className="text-sm uppercase tracking-widest text-gold font-semibold drop-shadow-lg">Ready to Tell Your Story?</p>
             <h2 className="text-4xl md:text-5xl font-bold font-serif leading-tight text-balance">
-              Let's Create <span className="gradient-text">Something Beautiful</span> Together
+              Let’s Create <span className="gradient-text">Something Beautiful</span> Together
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              Inspired by our blog? It's time to turn your vision into stunning photography. Schedule a consultation with our team today.
+              Inspired by our blog? It’s time to turn your vision into stunning photography. Schedule a consultation with our team today.
             </p>
           </div>
 

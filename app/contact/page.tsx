@@ -270,7 +270,7 @@ export default function BookingPage() {
       if (bookingRes.ok && emailData?.success) {
         setSubmitted(true)
         toast.success("Message Sent!", {
-          description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
+          description: "Thank you for your inquiry. We’ll get back to you within 24 hours.",
           position: "top-right",
           duration: 5000,
         })
@@ -335,7 +335,7 @@ export default function BookingPage() {
       <section className="pt-32 pb-6 px-6 bg-linear-to-b from-muted/30 to-background">
         <div className="max-w-4xl mx-auto text-center space-y-4">
           <p className="text-sm uppercase tracking-widest text-gold font-semibold">Book Your Session</p>
-          <h1 className="text-5xl md:text-6xl font-bold font-serif text-balance">Let's Create Something Beautiful</h1>
+          <h1 className="text-5xl md:text-6xl font-bold font-serif text-balance">Let’s Create Something Beautiful</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto pt-4">
             Schedule your photography session or reach out with questions. We look forward to working with you.
           </p>
@@ -370,7 +370,7 @@ export default function BookingPage() {
                   <div>
                     <h2 className="text-3xl font-serif font-bold mb-6">Your Contact Information</h2>
                     <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 mb-8" />
-                    <p className="text-muted-foreground mb-8">Let's start with your details.</p>
+                    <p className="text-muted-foreground mb-8">Let’s start with your details.</p>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
@@ -727,7 +727,7 @@ export default function BookingPage() {
               {/* Success Message */}
               {submitted && (
                 <div className="p-4 bg-gold/10 border border-gold rounded-lg text-center">
-                  <p className="text-gold font-semibold">Thank you! We'll be in touch shortly.</p>
+                  <p className="text-gold font-semibold">Thank you! We’ll be in touch shortly.</p>
                 </div>
               )}
 
@@ -867,7 +867,7 @@ export default function BookingPage() {
                 />
               </div>
               <p className="text-sm text-muted-foreground">
-                Located in the heart of New York's creative district. Easy street parking and public transportation nearby.
+                Located in the heart of New York’s creative district. Easy street parking and public transportation nearby.
               </p>
             </div>
           </div>

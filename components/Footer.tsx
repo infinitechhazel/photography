@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="text-2xl font-bold text-gold">STUDIO</h3>
-            <p className="text-sm opacity-80">Capturing life's precious moments with artistic excellence and professional dedication.</p>
+            <p className="text-sm opacity-80">Capturing life’s precious moments with artistic excellence and professional dedication.</p>
           </div>
 
           {/* Quick Links */}

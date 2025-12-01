@@ -44,7 +44,7 @@ export function Navigation() {
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/98 backdrop-blur-lg border-b border-gold/30 shadow-lg shadow-gold/10"
+          ? "bg-white/50 backdrop-blur-xl shadow-lg shadow-black/10"
           : "bg-background/95 backdrop-blur-sm border-b border-gold/20"
       } ${isOpen ? "fixed inset-0 z-50 backdrop-blur-sm" : ""}`}
     >

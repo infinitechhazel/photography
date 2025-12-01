@@ -27,9 +27,7 @@ function ParallaxImage({ src, alt, text, subtext }: ParallaxImageProps) {
 
       <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-slate-700/40" />
 
-      <div
-        className="absolute bottom-16 left-8 md:left-16"
-      >
+      <div className="absolute bottom-16 left-8 md:left-16">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold gradient-text drop-shadow-lg">{text}</h1>
         <div className="h-1 w-24 bg-linear-to-r from-yellow-600 to-yellow-500 my-5" />
         <p className="text-lg text-white max-w-2xl mr-30">{subtext}</p>
@@ -40,8 +38,6 @@ function ParallaxImage({ src, alt, text, subtext }: ParallaxImageProps) {
 
 const PhotographyParallax = () => {
   const photos = [
-    { src: "/party-group.webp", alt: "Group party outdoors", text: "Timeless Moments", subtext: "Capturing love stories that last a lifetime" },
-    { src: "/portrait-lifestyle.webp", alt: "Portrait photography showcase", text: "True Essence", subtext: "Revealing the soul behind every smile" },
     {
       src: "/shelf.webp",
       alt: "Event photography showcase",
@@ -54,6 +50,8 @@ const PhotographyParallax = () => {
       text: "Pure Detail",
       subtext: "Showcasing products in their finest light",
     },
+    { src: "/party-group.webp", alt: "Group party outdoors", text: "Timeless Moments", subtext: "Capturing love stories that last a lifetime" },
+    { src: "/portrait-lifestyle.webp", alt: "Portrait photography showcase", text: "True Essence", subtext: "Revealing the soul behind every smile" },
     {
       src: "/studio-model-photography-professional.webp",
       alt: "Studio photography showcase",

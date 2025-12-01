@@ -33,7 +33,7 @@ const teamMembers = [
     role: "Founder & Creative Director",
     specialty: "Weddings & Portraits",
     image: "/team-1.webp",
-    bio: "Alexandra is the visionary behind the studio and has spent over a decade documenting life's most meaningful moments. Her work blends editorial elegance with genuine emotion, creating timeless imagery with a cinematic feel. She leads every project with intention, artistry, and a deep passion for storytelling.",
+    bio: "Alexandra is the visionary behind the studio and has spent over a decade documenting life’s most meaningful moments. Her work blends editorial elegance with genuine emotion, creating timeless imagery with a cinematic feel. She leads every project with intention, artistry, and a deep passion for storytelling.",
   },
   {
     name: "Marcus Davidson",
@@ -67,7 +67,7 @@ const About = () => {
           <p className="text-sm uppercase tracking-widest text-gold font-semibold">About Us</p>
           <h1 className="text-5xl md:text-6xl font-bold font-serif text-balance">Luminous Studio: A Legacy of Excellence</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Since our founding, we've been dedicated to creating exceptional photography that tells your unique story with elegance, artistry, and
+            Since our founding, we’ve been dedicated to creating exceptional photography that tells your unique story with elegance, artistry, and
             professionalism.
           </p>
         </div>
@@ -83,17 +83,17 @@ const About = () => {
 
           <div className="space-y-6 text-lg leading-relaxed text-primary-foreground/80 text-center">
             <p>
-              Founded with a passion for capturing life's most precious moments, our studio has grown into a premier destination for professional
-              photography. With over a decade of experience, we've had the privilege of documenting countless weddings, portraits, and special events.
+              Founded with a passion for capturing life’s most precious moments, our studio has grown into a premier destination for professional
+              photography. With over a decade of experience, we’ve had the privilege of documenting countless weddings, portraits, and special events.
             </p>
             <p>
               Our journey began with a simple belief: every moment deserves to be preserved beautifully. This philosophy drives everything we do, from
-              the initial consultation to the final delivery of your images. We've invested in equipment and continually refine our craft to ensure we
+              the initial consultation to the final delivery of your images. We’ve invested in equipment and continually refine our craft to ensure we
               deliver nothing but the best.
             </p>
             <p>
-              What sets us apart is our unique blend of technical expertise and artistic vision. We don't just take photos, we create visual stories
-              that you'll treasure for generations. Our team brings diverse backgrounds and specialties, allowing us to approach each project with
+              What sets us apart is our unique blend of technical expertise and artistic vision. We don’t just take photos, we create visual stories
+              that you’ll treasure for generations. Our team brings diverse backgrounds and specialties, allowing us to approach each project with
               fresh perspectives and innovative techniques.
             </p>
           </div>
@@ -179,7 +179,7 @@ const About = () => {
                 </div>
                 <h3 className="font-serif font-bold text-xl my-2">Professional Equipment</h3>
                 <p className="text-muted-foreground text-sm">
-                  Industry-leading cameras, lenses, and lighting systems from the world's top manufacturers.
+                  Industry-leading cameras, lenses, and lighting systems from the world’s top manufacturers.
                 </p>
               </div>
 
@@ -219,8 +219,7 @@ const About = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {teamMembers.map((member, index) => (
               <div key={index} className="group rounded-xl overflow-hidden border border-gold/30 hover:border-gold transition-all duration-300">
-                {/* Image */}
-                <div className="relative h-64 overflow-hidden bg-muted">
+                <div className="relative h-96 overflow-hidden bg-muted">
                   <Image
                     src={member.image || "/placeholder.svg"}
                     alt={member.name}
@@ -231,7 +230,6 @@ const About = () => {
                   <div className="absolute inset-0 bg-linear-to-t from-primary/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
 
-                {/* Content */}
                 <div className="p-6 space-y-3">
                   <div>
                     <h3 className="font-serif font-bold text-xl text-foreground">{member.name}</h3>
@@ -285,10 +283,10 @@ const About = () => {
       <section className="py-20 px-6 bg-slate-900 text-primary-foreground">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <h2 className="text-4xl md:text-5xl font-bold font-serif text-balance">
-            Let's Create Something <span className="gradient-text">Beautiful</span>
+            Let’s Create Something <span className="gradient-text">Beautiful</span>
           </h2>
           <p className="text-lg text-primary-foreground/90 max-w-2xl mx-auto">
-            Ready to work with our team? Let's discuss your vision and bring it to life.
+            Ready to work with our team? Let’s discuss your vision and bring it to life.
           </p>
           <Link
             href="/contact"
